@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="87dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_img"
+        android:src="@drawable/user_full"
+        app:civ_border_width="1dp"
+        android:layout_centerVertical="true"
+        app:civ_border_color="@color/light_grey"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="53dp"
+        android:layout_height="53dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:text="글쓴이 닉네임"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:layout_toRightOf="@+id/user_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
