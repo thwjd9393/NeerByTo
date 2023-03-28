@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LocationActivity">
+
+    <RelativeLayout
+        android:id="@+id/serach_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_alignTop="@+id/et_search"
+            android:layout_alignBottom="@+id/et_search"
+            android:src="@drawable/font_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="17dp"
+            />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:hint="@string/find_location_hint"
+            android:layout_toRightOf="@+id/iv_search"
+            android:inputType="text"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_below="@+id/serach_warp"
+        android:background="@drawable/base_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_below="@+id/serach_warp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@drawable/base_line"
+            android:id="@+id/btn_location"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                app:tint="@color/white"
+                android:src="@drawable/target"
+                android:layout_width="22dp"
+                android:layout_height="22dp"/>
+
+            <TextView
+                android:textColor="@color/white"
+                android:fontFamily="@font/gmarketsansttfbold"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:text="@string/find_location_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!-- 검색 결과 없는 것 -->
+        <RelativeLayout
+            android:id="@+id/empty_warp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/map_marker_5074102"
+                android:layout_width="128dp"
+                android:layout_height="128dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/img"
+                android:textSize="17sp"
+                android:text="@string/find_location_helper"
+                android:fontFamily="@font/gmarketsansttfbold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+        <!-- 검색 결과 있는 것 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:id="@+id/location_recycler"
+            android:layout_below="@+id/btn_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

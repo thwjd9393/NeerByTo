@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">NeerByTo</string>
+
+    <!-- 로그인 & 회원가입 -->
+    <string name="id">아이디</string>
+    <string name="passwd">비밀번호</string>
+    <string name="id_hint">xxxx@example.com</string>
+    <string name="passwd_hint">비밀번호를 입력하세요</string>
+    <string name="singup_passwd_hint">숫자와 영문을 섞어 8~15자리를 입력하세요</string>
+    <string name="login">로그인</string>
+    <string name="find_user">아이디/비밀번호 찾기</string>
+    <string name="sign_up">회원가입</string>
+    <string name="passwd_check">비밀번호 확인</string>
+    <string name="nicname">닉네임</string>
+    <string name="phon">핸드폰 번호</string>
+
+    <string name="find_id">아이디 찾기</string>
+    <string name="find_passwd">비밀번호 찾기</string>
+
+    <string name="find_location_hint">내 동네 이름(읍면동) 으로 검색하기</string>
+    <string name="find_location_btn">현재위치 찾기</string>
+    <string name="find_location_helper">당신의 위치를 확인해주세요</string>
+
+    <string name="view_cnt"> | 조회수 </string>
+    <string name="pick"> | 관심 </string>
+    <string name="hang_out">모집인원</string>
+    <string name="hang_out_time">약속 시간</string>
+    <string name="hang_out_spot">약속 장소</string>
+
+</resources>
