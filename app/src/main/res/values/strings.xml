@@ -29,5 +29,11 @@
 
     <string name="market">장보기</string>
     <string name="join">참여하기</string>
+    <string name="join_date">가입</string>
+    <string name="logout">로그아웃</string>
+    <string name="write">작성글</string>
+    <string name="enter">참여 한 글</string>
+    <string name="like">관심</string>
+
 
 </resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="87dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_img"
+        android:src="@drawable/user_full"
+        app:civ_border_width="1dp"
+        android:layout_centerVertical="true"
+        app:civ_border_color="@color/light_grey"
+        android:layout_marginStart="20dp"
+        android:layout_width="53dp"
+        android:layout_height="53dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:text="글쓴이 닉네임"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:layout_toRightOf="@+id/user_img"
+        android:layout_alignTop="@+id/user_img"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/join_cnt"
+        android:text="2/3"
+        android:textColor="@color/normal_grey"
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:layout_toRightOf="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_hang_out_user"
+        android:text="마지막 메세지"
+        android:layout_alignLeft="@+id/title"
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:textColor="@color/normal_grey"
+        android:layout_alignBottom="@+id/user_img"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:text="23:00"
+        android:textSize="13sp"
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/title"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_below="@+id/user_img"
+        android:background="@drawable/base_line_grey"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+</RelativeLayout>
