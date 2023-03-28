@@ -1,4 +1,4 @@
-package com.jscompany.neerbyto.main
+package com.jscompany.neerbyto.trede
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class MainHomeFragment : Fragment() {
+class MainTredeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="5dp"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:padding="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_trede"
+            android:background="@drawable/edittext_normal"
+            android:src="@drawable/home_full"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:layout_width="105dp"
+            android:layout_height="105dp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:maxEms="6"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:text="가나다라마바사아"
+            android:layout_toRightOf="@+id/iv_trede"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_alignTop="@+id/tv_title"
+            android:layout_alignParentRight="true"
+            android:text="23-03-24 00:00"
+            android:textColor="@color/normal_grey"
+            android:textSize="10sp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_alignLeft="@+id/tv_title"
+            android:layout_below="@+id/tv_title"
+            android:text="약속장소"
+            android:textColor="@color/normal_grey"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dot"
+            android:text=" · "
+            android:layout_toRightOf="@+id/tv_place"
+            android:layout_alignTop="@+id/tv_place"
+            android:layout_alignBottom="@+id/tv_place"
+            android:textColor="@color/normal_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_hang_out_time"
+            android:text="16:30"
+            android:layout_toRightOf="@+id/dot"
+            android:layout_alignTop="@+id/dot"
+            android:layout_alignBottom="@+id/dot"
+            android:textColor="@color/normal_grey"
+            android:textSize="15sp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:text="20,000원"
+            android:layout_alignLeft="@+id/tv_place"
+            android:layout_below="@+id/tv_place"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:text="@string/market"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:background="@drawable/layout_category"
+            android:layout_alignLeft="@+id/tv_price"
+            android:layout_below="@+id/tv_price"
+            android:layout_marginTop="5dp"
+            android:layout_width="56dp"
+            android:layout_height="16dp"/>
+
+        <ImageView
+            android:layout_toLeftOf="@+id/tv_hang_out_user"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="5dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/user_line"/>
+
+        <TextView
+            android:id="@+id/tv_hang_out_user"
+            android:text="1/3"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/img_heart"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+
+
+        <ImageView
+            android:id="@+id/img_heart"
+            android:layout_toLeftOf="@+id/tv_view_cnt"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="5dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/heart_line"/>
+
+        <TextView
+            android:id="@+id/tv_view_cnt"
+            android:text="5"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
