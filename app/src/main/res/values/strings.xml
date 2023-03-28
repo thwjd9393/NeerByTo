@@ -27,4 +27,7 @@
     <string name="hang_out_time">약속 시간</string>
     <string name="hang_out_spot">약속 장소</string>
 
+    <string name="market">장보기</string>
+    <string name="join">참여하기</string>
+
 </resources>

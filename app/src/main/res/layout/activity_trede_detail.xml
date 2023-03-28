@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".trede.TredeDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_below="@+id/top_warp"
+        android:layout_above="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/img_pager"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"/>
+
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                android:id="@+id/dots_indcator"
+                app:dotsColor="@color/normal_grey"
+                android:clickable="true"
+                android:layout_marginBottom="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/line1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/line1"
+                android:layout_below="@+id/img_pager"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/base_line_grey"/>
+
+            <LinearLayout
+                android:id="@+id/nicname_warp"
+                android:layout_below="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circle_img_user"
+                    android:src="@drawable/user_full"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/normal_grey"
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"/>
+
+                <TextView
+                    android:id="@+id/user_nicname"
+                    android:hint="닉네임"
+                    android:textSize="23sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/line2"
+                android:layout_below="@+id/nicname_warp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/base_line_grey"/>
+
+            <LinearLayout
+                android:id="@+id/content_warp"
+                android:orientation="vertical"
+                android:layout_below="@+id/line2"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:text="title"
+                    android:textSize="19sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_categri"
+                        android:text="카테고리"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="@string/view_cnt"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/view_cnt"
+                        android:hint="0"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="@string/pick"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/like_cnt"
+                        android:hint="0"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:text="23/03/24 00:00"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/hang_out"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text=" : 4명"
+                        android:fontFamily="@font/gmarketsansttfmedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:text="인원 모집합니다"
+                    android:fontFamily="@font/gmarketsansttfmedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/line3"
+                android:layout_below="@+id/content_warp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/base_line_grey"/>
+
+            <TextView
+                android:id="@+id/hang_time_text"
+                android:text="@string/hang_out_time"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:textColor="@color/black"
+                android:layout_below="@+id/line3"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_hang_out_time"
+                android:text=" : 2023-03-23 16 : 30"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:textColor="@color/black"
+                android:layout_alignTop="@+id/hang_time_text"
+                android:layout_toRightOf="@+id/hang_time_text"
+                android:paddingRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/hang_spot_text"
+                android:text="@string/hang_out_spot"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:textColor="@color/black"
+                android:layout_below="@+id/hang_time_text"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_hang_out_spot"
+                android:text=" : 주소"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:textColor="@color/black"
+                android:layout_alignTop="@+id/hang_spot_text"
+                android:layout_toRightOf="@+id/hang_spot_text"
+                android:paddingRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 카카오 지도 API -->
+            <RelativeLayout
+                android:id="@+id/map_view"
+                android:background="@drawable/edittext_normal"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/tv_hang_out_spot"
+                android:layout_width="match_parent"
+                android:layout_height="130dp" />
+
+        </RelativeLayout>
+        
+    </ScrollView>
+
+    <TextView
+        android:layout_above="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/base_line_grey"/>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:src="@drawable/trede_detail_selector"
+            app:itemIconTint="@color/trede_detail_selector_color"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_width="31dp"
+            android:layout_height="31dp"/>
+
+        <TextView
+            android:id="@+id/line"
+            android:background="@drawable/base_line_grey"
+            android:layout_toRightOf="@+id/iv_like"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="18dp"
+            android:layout_centerVertical="true"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:text="20,000원"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_cost"
+            android:text="200,000원"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:textSize="13sp"
+            android:layout_alignRight="@+id/tv_price"
+            android:layout_alignBottom="@+id/line"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:text="@string/join"
+            android:id="@+id/btn_chat"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/black"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
