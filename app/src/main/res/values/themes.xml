@@ -14,10 +14,15 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- 스플래시 -->
     <style name="Theme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
         <item name="android:windowBackground">@drawable/splash_img</item>
         <item name="android:windowFullscreen">true</item>
-
     </style>
+
+    <!-- 앱바 -->
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/gmarketsansttfbold</item>
+    </style>
+
 </resources>
