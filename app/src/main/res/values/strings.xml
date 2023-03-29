@@ -35,5 +35,8 @@
     <string name="enter">참여 한 글</string>
     <string name="like">관심</string>
 
+    <string name="share">공유</string>
+    <string name="report">신고</string>
+
 
 </resources>

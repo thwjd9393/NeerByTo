@@ -2,11 +2,33 @@ package com.jscompany.neerbyto.trede
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.databinding.ActivityTredeDetailBinding
 
 class TredeDetailActivity : AppCompatActivity() {
+
+    val binding:ActivityTredeDetailBinding by lazy { ActivityTredeDetailBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trede_detail)
+        setContentView(binding.root)
+
+        //커스텀 액션바 등록
+        setSupportActionBar(findViewById(R.id.toolbar)) //include 한 레이아웃은 바인딩 안됨
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true) //왼쪽 뒤로가기 버튼
+        supportActionBar!!.setDisplayShowTitleEnabled(false) //타이틀
+
+        //닉네임 layout누르면 프로필 화면으로 이동
+
+
+
+    }
+
+    //옵션 메뉴 만드는 콜백
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_trede_detail, menu)
+
+        return super.onCreateOptionsMenu(menu)
     }
 }
