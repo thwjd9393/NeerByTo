@@ -53,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:clickable="true">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circle_img_user"
@@ -263,11 +264,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
-        <ImageView
+        <ToggleButton
             android:id="@+id/iv_like"
-            android:src="@drawable/trede_detail_selector"
-            app:itemIconTint="@color/trede_detail_selector_color"
+            android:background="@drawable/trede_detail_selector"
             android:layout_centerVertical="true"
+            android:textOff=" "
+            android:textOn=" "
             android:layout_marginRight="16dp"
             android:layout_width="31dp"
             android:layout_height="31dp"/>

@@ -6,6 +6,120 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_img"
+            android:src="@drawable/user_full"
+            app:civ_border_width="1dp"
+            android:layout_centerVertical="true"
+            app:civ_border_color="@color/light_grey"
+            android:layout_width="59dp"
+            android:layout_height="59dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:text="글쓴이 닉네임"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_toRightOf="@+id/user_img"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_hang_out_user"
+            android:text="@string/join_date"
+            android:layout_alignLeft="@+id/title"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:textColor="@color/normal_grey"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/btn_logout"
+            android:layout_below="@+id/tv_hang_out_user"
+            android:layout_alignLeft="@+id/title"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:text="@string/logout"
+            android:background="@drawable/base_line"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/go_profile"
+            android:layout_centerVertical="true"
+            android:background="@drawable/baseline_arrow_forward_ios_24"
+            android:layout_alignParentRight="true"
+            android:layout_width="28dp"
+            android:layout_height="38dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_write"
+                android:src="@drawable/heart_line"
+                
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                app:civ_border_color="@color/black"
+                android:layout_width="59dp"
+                android:layout_height="59dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:text="@string/write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
 
 
 </LinearLayout>

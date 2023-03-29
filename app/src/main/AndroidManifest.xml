@@ -13,8 +13,10 @@
         android:theme="@style/Theme.NeerByTo"
         tools:targetApi="31">
         <activity
-            android:name=".trede.TredeDetailActivity"
-            android:exported="true">
+            android:name=".intro.IntroActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Splash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +25,9 @@
 
         </activity>
         <activity
+            android:name=".trede.TredeDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.LocationActivity"
             android:exported="false" />
         <activity
@@ -30,15 +35,13 @@
             android:exported="false" />
         <activity
             android:name=".login.SingupActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

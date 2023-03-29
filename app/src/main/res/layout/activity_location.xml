@@ -50,11 +50,12 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@drawable/base_line"
             android:id="@+id/btn_location"
+            android:background="@drawable/base_line"
             android:orientation="horizontal"
             android:padding="10dp"
             android:gravity="center"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
