@@ -26,7 +26,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="'핸드폰 번호'"
+            android:text="'닉네임'"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="18sp"
@@ -63,11 +63,11 @@
 
     <TextView
         android:id="@+id/tv_phon"
-        android:text="@string/phon"
-        android:textStyle="bold"
+        android:text="@string/nicname"
         android:textColor="@color/black"
         android:layout_below="@+id/helper_warp"
         android:textSize="18sp"
+        android:fontFamily="@font/gmarketsansttfbold"
         android:layout_alignLeft="@+id/et_phon"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
     <TextView
         android:id="@+id/tv_passwd"
         android:text="@string/passwd"
-        android:textStyle="bold"
+        android:fontFamily="@font/gmarketsansttfbold"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_alignLeft="@+id/et_phon"

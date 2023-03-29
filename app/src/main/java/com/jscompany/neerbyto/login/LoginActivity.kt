@@ -39,6 +39,23 @@ class LoginActivity : AppCompatActivity() {
         binding.tvFindUser.setOnClickListener {
             startActivity(Intent(this,FindUserActivity::class.java))
         }
+
+        //간편 로그인
+        binding.ivLoginKakao.setOnClickListener { loginByKakao() }
+        binding.ivLoginGoogle.setOnClickListener { loginByGoogle() }
+        binding.ivLoginNaver.setOnClickListener { loginByNaver() }
+    }
+
+    private fun loginByKakao() {
+        TODO("Not yet implemented")
+    }
+
+    private fun loginByGoogle() {
+        TODO("Not yet implemented")
+    }
+
+    private fun loginByNaver() {
+        TODO("Not yet implemented")
     }
 
     fun gotoLocation(){

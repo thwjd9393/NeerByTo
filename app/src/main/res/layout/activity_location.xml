@@ -55,9 +55,10 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:gravity="center"
-            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 app:tint="@color/white"
