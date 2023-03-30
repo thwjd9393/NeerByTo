@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 //FragmentStateAdapter 상속받은 플래그먼트는 FragmentActivity를 멤버변수로 받아야함
-class FindUserAdaper(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class FindUserAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     var fragments : ArrayList<Fragment> = ArrayList()
     override fun getItemCount(): Int {

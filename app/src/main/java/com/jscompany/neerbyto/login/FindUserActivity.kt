@@ -13,11 +13,11 @@ class FindUserActivity : AppCompatActivity() {
 
     val binding:ActivityFindUserBinding by lazy { ActivityFindUserBinding.inflate(layoutInflater) }
 
-    lateinit var tabUserfind:TabLayout
-    lateinit var medator:TabLayoutMediator
-    lateinit var pager:ViewPager2
+    private val tabUserfind:TabLayout by lazy { binding.tabUserfind }
 
-    var tabTitle = arrayOf(R.string.find_id, R.string.find_passwd) //탭 제목
+    private val pager:ViewPager2 by lazy { binding.pagerUserfind }
+
+    var tabTitle = arrayOf("아이디 찾기","비밀번호 찾기") //탭 제목
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,28 +28,28 @@ class FindUserActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true) //왼쪽 뒤로가기 버튼
         supportActionBar!!.setTitle(R.string.find_user) // 타이틀 재설정
 
-        //Fragment 연동
-        pager = binding.pagerUserfind //뷰 페이저 가져오기
-        
-        val findUserAdaper = FindUserAdaper(this) // 아답터 불러오기
+        //뷰페이저 연동
+        //1. 아답터 불러오기
+        val findUserAdapter = FindUserAdapter(this) // 아답터 불러오기
 
-        findUserAdaper.addFragment(FindUserIdFragment())
-        findUserAdaper.addFragment(FindUserPasswdFragment()) //플래그먼트 추가
+        //2. 아답터에 addFragment() 메소드를 이용하여 보여줄 화면(플래그먼트)들 add
+        findUserAdapter.addFragment(FindUserIdFragment())  
+        findUserAdapter.addFragment(FindUserPasswdFragment()) //플래그먼트들 추가
 
-        pager.adapter = findUserAdaper
+        //3. 뷰 페이저에 아답터 연결
+        pager.adapter = findUserAdapter
 
-
+        //4. add 한 프래그먼트 페이지 붙이기
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
             }
         })
 
-
-//        TabLayoutMediator(ta, viewPager){ tab, position ->
-//            tab.text = "Tab ${position+1}"
-//        }.attach()
-
+        // 5. TabLayoutMediator 를 이용하여 탭 레이아웃 이름 등록
+        TabLayoutMediator(tabUserfind, pager){ tab, position ->
+            tab.text = tabTitle.get(position).toString()
+        }.attach()
 
     }
 

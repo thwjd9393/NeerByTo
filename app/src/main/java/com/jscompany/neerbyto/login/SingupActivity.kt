@@ -21,6 +21,9 @@ class SingupActivity : AppCompatActivity() {
         //supportActionBar!!.setDisplayShowTitleEnabled(false) //타이틀
         supportActionBar!!.setTitle(R.string.sign_up)
 
+//        binding.tvConfId.setText(R.string.id_ok)
+//        binding.tvConfId.setTextColor(R.color.purple_700)
+
         //회원가입 클릭
         binding.btnSignup.setOnClickListener {
             startActivity(Intent(this, LocationActivity::class.java))

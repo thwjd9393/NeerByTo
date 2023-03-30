@@ -6,6 +6,7 @@
 
     <!-- 로그인 & 회원가입 -->
     <string name="id">아이디</string>
+    <string name="email">이메일</string>
     <string name="passwd">비밀번호</string>
     <string name="id_hint">xxxx@example.com</string>
     <string name="passwd_hint">비밀번호를 입력하세요</string>
@@ -17,6 +18,10 @@
     <string name="passwd_check">비밀번호 확인</string>
     <string name="nicname">닉네임</string>
     <string name="phon">핸드폰 번호</string>
+    <string name="id_ok">사용 가능한 아이디입니다</string>
+    <string name="id_no">사용 불가능한 아이디입니다</string>
+    <string name="nicname_ok">사용 가능한 닉네임입니다</string>
+    <string name="nicname_no">사용 불가능한 닉네임입니다</string>
 
     <string name="login_by_api">간편하게 로그인</string>
     <string name="find_id">아이디 찾기</string>
