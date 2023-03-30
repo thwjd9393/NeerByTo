@@ -9,9 +9,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/toolbar_layout"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:theme="@style/ToolbarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/toolbar_nav"
+                android:layout_marginTop="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+<!--        <include layout="@layout/toolbar_layout"/>-->
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_below="@+id/top_warp"
