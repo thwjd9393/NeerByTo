@@ -48,5 +48,8 @@
     <string name="share">공유</string>
     <string name="report">신고</string>
 
+    <string name="search">검색</string>
+    <string name="category">카테고리</string>
+
 
 </resources>
