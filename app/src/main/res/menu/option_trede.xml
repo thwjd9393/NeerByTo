@@ -5,6 +5,6 @@
     <item android:id="@+id/option_search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        android:title="@string/share" />
+        android:title="@string/search" />
 
 </menu>

@@ -22,7 +22,7 @@
 
     <!-- 앱바 -->
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/gmarketsansttfbold</item>
+        <item name="android:fontFamily">@font/gmarketsansttfmedium</item>
     </style>
 
 </resources>
