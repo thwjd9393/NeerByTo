@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".trede.ReportUserFragment">
+    tools:context=".trede.ReportUserActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_warp"
@@ -31,6 +31,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gmarketsansttfbold"/>
+
+        <TextView
+            android:id="@+id/tv_userNo"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:text="@string/report_text"
@@ -60,12 +66,10 @@
             android:layout_marginTop="10dp"
             app:helperText="@string/report_text_warning"
             app:helperTextTextColor="#FF0000"
-            app:endIconMode="clear_text"
             app:counterEnabled="true"
             app:counterMaxLength="300">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:text="fjgnslkgj"
                 android:gravity="start"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"/>
@@ -82,7 +86,5 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
