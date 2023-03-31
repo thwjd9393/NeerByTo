@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:theme="@style/ToolbarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/hangout_warp"
+        android:layout_below="@+id/top_warp"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_hang_out_time"
+            android:text="약속장소"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:text="@string/hang_out_time"
+            android:layout_below="@+id/tv_hang_out_time"
+            android:layout_alignLeft="@+id/tv_hang_out_time"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="23-03-25 16 : 23"
+            android:layout_toRightOf="@+id/text"
+            android:layout_alignBottom="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_below="@+id/hangout_warp"
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat"
+        android:layout_below="@+id/line"
+        android:layout_above="@+id/line2"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        app:stackFromEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/line2"
+        android:layout_above="@+id/layout"
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_alignParentBottom="true"
+        android:padding="4dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et"
+            android:maxLines="3"
+            android:inputType="textMultiLine"
+            android:hint="메세지 입력"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/bnv_item_chat"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

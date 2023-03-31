@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".trede.ReportUserFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_helper"
+            android:text="'닉네임'"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_alignLeft="@+id/tv_phon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarketsansttfbold"/>
+
+        <TextView
+            android:text="@string/report_text"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_report_category"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:text="@string/category"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:background="@drawable/bg_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="10dp"
+            app:helperText="@string/report_text_warning"
+            app:helperTextTextColor="#FF0000"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="300">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:text="fjgnslkgj"
+                android:gravity="start"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_report"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_marginTop="25dp"
+            android:text="@string/report_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

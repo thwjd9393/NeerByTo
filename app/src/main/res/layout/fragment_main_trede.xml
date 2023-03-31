@@ -9,12 +9,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/toolbar_layout"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:theme="@style/ToolbarTheme"
+            android:layout_width="match_parent"
+            app:contentInsetEnd="0dp"
+            app:titleMarginStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            android:layout_height="?attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/top_tv_nowlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영등포구"
+                android:gravity="left|center_vertical"
+                />
+
+            <ImageView
+                android:id="@+id/top_find_location"
+                android:src="@drawable/target"
+                app:tint="@color/normal_grey"
+                android:gravity="left|center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+<!--        <include layout="@layout/toolbar_layout"/>-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
+    <Spinner
+        android:id="@+id/spiner_trede"
         android:layout_below="@+id/top_warp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:background="@drawable/bg_spiner"
+        android:padding="15dp"
+        android:layout_height="wrap_content"/>
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/spiner_trede"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -28,12 +68,12 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_write"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/baseline_add_24"
-        android:tint="@color/white"
-        app:backgroundTint="@color/black"
         android:layout_margin="16dp"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/baseline_add_24"
+        app:tint="@color/white"
+        app:backgroundTint="@color/black" />
 
 </RelativeLayout>
