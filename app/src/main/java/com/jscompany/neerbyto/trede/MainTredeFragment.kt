@@ -18,6 +18,7 @@ class MainTredeFragment : Fragment() {
 
     //private val binding:FragmentMainTredeBinding by lazy { FragmentMainTredeBinding.inflate(layoutInflater) }
 
+    //싱글턴으로 Fragment 바인딩 하는 방법...
     private var fbinding: FragmentMainTredeBinding? = null
     private val binding get() = fbinding!!
 

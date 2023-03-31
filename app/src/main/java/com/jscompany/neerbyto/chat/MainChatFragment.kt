@@ -22,16 +22,14 @@ class MainChatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_main_chat, container,false)
+        val binding = binding.root
 
-        var toolbar = view.findViewById(R.id.toolbar) as Toolbar
-
-        var activity2 : AppCompatActivity = getActivity() as AppCompatActivity
-
-        activity2.setSupportActionBar(toolbar)
+        var toolbar = binding.findViewById(R.id.toolbar) as Toolbar
+        //var activity2 : AppCompatActivity = getActivity() as AppCompatActivity
+        //activity2.setSupportActionBar(toolbar)
         toolbar.title = "채팅"
 
-        return view
+        return binding
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
