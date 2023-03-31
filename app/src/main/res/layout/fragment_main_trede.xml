@@ -18,13 +18,22 @@
             app:contentInsetStartWithNavigation="0dp"
             android:layout_height="?attr/actionBarSize">
 
-<!--            <TextView-->
-<!--                android:id="@+id/toolbar_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="영등포구"-->
-<!--                android:gravity="left"-->
-<!--                />-->
+            <TextView
+                android:id="@+id/top_tv_nowlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영등포구"
+                android:gravity="left|center_vertical"
+                />
+
+            <ImageView
+                android:id="@+id/top_find_location"
+                android:src="@drawable/target"
+                app:tint="@color/normal_grey"
+                android:gravity="left|center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
 
         </androidx.appcompat.widget.Toolbar>
 

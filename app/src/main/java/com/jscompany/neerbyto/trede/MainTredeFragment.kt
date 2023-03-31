@@ -44,14 +44,6 @@ class MainTredeFragment : Fragment() {
         //툴바 생성
         val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
         toolbar.inflateMenu(R.menu.option_trede) // 메뉴xml과 상단바 연결 (프래그먼트xml에서 연결했으면 안해도 됨)
-        toolbar.title = "영등포구"
-        toolbar.setNavigationIcon(R.drawable.ic_action_target)
-
-//        myToolbar.setNavigationOnClickListener { view ->
-//            // Navigate somewhere
-//        }
-
-        //toolbar
 
         // 상단바 메뉴 클릭시
 //        toolbar.setOnMenuItemClickListener{
@@ -76,9 +68,6 @@ class MainTredeFragment : Fragment() {
     }
 
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return super.onOptionsItemSelected(item)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
