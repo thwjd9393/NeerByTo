@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/iv_trede"
-            android:background="@drawable/edittext_normal"
+            android:background="@drawable/bg_lineshape_normal"
             android:src="@drawable/home_full"
             android:layout_centerVertical="true"
             android:layout_marginRight="13dp"
