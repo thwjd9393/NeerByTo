@@ -46,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun clickGoManerpage() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, MannerDetailActivity::class.java))
     }
 
     private fun clickOtherWrite() {

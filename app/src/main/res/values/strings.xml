@@ -78,4 +78,7 @@
     <string name="price_hint">원가와 모집인원을 입력하면 인당 지불 급액은 자동 계산됩니다</string>
     <string name="to_write">글쓰기</string>
 
+    <string name="manner_detail">매너 상세</string>
+
+
 </resources>
