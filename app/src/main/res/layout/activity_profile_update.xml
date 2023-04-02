@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".login.SingupActivity">
+    tools:context=".profile.ProfileUpdateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_warp"
@@ -17,49 +17,62 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
-        android:padding="30dp"
+        android:paddingBottom="18dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_id"
-            android:text="@string/id"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_alignLeft="@+id/et_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_img_user"
+            app:civ_border_color="@color/light_grey"
+            android:src="@drawable/user_line"
+            app:civ_border_width="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="130dp"
+            android:layout_height="130dp"/>
+
+        <ImageView
+            android:id="@+id/btn_img_delete"
+            android:src="@drawable/free_icon_font_cross_circle"
+            android:layout_alignRight="@+id/circle_img_user"
+            android:layout_alignBottom="@+id/circle_img_user"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"/>
+
+        <!-- kt 에서 helperText 속성으로 닉네임 중복 확인 -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_id"
-            android:layout_below="@+id/tv_id"
+            android:id="@+id/et_nicname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/circle_img_user"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:hint="@string/id_hint">
+            android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_id"
-                android:inputType="textEmailAddress"
+                android:id="@+id/input_nicname"
+                android:hint="@string/nicname_hint"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_conf_id"
-            android:layout_below="@+id/et_id"
-            android:layout_alignLeft="@+id/et_id"
-            android:paddingLeft="12dp"
-            android:text="@string/id_no"
+            android:id="@+id/btn_passwd_change"
+            android:layout_below="@+id/et_nicname"
+            android:layout_alignRight="@+id/et_nicname"
+            android:layout_marginTop="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/passwd_change"
             android:fontFamily="@font/gmarketsansttfbold"
-            android:textSize="13sp"
-            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -69,9 +82,9 @@
             android:fontFamily="@font/gmarketsansttfbold"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:layout_alignLeft="@+id/et_id"
-            android:layout_below="@+id/tv_conf_id"
-            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/et_passwd"
+            android:layout_below="@+id/btn_passwd_change"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -103,7 +116,7 @@
             android:fontFamily="@font/gmarketsansttfbold"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:layout_alignLeft="@+id/et_id"
+            android:layout_alignLeft="@+id/et_passwd_check"
             android:layout_below="@+id/et_passwd"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
@@ -117,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_passwd_check"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:hint="@string/passwd_check">
@@ -129,59 +142,16 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_nicname"
-            android:text="@string/nicname"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_alignLeft="@+id/et_id"
-            android:layout_below="@+id/et_passwd_check"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!-- kt 에서 helperText 속성으로 닉네임 중복 확인 -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_nicname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_nicname"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_nicname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_conf_nicname"
-            android:layout_below="@+id/et_nicname"
-            android:layout_alignLeft="@+id/et_nicname"
-            android:paddingLeft="12dp"
-            android:text="@string/nicname_no"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:textSize="13sp"
-            android:textColor="@color/red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <Button
-            android:id="@+id/btn_signup"
-            android:text="@string/sign_up"
-            android:padding="13dp"
+            android:id="@+id/btn_user_info_update"
+            android:text="@string/profile_change"
             android:fontFamily="@font/gmarketsansttfbold"
+            android:padding="13dp"
             android:layout_alignLeft="@+id/et_nicname"
             android:layout_alignRight="@+id/et_nicname"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/et_passwd_check"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/black"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

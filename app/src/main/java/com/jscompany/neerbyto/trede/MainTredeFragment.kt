@@ -63,8 +63,7 @@ class MainTredeFragment : Fragment() {
     }
 
     private fun clickTredrWrite() {
-        val intent:Intent = Intent(activity,TredeDetailActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(activity,TredeWriteActivity::class.java))
     }
 
 

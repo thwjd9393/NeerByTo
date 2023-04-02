@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/content_warp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/btn_alarm"
+        android:text="@string/alarm"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/btn_service_terms"
+        android:text="@string/service_terms"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/btn_openlicense"
+        android:text="@string/openlicense"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/btn_version"
+        android:text="@string/app_version"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/btn_withdraw"
+        android:text="@string/withdraw"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+</LinearLayout>

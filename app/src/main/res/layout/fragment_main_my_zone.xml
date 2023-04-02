@@ -85,21 +85,24 @@
     <LinearLayout
         android:padding="20dp"
         android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:weightSum="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_write"
-                android:src="@drawable/heart_line"
-                
+                android:src="@drawable/bg_circle_icon_pen"
                 app:civ_border_width="1dp"
-                android:layout_centerVertical="true"
-                app:civ_border_color="@color/black"
+                app:civ_border_color="@color/normal_grey"
                 android:layout_width="59dp"
                 android:layout_height="59dp"/>
 
@@ -108,6 +111,60 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/gmarketsansttfmedium"
                 android:text="@string/write"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_enter"
+                android:src="@drawable/bg_circle_icon_cart"
+                app:civ_border_width="1dp"
+                app:civ_border_overlay="false"
+                app:civ_border_color="@color/normal_grey"
+                android:layout_width="59dp"
+                android:layout_height="59dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:text="@string/enter"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_like"
+                android:src="@drawable/bg_circle_icon"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/normal_grey"
+                android:layout_width="59dp"
+                android:layout_height="59dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:text="@string/like"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -118,8 +175,93 @@
     <TextView
         android:background="@drawable/base_line_grey"
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="7dp"/>
 
+    <LinearLayout
+        android:id="@+id/btn_notice"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
 
+        <ImageView
+            android:src="@drawable/settings"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <TextView
+            android:text="@string/notice"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:id="@+id/btn_fna"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:src="@drawable/settings"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <TextView
+            android:text="@string/fna"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:id="@+id/btn_setting"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:src="@drawable/settings"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <TextView
+            android:text="@string/setting"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@drawable/base_line_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 </LinearLayout>

@@ -95,7 +95,7 @@
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:layout_weight="1"
-            android:background="@drawable/edittext_normal"
+            android:background="@drawable/bg_lineshape_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

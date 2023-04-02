@@ -13,14 +13,51 @@
         android:theme="@style/Theme.NeerByTo"
         tools:targetApi="31">
         <activity
+            android:name=".setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".servicecenter.FnaDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".servicecenter.FnaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".servicecenter.NoticeDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".servicecenter.NoticeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.MyLikeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.MyEnterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.MyWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.MannerDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".trede.TredeWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ProfileUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".trede.ReportUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".chat.ChatDetailActivity"
             android:exported="false" />
         <activity
             android:name=".intro.IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.Splash">
-
-        </activity>
+            android:theme="@style/Theme.Splash" />
         <activity
             android:name=".trede.TredeDetailActivity"
             android:exported="false" />
@@ -38,8 +75,7 @@
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
