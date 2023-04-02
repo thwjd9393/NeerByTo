@@ -15,6 +15,11 @@ import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.R.drawable.bnv_item_home
 import com.jscompany.neerbyto.databinding.FragmentMainMyZoneBinding
 import com.jscompany.neerbyto.databinding.FragmentMainTredeBinding
+import com.jscompany.neerbyto.servicecenter.FnaActivity
+import com.jscompany.neerbyto.servicecenter.FnaDetailActivity
+import com.jscompany.neerbyto.servicecenter.NoticeActivity
+import com.jscompany.neerbyto.servicecenter.NoticeDetailActivity
+import com.jscompany.neerbyto.setting.SettingActivity
 
 class MainMyZoneFragment : Fragment() {
 
@@ -69,15 +74,17 @@ class MainMyZoneFragment : Fragment() {
     }
 
     private fun clickSetting() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, SettingActivity::class.java))
     }
 
     private fun clickFna() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, FnaActivity::class.java))
+        //startActivity(Intent(activity, FnaDetailActivity::class.java))
     }
 
     private fun clickNotice() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, NoticeActivity::class.java))
+        //startActivity(Intent(activity, NoticeDetailActivity::class.java))
     }
 
     private fun clickLike() {
