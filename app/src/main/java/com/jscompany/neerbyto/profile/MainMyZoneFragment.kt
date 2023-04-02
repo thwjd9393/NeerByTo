@@ -81,7 +81,7 @@ class MainMyZoneFragment : Fragment() {
     }
 
     private fun clickLike() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, MyLikeActivity::class.java))
     }
 
     private fun clickEnter() {
