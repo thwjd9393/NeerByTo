@@ -85,7 +85,7 @@ class MainMyZoneFragment : Fragment() {
     }
 
     private fun clickEnter() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, MyEnterActivity::class.java))
     }
 
     private fun clickWrite() {
