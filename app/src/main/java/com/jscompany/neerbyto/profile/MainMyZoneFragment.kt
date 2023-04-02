@@ -89,7 +89,7 @@ class MainMyZoneFragment : Fragment() {
     }
 
     private fun clickWrite() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, MyWriteActivity::class.java))
     }
 
     private fun clickProfile() {
