@@ -21,7 +21,6 @@
         <activity
             android:name=".setting.SettingTermsPersonalFragment"
             android:exported="false"
-            android:label="@string/title_activity_setting_terms_personal_fragment"
             android:theme="@style/Theme.NeerByTo" />
         <activity
             android:name=".setting.SettingActivity"

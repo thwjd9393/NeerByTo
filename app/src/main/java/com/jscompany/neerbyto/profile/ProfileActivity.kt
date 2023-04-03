@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.ActivityProfileBinding
 import com.jscompany.neerbyto.trede.ReportUserActivity
@@ -63,9 +65,23 @@ class ProfileActivity : AppCompatActivity() {
     private fun clickMannerEstimate() {
 
         //커스텀 다이아로그 띄우기
+        val dialoView = layoutInflater.inflate(R.layout.layout_dialog, null)
+        val alertDialog = AlertDialog.Builder(this).setView(dialoView).create()
 
+        val btnMgood : TextView = dialoView.findViewById(R.id.btn_manner_good)
+        val btnMbad : TextView = dialoView.findViewById(R.id.btn_manner_bad)
 
-        //startActivity(Intent(this, MannerDetailActivity::class.java))
+        btnMgood.setOnClickListener {
+            alertDialog.dismiss()
+            startActivity(Intent(this, MannerEstimateGoodActivity::class.java))
+        }
+
+        btnMbad.setOnClickListener {
+            alertDialog.dismiss()
+            startActivity(Intent(this, MannerEstimateBadActivity::class.java))
+        }
+
+        alertDialog.show()
     }
 
     private fun clickProfileUpdate() {

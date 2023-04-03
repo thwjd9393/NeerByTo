@@ -91,10 +91,13 @@
 
     <string name="withdraw_text">아쉬워요\n정말로 탈퇴하실건가요?</string>
     <string name="cancle">취소</string>
+    <string name="ok">완료</string>
 
     <string name="manner_alert_text">매너 평가를 남기시겠습니까?</string>
     <string name="manner_good">매너 칭찬 남기기</string>
     <string name="manner_bad">비매너 평가 남기기</string>
+    <string name="manner_goodtext">남기고 싶은 칭찬을 선택하세요</string>
+    <string name="manner_badtext">남기고 싶은 비매너를 선택하세요</string>
 
 
 </resources>
