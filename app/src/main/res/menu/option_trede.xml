@@ -7,4 +7,9 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:title="@string/search" />
 
+    <item android:id="@+id/option_categoty"
+        android:icon="@drawable/burger"
+        app:showAsAction="always"
+        android:title="@string/category"/>
+
 </menu>
