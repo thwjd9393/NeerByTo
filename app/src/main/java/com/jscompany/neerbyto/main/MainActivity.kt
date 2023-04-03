@@ -1,5 +1,6 @@
 package com.jscompany.neerbyto.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,8 +31,19 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
         // 첫 화면
         changeFragment(R.id.bnv_home)
+
+
+//        val intent : Intent = getIntent()
+//        val tabId : Int = intent.extras?.getInt("tabId", 0) ?: 0
+//        if(tabId > 0 ){
+//            //설정 -> 돌아옴
+//            changeFragment(R.id.bnv_myzone)
+//        } else {
+//
+//        }
         
     }
 

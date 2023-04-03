@@ -186,7 +186,7 @@
         android:layout_height="70dp">
 
         <ImageView
-            android:src="@drawable/settings"
+            android:src="@drawable/megaphone"
             android:layout_width="28dp"
             android:layout_height="28dp"/>
 
@@ -215,7 +215,7 @@
         android:layout_height="70dp">
 
         <ImageView
-            android:src="@drawable/settings"
+            android:src="@drawable/headset"
             android:layout_width="28dp"
             android:layout_height="28dp"/>
 

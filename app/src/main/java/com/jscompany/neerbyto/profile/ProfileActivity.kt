@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.ActivityProfileBinding
+import com.jscompany.neerbyto.trede.ReportUserActivity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -50,15 +51,16 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun clickOtherWrite() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, MyWriteActivity::class.java))
     }
 
     private fun clickReport() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, ReportUserActivity::class.java))
     }
 
+    //받은 매너 평가
     private fun clickMannerEstimate() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, MannerDetailActivity::class.java))
     }
 
     private fun clickProfileUpdate() {

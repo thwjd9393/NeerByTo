@@ -15,8 +15,9 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //맨 처음 보여줄 플래그먼트 데려오기
-        supportFragmentManager.beginTransaction().add(R.id.fragment_setting, SettingMainFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.container_fragment, SettingMainFragment()).commit()
 
     }
+
 
 }
