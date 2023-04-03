@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <TextView
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:textColor="@color/black"
+        android:text="@string/manner_alert_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/btn_manner_good"
+        android:background="@drawable/bg_lineshape_green"
+        android:text="@string/manner_good"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/btn_manner_bad"
+        android:background="@drawable/bg_lineshape_red"
+        android:text="@string/manner_bad"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/gmarketsansttfmedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

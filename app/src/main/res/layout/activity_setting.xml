@@ -7,9 +7,20 @@
     android:orientation="vertical"
     tools:context=".setting.SettingActivity">
 
-    <FrameLayout
-        android:id="@+id/fragment_setting"
+    <!--name 으로 붙여버리면 add replace 이런거 안됨~!!!!-->
+<!--    <fragment-->
+<!--        android:id="@+id/fragment_setting"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.jscompany.neerbyto.setting.SettingMainFragment"-->
+<!--        tools:layout="@layout/fragment_setting_main"-->
+<!--        />-->
+
+    <LinearLayout
+        android:id="@+id/container_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
 
 </LinearLayout>

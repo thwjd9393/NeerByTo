@@ -3,7 +3,7 @@
 
     <item android:drawable="@color/white" android:width="58dp" android:height="58dp"/>
 
-    <item android:drawable="@drawable/cart"
+    <item android:drawable="@drawable/hand_holding_heart"
         android:height="23dp" android:width="23dp" android:gravity="center"/>
 
 </layer-list>

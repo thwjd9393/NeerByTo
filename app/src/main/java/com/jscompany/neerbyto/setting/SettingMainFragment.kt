@@ -1,6 +1,7 @@
 package com.jscompany.neerbyto.setting
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.FragmentSettingMainBinding
+import com.jscompany.neerbyto.main.MainActivity
+import com.jscompany.neerbyto.profile.MainMyZoneFragment
 
 class SettingMainFragment : Fragment(){
 
@@ -31,10 +34,6 @@ class SettingMainFragment : Fragment(){
         return binding.root
     }
 
-    lateinit var detector : GestureDetector
-
-    lateinit var selectTv : TextView
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,54 +42,71 @@ class SettingMainFragment : Fragment(){
         toolbar.setTitle(R.string.setting)
         toolbar.setNavigationIcon(R.drawable.ic_action_back)
 
+        //뒤로가기
+        toolbar.setNavigationOnClickListener {
+            //requireActivity().supportFragmentManager.popBackStack()
 
-//        binding.contentWarp.setOnTouchListener { v, event ->
-//
-//            binding.contentWarp.requestDisallowInterceptTouchEvent(true)
-//            when(event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    Toast.makeText(activity, "${}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            false
-//        }
-
-    }
-
-
-
-    @SuppressLint("SetTextI18n")
-    private fun clickTv(tvItem : TextView){
-        tvItem.setOnClickListener {
-            if (it == binding.btnAlarm) clickAlarm()
-            else if(it == binding.btnServiceTerms) clickTerms()
-            else if(it == binding.btnOpenlicense) clickOpenlicense()
-            else if(it == binding.btnVersion) binding.btnVersion.text = "${R.string.app_version} 1.0"
-            else if(it == binding.btnWithdraw) clickWithdraw()
+            //requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
+            //().supportFragmentManager.beginTransaction().replace(R.id.fragment_warp, MainMyZoneFragment()).commit()
+            requireActivity().finish()
         }
+
+        //클릭 이벤트
+        binding.btnAlarm.setOnClickListener { clickAlarm() }
+        binding.btnServiceTerms.setOnClickListener { clickTerms() }
+        binding.btnOpenlicense.setOnClickListener { clickOpenlicense() }
+        binding.btnWithdraw.setOnClickListener { clickWithdraw() }
+        
+        //버전 셋팅
+        binding.btnVersion.text = "버전 1.0"
+        binding.btnVersion.setOnClickListener { clickVersion() }
+        
     }
 
     private fun clickAlarm() {
-        Toast.makeText(activity, "알람 클릭", Toast.LENGTH_SHORT).show()
+        changFragment(R.id.btn_alarm)
     }
 
     private fun clickTerms() {
-        Toast.makeText(activity, "이용약관 클릭", Toast.LENGTH_SHORT).show()
+        changFragment(R.id.btn_service_terms)
     }
 
     private fun clickOpenlicense() {
-        Toast.makeText(activity, "오플 라이센스 클릭", Toast.LENGTH_SHORT).show()
+        changFragment(R.id.btn_openlicense)
+    }
+
+    private fun clickVersion() {
+        //구글 플레이로 가기
+        Toast.makeText(activity, "구글플레이 열기", Toast.LENGTH_SHORT).show()
     }
 
     //탈퇴
     private fun clickWithdraw() {
-        Toast.makeText(activity, "탈퇴하기 클릭", Toast.LENGTH_SHORT).show()
+        changFragment(R.id.btn_withdraw)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //if (item.itemId == android.R.id.home) requireActivity().finish()
-        if (item.itemId == android.R.id.home) requireActivity().finish()
-        return super.onOptionsItemSelected(item)
+    //플래그먼트 변경 함수
+    private fun changFragment(tvid : Int) {
+        val targetFragment = getFragment(tvid)
+        val transaction =requireActivity().supportFragmentManager.beginTransaction()
+
+        transaction.replace(R.id.container_fragment, targetFragment)
+        transaction.addToBackStack(null);
+
+        transaction.commit()
+    }
+
+    //플래그먼트 화면 반환 함수
+    private fun getFragment(tvId : Int) : Fragment {
+
+        val fragment = when(tvId) {
+            R.id.btn_alarm -> AlarmFragment()
+            R.id.btn_service_terms -> TermsFragment()
+            R.id.btn_openlicense -> OpenLicenseFragment()
+            R.id.btn_withdraw -> WithdrawFragment()
+            else -> throw IllegalArgumentException("not found menu item id")
+        }
+        return  fragment
     }
 
 }
