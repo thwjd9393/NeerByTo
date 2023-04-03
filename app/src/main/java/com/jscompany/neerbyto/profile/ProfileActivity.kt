@@ -46,6 +46,7 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    //받은 매너평가
     private fun clickGoManerpage() {
         startActivity(Intent(this, MannerDetailActivity::class.java))
     }
@@ -58,9 +59,13 @@ class ProfileActivity : AppCompatActivity() {
         startActivity(Intent(this, ReportUserActivity::class.java))
     }
 
-    //받은 매너 평가
+    //매너평가 페이지
     private fun clickMannerEstimate() {
-        startActivity(Intent(this, MannerDetailActivity::class.java))
+
+        //커스텀 다이아로그 띄우기
+
+
+        //startActivity(Intent(this, MannerDetailActivity::class.java))
     }
 
     private fun clickProfileUpdate() {

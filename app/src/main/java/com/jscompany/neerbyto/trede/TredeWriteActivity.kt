@@ -2,10 +2,13 @@ package com.jscompany.neerbyto.trede
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import com.jscompany.neerbyto.R
@@ -16,6 +19,8 @@ import java.util.Calendar
 class TredeWriteActivity : AppCompatActivity() {
 
     private val binding : ActivityTredeWriteBinding by lazy { ActivityTredeWriteBinding.inflate(layoutInflater) }
+
+    private val builder  : AlertDialog.Builder by lazy { AlertDialog.Builder(this) }
 
     private val cal : Calendar by lazy { Calendar.getInstance() }
 
@@ -77,8 +82,14 @@ class TredeWriteActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private var items: Array<String> = arrayOf("만나서 장보기","대용량 나누기","무료나눔")
+
     private fun clickCategory() {
-        TODO("Not yet implemented")
+        //카테고리 클릭 다이아로그
+        builder.setItems(items, DialogInterface.OnClickListener { dialog, which ->
+            //Toast.makeText(this@TredeWriteActivity, items[which], Toast.LENGTH_SHORT).show()
+            binding.tvTredeCategory.text = items[which]
+        }).create().show()
     }
 
     //옵션 메뉴 만드는 콜백
@@ -86,6 +97,12 @@ class TredeWriteActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.option_trede_write, menu)
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        else if(item.itemId == R.id.option_write) Toast.makeText(this, "등록", Toast.LENGTH_SHORT).show()
+        return super.onOptionsItemSelected(item)
     }
     
 }
