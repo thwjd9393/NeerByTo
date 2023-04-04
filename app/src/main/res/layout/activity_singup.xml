@@ -53,6 +53,7 @@
 
         <TextView
             android:id="@+id/tv_conf_id"
+            android:visibility="invisible"
             android:layout_below="@+id/et_id"
             android:layout_alignLeft="@+id/et_id"
             android:paddingLeft="12dp"
@@ -109,7 +110,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- kt 에서 helperText 속성으로 닉네임 중복 확인 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_passwd_check"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -120,14 +120,28 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="@string/passwd_check">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_passwd_check"
                 android:inputType="textPassword"
+                android:hint="@string/passwd_check"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_conf_passwd"
+            android:layout_below="@+id/et_passwd_check"
+            android:visibility="invisible"
+            android:layout_alignLeft="@+id/et_passwd_check"
+            android:paddingLeft="12dp"
+            android:text="@string/passwd_no"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:textSize="13sp"
+            android:textColor="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tv_nicname"
@@ -136,8 +150,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_alignLeft="@+id/et_id"
-            android:layout_below="@+id/et_passwd_check"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/tv_conf_passwd"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -165,6 +179,7 @@
             android:layout_alignLeft="@+id/et_nicname"
             android:paddingLeft="12dp"
             android:text="@string/nicname_no"
+            android:visibility="invisible"
             android:fontFamily="@font/gmarketsansttfbold"
             android:textSize="13sp"
             android:textColor="@color/red"
