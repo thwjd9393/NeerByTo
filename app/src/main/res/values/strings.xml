@@ -19,6 +19,7 @@
     <string name="nicname">닉네임</string>
     <string name="nicname_hint">닉네임을 입력해주세요.</string>
     <string name="phon">핸드폰 번호</string>
+    <string name="passwd_ok">비밀번호가 같습니다</string>
     <string name="passwd_no">비밀번호가 같지 않습니다</string>
     <string name="id_ok">사용 가능한 아이디입니다</string>
     <string name="id_no">사용 불가능한 아이디입니다</string>

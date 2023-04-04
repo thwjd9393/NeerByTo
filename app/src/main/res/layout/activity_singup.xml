@@ -65,6 +65,19 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/tv_conf_id_ok"
+            android:visibility="invisible"
+            android:layout_below="@+id/et_id"
+            android:layout_alignLeft="@+id/et_id"
+            android:paddingLeft="12dp"
+            android:text="@string/id_ok"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:textSize="13sp"
+            android:textColor="@color/purple_700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:id="@+id/tv_passwd"
             android:text="@string/passwd"
             android:fontFamily="@font/gmarketsansttfbold"
@@ -140,6 +153,19 @@
             android:fontFamily="@font/gmarketsansttfbold"
             android:textSize="13sp"
             android:textColor="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_conf_passwd_ok"
+            android:layout_below="@+id/et_passwd_check"
+            android:visibility="invisible"
+            android:layout_alignLeft="@+id/et_passwd_check"
+            android:paddingLeft="12dp"
+            android:text="@string/passwd_ok"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:textSize="13sp"
+            android:textColor="@color/purple_700"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
