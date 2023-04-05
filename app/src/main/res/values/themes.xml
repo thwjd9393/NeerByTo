@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlHighlight">@color/teal_700</item>
     </style>
 
     <!-- 스플래시 -->
@@ -24,5 +25,6 @@
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/gmarketsansttfmedium</item>
     </style>
+
 
 </resources>
