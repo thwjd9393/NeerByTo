@@ -29,6 +29,10 @@ class SingupActivity : AppCompatActivity() {
     var boolEmail : Boolean = false
     var boolPassWd : Boolean = false
 
+    //아이디 이메일 중복체크
+    var boolEmailChek : Boolean = false
+    var boolNicChek : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -50,9 +54,82 @@ class SingupActivity : AppCompatActivity() {
             boolEmail == false -> Common.makeToast(this, "아이디가 이메일 형식에 맞지 않습니다")
             boolPassWd == false -> Common.makeToast(this, "비밀번호가 형식에 맞지않습니다")
             passwd.text.toString() != passwdConf.text.toString() -> Common.makeToast(this, "비밀번호가 서로 다릅니다")
+            boolEmailChek == false -> emailChek()
+            boolNicChek == false -> nicChek()
 
             else -> insertUser()
         }
+
+    }
+
+    private fun nicChek() {
+        //닉네임 중복체크
+
+        //전송할 데이터 준비
+        val dataUser = mutableMapOf<String, String>()
+        dataUser["nicname"] = nicName.text.toString()
+
+        //1.
+        val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+        Log.i("TAG",retrofit.toString())
+
+        //2.
+        val userService = retrofit.create(UserService::class.java)
+        userService.userNicCheck(dataUser).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+//               val s = response.body()
+//               Common.makeToast(this@SingupActivity, s.toString())
+//               Log.i("TAG", "성공 ${s.toString()}")
+                var s :String = ""
+                if(response.body() == "fail") {
+                    s = "이미 존재하는 닉네임입니다"
+                } else {
+                    s = "사용 가능한 닉네임입니다"
+                    boolNicChek = true
+                }
+                Common.makeToast(this@SingupActivity, s)
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Common.makeToast(this@SingupActivity, t.message)
+            }
+
+        })
+
+    }
+
+    private fun emailChek() {
+        //아이디(이메일) 중복체크
+
+        //전송할 데이터 준비
+        val dataUser = mutableMapOf<String, String>()
+        dataUser["id"] = id.text.toString()
+
+        //1.
+        val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+
+        //2.
+        val userService = retrofit.create(UserService::class.java)
+        userService.userIdCheck(dataUser).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                Log.i("TAG", "body ${response.body()}")
+                var s :String = ""
+                if(response.body() == "fail") {
+                    s = "이미 등록된 이메일입니다"
+                } else {
+                    s = "사용 가능한 이메일입니다"
+                    boolEmailChek = true
+                }
+
+                Common.makeToast(this@SingupActivity, s)
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Common.makeToast(this@SingupActivity, t.message)
+            }
+
+        })
 
     }
 
@@ -146,8 +223,7 @@ class SingupActivity : AppCompatActivity() {
 
                     }
                 } else if (et==nicName) {
-                    //닉네임 중복확인
-                    //SELECT count(*) FROM `mUser` WHERE nicName = 'asd123@naver.com';
+
 
                 }
 
