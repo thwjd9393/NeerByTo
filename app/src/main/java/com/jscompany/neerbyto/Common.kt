@@ -19,6 +19,10 @@ class Common {
         val joinNaver : String = "3"
 
 
+        //사용자 정보
+        //lateinit var userNic : String;
+
+
         //달 계산
         fun addMonth(date: Date?, months: Int): Date? {
             val cal = Calendar.getInstance()
