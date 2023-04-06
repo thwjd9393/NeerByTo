@@ -1,11 +1,16 @@
 package com.jscompany.neerbyto.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.jscompany.neerbyto.R
+import androidx.appcompat.app.AppCompatActivity
+import com.jscompany.neerbyto.Common
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityLoginBinding
-import com.jscompany.neerbyto.main.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,10 +72,40 @@ class LoginActivity : AppCompatActivity() {
         var id : String = etId.text.toString()
         var passwd : String = etpasswd.text.toString()
 
-        //val
+        //1.
+        val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+
+        //2.
+        val userService = retrofit.create(UserService::class.java)
+        userService.userLogin(id,passwd).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                var responseBack = response.body()
+
+                if(responseBack != "no") {
+                    Common.makeToast(this@LoginActivity, "로그인")
+
+                    //쉐어드에 저장
+                    val pref = getSharedPreferences("Data", MODE_PRIVATE)
+                    val editor = pref.edit()
+
+                    editor.putString("userId",id);
+                    editor.putString("userNic",responseBack);
+
+                    editor.commit()
+
+                    startActivity(Intent(this@LoginActivity,LocationActivity::class.java))
+                    finish()
+                } else Common.makeToast(this@LoginActivity, "아이디와 비밀번호가 맞지 않습니다")
+
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Common.makeToast(this@LoginActivity, t.message)
+            }
+
+        })
 
 
-//        startActivity(Intent(this,LocationActivity::class.java))
-//        finish()
+
     }
 }
