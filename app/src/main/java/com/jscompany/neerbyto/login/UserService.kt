@@ -29,5 +29,9 @@ interface UserService {
     fun userNicCheck(@Field("nicname") nicname : String) : Call<String>
 
     //유저 등록 - 파리어베이스
+    @FormUrlEncoded
+    @POST("NeerByTo/userLogin.php")
+    fun userLogin(@Field("id") id : String, @Field("passwd") passwd : String) : Call<String>
+
 
 }

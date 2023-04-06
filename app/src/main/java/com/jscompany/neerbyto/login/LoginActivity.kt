@@ -11,6 +11,9 @@ class LoginActivity : AppCompatActivity() {
 
     val binding:ActivityLoginBinding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
 
+    val etId by lazy { binding.inputId }
+    val etpasswd by lazy { binding.inputPasswd }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -59,7 +62,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun gotoLocation(){
-        startActivity(Intent(this,LocationActivity::class.java))
-        finish()
+
+        //아이디 비밀번호
+        var id : String = etId.text.toString()
+        var passwd : String = etpasswd.text.toString()
+
+        //val
+
+
+//        startActivity(Intent(this,LocationActivity::class.java))
+//        finish()
     }
 }
