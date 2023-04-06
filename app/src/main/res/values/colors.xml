@@ -11,4 +11,5 @@
     <color name="light_grey">#DADADA</color>
     <color name="red">#D30000</color>
     <color name="green">#2F961F</color>
+    <color name="text_layout">#d5d5d5</color>
 </resources>

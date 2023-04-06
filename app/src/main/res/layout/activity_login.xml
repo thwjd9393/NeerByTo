@@ -45,6 +45,8 @@
             android:layout_below="@+id/tv_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/text_layout"
+            app:hintTextColor="@color/normal_grey"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="8dp"
             android:hint="@string/id_hint">
@@ -75,6 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/text_layout"
+            app:hintTextColor="@color/normal_grey"
             android:layout_margin="8dp"
             android:hint="@string/passwd_hint"
             app:endIconMode="password_toggle">
