@@ -19,6 +19,7 @@ class Common {
         val joinApp : String = "1"
         val joinKakao : String = "2"
         val joinNaver : String = "3"
+        val joinGoogel : String = "4"
 
 
         //사용자 정보
@@ -32,6 +33,9 @@ class Common {
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
             return pref.getString("userNic", " - ") ?: ""
         }
+
+        //사용자 상태
+        //val user_in
 
 
         //달 계산

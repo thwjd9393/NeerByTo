@@ -3,7 +3,9 @@ package com.jscompany.neerbyto.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityLoginBinding
@@ -76,12 +78,22 @@ class LoginActivity : AppCompatActivity() {
                     if (user != null) {
                         var kaoId = user.id.toString() //카카오에서 오는 id 값 -> 닉네임으로 사용
                         var email = user.kakaoAccount?.email ?: ""
-
+                        
                         //저장 후 페이지 이동
-                        //쉐어드에 저장
-                        sharedPreferences(email,kaoId)
 
-                        moveToPage() //화면 이동
+                        //전송할 데이터 준비
+                        val dataUser = mutableMapOf<String, String>()
+                        dataUser["id"] = email
+                        dataUser["passwd"] = ""
+                        dataUser["nicname"] = kaoId
+                        dataUser["join_path"] = Common.joinKakao
+                        dataUser["apiId"] = kaoId //유일키를 위한
+
+                        //1. db저장
+                        emailChek(email, dataUser)
+
+                        //2. 쉐어드에 저장
+                        sharedPreferences(email,kaoId)
 
                     }
                 }
@@ -147,6 +159,76 @@ class LoginActivity : AppCompatActivity() {
         })
 
 
+
+    }
+
+    private fun insertUser(dataUser : Map<String, String>) {
+        //버튼 클릭 값 저장
+        //mysql에 저장 되면 파이어베이스에도 저장!
+
+        //1.
+        val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+
+        //2. 서비스 객체 만들기
+        val userService = retrofit.create(UserService::class.java)
+        userService.insertUserPhp(dataUser).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                val s = response.body()
+
+                if(s == "회원가입 되셨습니다"){
+                    //파이어베이스에 등록 & 전역변수에 등록
+                    Log.i("TAG", "성공 베어스 등록")
+
+                    //파이어스토어 디비에 파이어스토어 얻어오기
+                    val db = FirebaseFirestore.getInstance()
+
+                    db.collection("mUser").add(dataUser).addOnSuccessListener {
+
+                        // 3. 화면이동
+                        moveToPage()
+
+                    }
+
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Common.makeToast(this@LoginActivity, t.message)
+                Log.i("TAG", "오류 ${t.message.toString()}")
+            }
+        })
+
+
+    }
+
+    private fun emailChek(id: String, dataUser : Map<String, String>) {
+
+        //1.
+        val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+
+        //2.
+        val userService = retrofit.create(UserService::class.java)
+        userService.userIdCheck(id).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                if(response.body() != "0") { //중복
+                    Common.makeToast(this@LoginActivity, "moveToPage")
+                    moveToPage()
+
+                } else {
+                    Common.makeToast(this@LoginActivity, "insertUser")
+                    insertUser(dataUser)
+                }
+
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Common.makeToast(this@LoginActivity, t.message)
+            }
+
+        })
 
     }
 

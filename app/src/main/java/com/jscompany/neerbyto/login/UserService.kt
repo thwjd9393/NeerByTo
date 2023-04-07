@@ -18,12 +18,12 @@ interface UserService {
     @POST("NeerByTo/userInsert.php")
     fun insertUserPhp(@PartMap dataUser : Map<String, String>) : Call<String>
 
+    //아이디 체크
     @FormUrlEncoded
     @POST("NeerByTo/userIdCheck.php")
     fun userIdCheck(@Field("id") id : String) : Call<String>
 
     //닉네임 체크
-
     @FormUrlEncoded
     @POST("NeerByTo/userNicCheck.php")
     fun userNicCheck(@Field("nicname") nicname : String) : Call<String>
