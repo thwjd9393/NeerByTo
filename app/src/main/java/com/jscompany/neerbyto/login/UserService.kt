@@ -6,6 +6,7 @@ import retrofit2.http.Field
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PartMap
@@ -33,5 +34,9 @@ interface UserService {
     @POST("NeerByTo/userLogin.php")
     fun userLogin(@Field("id") id : String, @Field("passwd") passwd : String) : Call<String>
 
+    //네이버 아이디 로그인 사용자 정보 API
+    @GET("/v1/nid/me")
+    fun getNidUserInfo(@Header("Authorization") authorization : String) : Call<NIdUserInfo>
+    //Authorization : 토큰값 가져올 애
 
 }

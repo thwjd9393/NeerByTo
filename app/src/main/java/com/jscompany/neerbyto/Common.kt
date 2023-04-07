@@ -21,6 +21,8 @@ class Common {
         val joinNaver : String = "3"
         val joinGoogel : String = "4"
 
+        //네이버 베이스주소
+        val naverBaseUrl = "https://openapi.naver.com"
 
         //사용자 정보
         //lateinit var userNic : String;

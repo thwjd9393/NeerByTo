@@ -15,11 +15,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jscompany.neerbyto.Common
+import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityLoginBinding
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -158,7 +161,57 @@ class LoginActivity : AppCompatActivity() {
     })
 
     private fun loginByNaver() {
+        //네이버로 초기화
+        NaverIdLoginSDK.initialize(this, getString(R.string.naverClientId), getString(R.string.naverClientSecret),"가치가치")
 
+        NaverIdLoginSDK.authenticate(this, object : OAuthLoginCallback{
+            override fun onError(errorCode: Int, message: String) {
+                Common.makeToast(this@LoginActivity, "error : $message")
+            }
+
+            override fun onFailure(httpStatus: Int, message: String) {
+                Common.makeToast(this@LoginActivity, "로그인 실패 : $message")
+            }
+
+            override fun onSuccess() {
+                Common.makeToast(this@LoginActivity, "네이버 로그인 성공")
+
+                val accessToken : String? = NaverIdLoginSDK.getAccessToken()
+
+                val retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.naverBaseUrl)
+
+                retrofit.create(UserService::class.java).getNidUserInfo("Bearer $accessToken")
+                    .enqueue(object : Callback<NIdUserInfo>{
+                        override fun onResponse(
+                            call: Call<NIdUserInfo>,
+                            response: Response<NIdUserInfo>
+                        ) {
+                            val userInfo : NIdUserInfo? = response.body()
+                            val id:String = userInfo?.response?.id ?: "" //앞이 널이면 뒤
+                            val email:String = userInfo?.response?.email ?: ""
+
+                            //저장 후 페이지 이동
+                            //전송할 데이터 준비
+                            val dataUser = mutableMapOf<String, String>()
+                            dataUser["id"] = email
+                            dataUser["passwd"] = ""
+                            dataUser["nicname"] = id
+                            dataUser["join_path"] = Common.joinGoogel
+                            dataUser["apiId"] = id //유일키를 위한
+
+                            //1. db저장
+                            emailChek(email, dataUser)
+
+                            //2. 쉐어드에 저장
+                            sharedPreferences(email,id)
+                        }
+
+                        override fun onFailure(call: Call<NIdUserInfo>, t: Throwable) {
+                            Common.makeToast(this@LoginActivity,"회원정보 불러오기 실패 ${t.message}")
+                        }
+                    })
+            }
+        })
     }
 
     fun gotoLocation(){
