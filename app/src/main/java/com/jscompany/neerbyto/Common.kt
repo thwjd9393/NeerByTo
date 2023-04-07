@@ -1,10 +1,12 @@
 package com.jscompany.neerbyto
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.widget.Toast
 import java.util.Calendar
 import java.util.Date
-import java.util.regex.Pattern
+
 
 class Common {
 
@@ -21,6 +23,15 @@ class Common {
 
         //사용자 정보
         //lateinit var userNic : String;
+        fun getId(context : Context) : String{
+            val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
+            return pref.getString("userId", " - ") ?: ""
+        }
+
+        fun getNic(context : Context) : String{
+            val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
+            return pref.getString("userNic", " - ") ?: ""
+        }
 
 
         //달 계산

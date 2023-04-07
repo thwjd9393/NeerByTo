@@ -61,4 +61,14 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
     implementation 'com.google.firebase:firebase-firestore-ktx' //Cloud Firestore
     implementation 'com.google.firebase:firebase-storage-ktx' //Cloud Storage
+
+    //카카오 로그인 라이브러리
+    implementation "com.kakao.sdk:v2-user:2.13.0" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-share:2.13.0" // 메시지(카카오톡 공유)
+
+    //구글 로그인 SDK
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
+    //네이버 로그인 SDK
+    implementation 'com.navercorp.nid:oauth:5.4.0' // jdk 11
 }
