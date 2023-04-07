@@ -3,8 +3,16 @@ package com.jscompany.neerbyto.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.RetrofitBaseUrl
@@ -80,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
                         var email = user.kakaoAccount?.email ?: ""
                         
                         //저장 후 페이지 이동
-
                         //전송할 데이터 준비
                         val dataUser = mutableMapOf<String, String>()
                         dataUser["id"] = email
@@ -114,8 +121,41 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginByGoogle() {
+        val signInOptions : GoogleSignInOptions = GoogleSignInOptions.Builder( GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+
+        val intent:Intent = GoogleSignIn.getClient(this,signInOptions).signInIntent
+        resultLuancher.launch(intent)
 
     }
+
+    val resultLuancher:ActivityResultLauncher<Intent>
+            = registerForActivityResult(ActivityResultContracts.StartActivityForResult(),object : ActivityResultCallback<ActivityResult>{
+        override fun onActivityResult(result: ActivityResult?) {
+            //로그인 결과를 가져온 인텐트 소환
+            val intent:Intent? = result?.data
+            //돌아온 인텐트로 부터 구글계정 정보를 가져오는 작업 수행
+            val task:Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(intent)
+
+            val account:GoogleSignInAccount = task.result
+            var gid:String = account.id.toString()
+            var email:String = account.email ?: ""
+
+            //저장 후 페이지 이동
+            //전송할 데이터 준비
+            val dataUser = mutableMapOf<String, String>()
+            dataUser["id"] = email
+            dataUser["passwd"] = ""
+            dataUser["nicname"] = gid
+            dataUser["join_path"] = Common.joinGoogel
+            dataUser["apiId"] = gid //유일키를 위한
+
+            //1. db저장
+            emailChek(email, dataUser)
+
+            //2. 쉐어드에 저장
+            sharedPreferences(email,gid)
+        }
+    })
 
     private fun loginByNaver() {
 
