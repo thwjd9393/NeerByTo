@@ -3,7 +3,9 @@ package com.jscompany.neerbyto
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.location.Location
 import android.widget.Toast
+import io.grpc.internal.JsonUtil
 import java.util.Calendar
 import java.util.Date
 
@@ -15,14 +17,19 @@ class Common {
         // 닷홈 베이스 Url
         val dotHomeUrl : String = "http://mrhisj23.dothome.co.kr/"
 
+        //네이버 베이스주소
+        val naverBaseUrl = "https://openapi.naver.com"
+        
+        //카카오 베이스주소
+        val kakaoBaseUrl = "https://dapi.kakao.com"
+
+
         // 가입경로
         val joinApp : String = "1"
         val joinKakao : String = "2"
         val joinNaver : String = "3"
         val joinGoogel : String = "4"
 
-        //네이버 베이스주소
-        val naverBaseUrl = "https://openapi.naver.com"
 
         //사용자 정보
         //lateinit var userNic : String;
@@ -36,8 +43,11 @@ class Common {
             return pref.getString("userNic", " - ") ?: ""
         }
 
-        //사용자 상태
-        //val user_in
+        // 현재 내 위치 정보 객체
+        var myLocation : Location? = null //null로 주면 서울 시청
+        var latitude : String? = null //경도
+        var longitude : String? = null //위도
+        var dong : String? = null //동
 
 
         //달 계산

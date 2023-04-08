@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
     fun init() {
         // 둘러보기 클릭 시 메인 화면으로 이동
         binding.tvLookAround.setOnClickListener {
-            gotoLocation()
+            moveToPage()
         }
 
         //로그인 버튼 클릭 화면 이동
@@ -196,7 +196,7 @@ class LoginActivity : AppCompatActivity() {
                             dataUser["id"] = email
                             dataUser["passwd"] = ""
                             dataUser["nicname"] = id
-                            dataUser["join_path"] = Common.joinGoogel
+                            dataUser["join_path"] = Common.joinNaver
                             dataUser["apiId"] = id //유일키를 위한
 
                             //1. db저장
@@ -219,6 +219,16 @@ class LoginActivity : AppCompatActivity() {
         //아이디 비밀번호
         var id : String = etId.text.toString()
         var passwd : String = etpasswd.text.toString()
+
+        if (id == "" ) {
+            Common.makeToast(this, "아이디를 입력하지 않았습니다")
+            etId.requestFocus() //포커스 올리기
+            return
+        } else if (passwd == ""){
+            Common.makeToast(this, "비밀번호를 입력하지 않았습니다")
+            etpasswd.requestFocus() //포커스 올리기
+            return
+        }
 
         //1.
         val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
