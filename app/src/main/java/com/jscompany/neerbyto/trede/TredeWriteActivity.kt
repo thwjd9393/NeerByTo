@@ -142,7 +142,19 @@ class TredeWriteActivity : AppCompatActivity() {
 
     //글 등록
     private fun insertTredeContent() {
-        //값 안쓰면 리턴
+        //전송할 데이터 묶기
+        var title = binding.etTitle.text.toString()
+        var content = binding.etContent.text.toString()
+        var oriPrice = binding.etPrice.text.toString()
+        var price = binding.etPrice.text.toString() // oriPrice/joinCount
+        var joinCount = binding.etJoinCount.text.toString()
+        var joinDate = binding.tvHangoutDate.text.toString()
+        var joinTime = binding.tvHangoutTime.text.toString()
+        var joinPlace = binding.tvSelectSpot.text.toString()
+        var resion = Common.dong
+        var tredCtyNo = binding.tvTredeCategory.text // 비교해서 인덱스 번호
+        //var userNo =
+
     }
 
 }

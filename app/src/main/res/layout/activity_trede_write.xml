@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/et_hangout_cnt"
+                android:id="@+id/et_join_count"
                 android:hint="@string/hangout_cnt"
                 android:padding="13dp"
                 android:layout_weight="1"
