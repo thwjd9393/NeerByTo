@@ -4,7 +4,10 @@
     android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
-    android:layout_margin="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_lineshape_normal"
+    android:elevation="10dp"
     android:padding="16dp">
 
     <RelativeLayout
@@ -106,7 +109,7 @@
             android:layout_height="16dp"/>
 
         <ImageView
-            android:layout_toLeftOf="@+id/tv_hang_out_user"
+            android:layout_toLeftOf="@+id/tv_join_count"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="5dp"
             android:layout_width="15dp"
@@ -114,7 +117,7 @@
             android:src="@drawable/user_line"/>
 
         <TextView
-            android:id="@+id/tv_hang_out_user"
+            android:id="@+id/tv_join_count"
             android:text="1/3"
             android:fontFamily="@font/gmarketsansttfmedium"
             android:layout_alignParentBottom="true"

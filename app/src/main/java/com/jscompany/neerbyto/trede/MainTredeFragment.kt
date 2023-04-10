@@ -106,11 +106,14 @@ class MainTredeFragment : Fragment() {
 
     private var items: Array<String> = arrayOf("전체","만나서 장보기","대용량 나누기","무료나눔")
 
-    lateinit var tredeList : MutableList<TredeVO>
+    private var tredeList : MutableList<TredeVO> = mutableListOf()
 
     //화면 글 아답터
     private fun setRecyclerView(){
+        //대량 데이터 넣기~
 
+        //아답터 연결
+        binding.homeRecycler.adapter = TredeAdapter(requireActivity(), tredeList)
     }
 
     private fun searchMyRegion() {
@@ -132,6 +135,7 @@ class MainTredeFragment : Fragment() {
                 searchMyRegionResponce = response.body()
 
                 binding.topTvNowlocation.text = searchMyRegionResponce!!.documents[0].region_3depth_name
+                Common.dong = searchMyRegionResponce!!.documents[0].region_3depth_name
 
             }
 

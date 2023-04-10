@@ -3,18 +3,23 @@ package com.jscompany.neerbyto.trede
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityTredeWriteBinding
-import java.text.DateFormat
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.util.Calendar
+
 
 class TredeWriteActivity : AppCompatActivity() {
 
@@ -29,6 +34,8 @@ class TredeWriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
+
+        getCategoty()
 
     }
 
@@ -52,12 +59,14 @@ class TredeWriteActivity : AppCompatActivity() {
         binding.btnSelectImg.setOnClickListener { clickSelectImg() }
     }
 
+    //카메라 버튼 클릭 -> 갤러리 이동
     private fun clickSelectImg() {
-        TODO("Not yet implemented")
+
     }
 
+    //약속장소 버튼 -> 카카오 지도 api 연동
     private fun clickSpot() {
-        TODO("Not yet implemented")
+
     }
 
     private fun clickHangoutDate() {
@@ -82,12 +91,34 @@ class TredeWriteActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private var items: Array<String> = arrayOf("만나서 장보기","대용량 나누기","무료나눔")
+    private var items: MutableList<String> = mutableListOf()
+
+    //카테고리 디비에서 불러오기
+     private fun getCategoty(){
+        val retrofit: Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+        retrofit.create(TredeService::class.java).loadCategoty().enqueue(object : Callback<MutableList<TredeCategotyVO>>{
+            override fun onResponse(
+                call: Call<MutableList<TredeCategotyVO>>,
+                response: Response<MutableList<TredeCategotyVO>>
+            ) {
+                var resposeItem : MutableList<TredeCategotyVO>? = response.body()
+
+                for(i in resposeItem!!.indices){
+                    items.add(resposeItem.get(i).tredCtyName)
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<MutableList<TredeCategotyVO>>, t: Throwable) {
+                Common.makeToast(this@TredeWriteActivity, "서버에 문제가 있습니다")
+            }
+        })
+     }
 
     private fun clickCategory() {
         //카테고리 클릭 다이아로그
-        builder.setItems(items, DialogInterface.OnClickListener { dialog, which ->
-            //Toast.makeText(this@TredeWriteActivity, items[which], Toast.LENGTH_SHORT).show()
+        builder.setItems(items.toTypedArray() , DialogInterface.OnClickListener { dialog, which ->
             binding.tvTredeCategory.text = items[which]
         }).create().show()
     }
@@ -101,8 +132,17 @@ class TredeWriteActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
-        else if(item.itemId == R.id.option_write) Toast.makeText(this, "등록", Toast.LENGTH_SHORT).show()
+        else if(item.itemId == R.id.option_write) {
+            insertTredeContent()
+            
+            Toast.makeText(this, "글이 등록 되었습니다", Toast.LENGTH_SHORT).show()
+        }
         return super.onOptionsItemSelected(item)
     }
-    
+
+    //글 등록
+    private fun insertTredeContent() {
+        //값 안쓰면 리턴
+    }
+
 }

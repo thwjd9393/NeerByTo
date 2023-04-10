@@ -26,6 +26,7 @@
             android:hint="@string/title"
             android:padding="13dp"
             android:inputType="text"
+            android:maxLength="49"
             android:fontFamily="@font/gmarketsansttfmedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -40,6 +41,7 @@
 
             <EditText
                 android:id="@+id/et_price"
+                android:enabled="false"
                 android:hint="@string/ori_price"
                 android:padding="13dp"
                 android:layout_weight="3"

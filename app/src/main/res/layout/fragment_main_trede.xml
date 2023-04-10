@@ -55,6 +55,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_below="@+id/tv_select_category"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
