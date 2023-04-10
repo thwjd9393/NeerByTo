@@ -1,5 +1,6 @@
 package com.jscompany.neerbyto
 
+// 주소 검색
 data class KakaoSearchPlaceVO(var meta:PlaeMeta , var documents : MutableList<Documents>)
 
 data class PlaeMeta(var total_count : Int, var pageable_count : Int, var is_end : Boolean)
@@ -40,5 +41,22 @@ data class RoadAddress(
     var building_name : String,
     var zone_no : String,
     var x : String, // 경도(longitude)
+    var y : String, // 위도(latitude)
+)
+
+//좌표로 행정구역정보
+data class KakaoSearchMyRegion(var meta: CoordinateMeta, var documents : MutableList<CoordinateDocuments>)
+
+data class CoordinateMeta(var total_count: Int)
+
+data class CoordinateDocuments(
+    var region_type : String,
+    var address_name : String,
+    var region_1depth_name : String,
+    var region_2depth_name : String,
+    var region_3depth_name : String, // 동 단위
+    var region_4depth_name : String, //법정동이며, 리 영역인 경우만 존재
+    var code : String,
+    var x : String, //경도(longitude)
     var y : String, // 위도(latitude)
 )

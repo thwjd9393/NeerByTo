@@ -36,11 +36,11 @@ class LocalAddressRecyclerAdaper(var context:Context, var documents : MutableLis
             //누르면 좌표 가지고 넘어가기
             context.startActivity(Intent(context, MainActivity::class.java))
 
-            Common.latitude = documents.y
-            Common.longitude = documents.x
-            Common.longitude = documents.address.region_3depth_name ?: ""
+            Common.latitude = documents.y //위도
+            Common.longitude = documents.x //경도(longitude)
+            Common.dong = documents.address.region_3depth_name ?: ""
 
-            Toast.makeText(context, "${documents.address.region_3depth_name}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "${documents.address.region_3depth_name}", Toast.LENGTH_SHORT).show()
 
             (context as Activity).finish()
 

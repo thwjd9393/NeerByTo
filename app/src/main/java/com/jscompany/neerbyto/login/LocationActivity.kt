@@ -3,6 +3,7 @@ package com.jscompany.neerbyto.login
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -21,6 +22,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.KakaoSearchPlaceVO
+import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitApiService
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityLocationBinding
@@ -29,10 +31,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.time.LocalDate
 
 class LocationActivity : AppCompatActivity() {
 
     val binding:ActivityLocationBinding by lazy { ActivityLocationBinding.inflate(layoutInflater) }
+
+    var myLocation : Location? = null //null로 주면 서울 시청
 
     // 검색명
     var searchQuery : String = ""
@@ -69,9 +74,6 @@ class LocationActivity : AppCompatActivity() {
             permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {
             requestMyLocation()
-            Toast.makeText(this, " ${Common.myLocation?.latitude}, ${Common.myLocation?.longitude}", Toast.LENGTH_SHORT).show()
-            //위치 얻었으면 화면이동
-            if(Common.myLocation != null) moveToMain ()
         }
 
     }
@@ -100,13 +102,21 @@ class LocationActivity : AppCompatActivity() {
         }
 
         providerClient.requestLocationUpdates(requestFailReason, locationCallback, Looper.getMainLooper())
+
+        Log.i("TAG","GPS : ${myLocation?.latitude} , ${myLocation?.longitude}")
+
+        Common.latitude = myLocation?.latitude.toString()
+        Common.longitude = myLocation?.longitude.toString()
+
+        //위치 얻었으면 화면이동
+        if(myLocation != null) moveToMain ()
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
 
-            Common.myLocation = p0.lastLocation
+            myLocation = p0.lastLocation
 
             providerClient.removeLocationUpdates(this)
         }
@@ -114,11 +124,12 @@ class LocationActivity : AppCompatActivity() {
 
     //검색으로 찾기
     private fun searchPlace() {
+        val header : String = getString(R.string.KakaoAuthorization)
 
         val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.kakaoBaseUrl)
 
         val retrofitApiService = retrofit.create(RetrofitApiService::class.java)
-        retrofitApiService.searchPlace(searchQuery, page).enqueue(object : Callback<KakaoSearchPlaceVO>{
+        retrofitApiService.searchPlace(header,searchQuery, page).enqueue(object : Callback<KakaoSearchPlaceVO>{
             override fun onResponse(
                 call: Call<KakaoSearchPlaceVO>,
                 response: Response<KakaoSearchPlaceVO>

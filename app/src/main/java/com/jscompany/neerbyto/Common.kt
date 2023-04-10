@@ -44,7 +44,6 @@ class Common {
         }
 
         // 현재 내 위치 정보 객체
-        var myLocation : Location? = null //null로 주면 서울 시청
         var latitude : String? = null //경도
         var longitude : String? = null //위도
         var dong : String? = null //동
