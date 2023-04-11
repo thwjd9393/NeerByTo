@@ -80,6 +80,10 @@
     <string name="select_stop">선택한 약속 장소 표시</string>
     <string name="price_hint">원가와 모집인원을 입력하면 인당 지불 급액은 자동 계산됩니다</string>
     <string name="to_write">글쓰기</string>
+    <string name="select_spot">약속장소를 선택하세요</string>
+    <string name="select_spot_hint">장소 검색</string>
+    <string name="select">선택</string>
+    <string name="detail">상세보기</string>
 
     <string name="manner_detail">매너 상세</string>
 

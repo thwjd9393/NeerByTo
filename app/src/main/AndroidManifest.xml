@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".GlobalApplication"
@@ -18,8 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NeerByTo"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".trede.PlaceUrlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".trede.TredeSearchPlaceActivity"
+            android:exported="false" />
         <activity
             android:name=".profile.MannerEstimateBadActivity"
             android:exported="false" />
@@ -75,9 +79,7 @@
         <activity
             android:name=".intro.IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.Splash">
-
-        </activity>
+            android:theme="@style/Theme.Splash" />
         <activity
             android:name=".trede.TredeDetailActivity"
             android:exported="false" />
@@ -93,25 +95,21 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".main.MainActivity"
-            android:exported="false"/>
-
-        <!-- 카카오 Auth -->
+            android:exported="false" /> <!-- 카카오 Auth -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -121,7 +119,6 @@
                     android:scheme="@string/kakaoNativeAppKey" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

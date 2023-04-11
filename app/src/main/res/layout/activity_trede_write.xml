@@ -41,7 +41,6 @@
 
             <EditText
                 android:id="@+id/et_price"
-                android:enabled="false"
                 android:hint="@string/ori_price"
                 android:padding="13dp"
                 android:layout_weight="3"
@@ -56,6 +55,7 @@
                 android:hint="@string/hangout_cnt"
                 android:padding="13dp"
                 android:layout_weight="1"
+                android:maxLength="1"
                 android:inputType="number"
                 android:textSize="14sp"
                 android:fontFamily="@font/gmarketsansttfmedium"
@@ -118,6 +118,12 @@
             android:layout_below="@+id/warp_time"
             android:fontFamily="@font/gmarketsansttfmedium"
             android:background="@drawable/bg_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_trede_category_indenx"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

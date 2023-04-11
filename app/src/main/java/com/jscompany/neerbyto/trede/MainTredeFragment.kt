@@ -1,6 +1,7 @@
 package com.jscompany.neerbyto.trede
 
 import android.Manifest
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,13 +27,11 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.jscompany.neerbyto.Common
-import com.jscompany.neerbyto.CoordinateDocuments
 import com.jscompany.neerbyto.KakaoSearchMyRegion
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitApiService
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.FragmentMainTredeBinding
-import com.jscompany.neerbyto.login.LocationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,6 +66,11 @@ class MainTredeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var longitude = Common.longitude ?: ""
+        var latitude = Common.latitude ?: ""
+        //좌표로 내 위치 가져오기
+        searchMyRegion(longitude, latitude, requireActivity())
+
         //툴바 생성
         val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
         toolbar.inflateMenu(R.menu.option_trede) // 메뉴xml과 상단바 연결 (프래그먼트xml에서 연결했으면 안해도 됨)
@@ -90,9 +94,6 @@ class MainTredeFragment : Fragment() {
             }
         }
 
-        //좌표로 내 위치 가져오기
-        searchMyRegion()
-
         //위치 정보 다시 가져오기
         binding.topFindLocation.setOnClickListener { findByGps()}
 
@@ -103,6 +104,7 @@ class MainTredeFragment : Fragment() {
         binding.btnWrite.setOnClickListener { clickTredrWrite() }
 
     }
+
 
     private var items: Array<String> = arrayOf("전체","만나서 장보기","대용량 나누기","무료나눔")
 
@@ -116,13 +118,11 @@ class MainTredeFragment : Fragment() {
         binding.homeRecycler.adapter = TredeAdapter(requireActivity(), tredeList)
     }
 
-    private fun searchMyRegion() {
+    private fun searchMyRegion(longitude : String , latitude : String, context: Context) {
         //좌표로 내 지역 찾아오기
-        Log.i("TAG", "${Common.longitude} + ${Common.latitude}")
+        Log.i("TAG", "내 좌표 : ${Common.longitude} + ${Common.latitude}")
 
         val header = getString(R.string.KakaoAuthorization)
-        var longitude = Common.longitude ?: ""
-        var latitude = Common.latitude ?: ""
 
         val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.kakaoBaseUrl)
 
@@ -140,7 +140,8 @@ class MainTredeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<KakaoSearchMyRegion>, t: Throwable) {
-                Common.makeToast(requireActivity(),"서버에 문제가 있습니다")
+                Common.makeToast(context,"서버에 문제가 있습니다 searchMyRegion ${t.message}")
+                Log.i("TAG", " 문제 : ${t.message}")
             }
         })
     }
@@ -187,8 +188,11 @@ class MainTredeFragment : Fragment() {
         Common.latitude = myLocation?.latitude.toString()
         Common.longitude = myLocation?.longitude.toString()
 
+        var longitude = Common.longitude!!
+        var latitude = Common.latitude!!
+
         //위치 얻었으면 내 위치 다시 표시
-        if(myLocation != null) searchMyRegion()
+        if(myLocation != null) searchMyRegion(longitude, latitude, requireContext())
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {

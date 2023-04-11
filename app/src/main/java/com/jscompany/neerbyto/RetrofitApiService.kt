@@ -16,4 +16,13 @@ interface RetrofitApiService {
     //좌표로 행정구역정보
     @GET("/v2/local/geo/coord2regioncode")
     fun searchAdress(@Header("Authorization")header : String, @Query("x")longitude:String, @Query("y")latitude:String) : Call<KakaoSearchMyRegion>
+
+    //키워드로 찾기 - X : 경도(longitude) Y : 위도(latitude)
+    @GET("/v2/local/search/keyword")
+    fun keywordPlace(@Header("Authorization")header:String,
+                     @Query("query")query:String,
+                     @Query("x")longitude:String,
+                     @Query("y")latitude:String,
+                     @Query("page")page:String):Call<KakaoSerchPlaceResponce>
+
 }

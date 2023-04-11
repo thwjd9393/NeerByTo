@@ -39,4 +39,9 @@ interface UserService {
     fun getNidUserInfo(@Header("Authorization") authorization : String) : Call<NIdUserInfo>
     //Authorization : 토큰값 가져올 애
 
+    //유저 no 받아오기
+    @FormUrlEncoded
+    @POST("NeerByTo/getUserNo.php")
+    fun getUserNo(@Field("id") id : String) : Call<String>
+
 }
