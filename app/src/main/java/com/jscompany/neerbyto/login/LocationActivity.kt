@@ -109,7 +109,7 @@ class LocationActivity : AppCompatActivity() {
         Common.longitude = myLocation?.longitude.toString()
 
         //위치 얻었으면 화면이동
-        if(myLocation != null) moveToMain ()
+        if(myLocation != null ) moveToMain ()
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {

@@ -4,23 +4,24 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityTredeWriteBinding
-import com.jscompany.neerbyto.login.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.create
 import java.util.Calendar
 
 
@@ -31,6 +32,10 @@ class TredeWriteActivity : AppCompatActivity() {
     private val builder  : AlertDialog.Builder by lazy { AlertDialog.Builder(this) }
 
     private val cal : Calendar by lazy { Calendar.getInstance() }
+
+    //이미지 담을 리스트
+    var uriArrayList : MutableList<Uri> = mutableListOf()
+    lateinit var imgAdapter : TredeImgAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,12 +71,36 @@ class TredeWriteActivity : AppCompatActivity() {
         //카메라 버튼 클릭 -> 갤러리 이동
         binding.btnSelectImg.setOnClickListener { clickSelectImg() }
 
+        //이미지 아답터 연결
+        imgAdapter = TredeImgAdapter(this,uriArrayList)
+        binding.recyclerTredeImg.adapter = imgAdapter
 
     }
 
     //카메라 버튼 클릭 -> 갤러리 이동
     private fun clickSelectImg() {
+        //사진픽 띄우기
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        resultLauncher.launch(intent)
+    }
 
+    var resultLauncher : ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+        if (result.resultCode != RESULT_CANCELED) { //취소하고 돌아오지 않을 때
+            val intent = result.data //uri
+            val clipData = intent?.clipData
+            //ClipData : 선택한걸 저장 복사한 조그마한 저장소
+            if(clipData == null) return@registerForActivityResult
+
+            val size = clipData!!.itemCount //아이템 개수
+
+            //!!이미지 셋!!
+            for (i in 0 until size) {
+                uriArrayList.add(clipData.getItemAt(i).uri)
+            }
+
+            //아답터한테 알려주기 - 화면 갱신~!
+            imgAdapter.notifyDataSetChanged()
+        }
     }
 
     //약속장소 버튼 -> 키워드 검색 -> 클릭 => 지도 확인,,,,

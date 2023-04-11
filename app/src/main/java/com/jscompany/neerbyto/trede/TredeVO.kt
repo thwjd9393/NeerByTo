@@ -16,6 +16,9 @@ data class TredeVO(
     var img2 : String,
     var img3 : String,
     var tredCtyNo : Int,
+    var tredCtyName : String, //카테고리 네임
     var userNo : Int,
+    var likeCnt : Int, //좋아요 수
+    var date : String,
     )
 

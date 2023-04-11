@@ -24,6 +24,11 @@ class TredeAdapter(var contrxt:Context, var items:MutableList<TredeVO>) :
         holder.binding.tvTitle.text = item.title
         holder.binding.tvPrice.text = "${item.price} 원"
         holder.binding.tvJoinCount.text = item.joinCount.toString()
+        holder.binding.tvDate.text = item.date
+        holder.binding.tvCategory.text = item.tredCtyName
+        holder.binding.tvPlace.text = item.joinPlace
+        holder.binding.tvHangOutTime.text = item.joinTime
+        holder.binding.tvViewCnt.text = item.likeCnt.toString()
     }
     
 }

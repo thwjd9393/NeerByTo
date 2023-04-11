@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_below="@+id/tv_select_category"
         android:padding="16dp"
         android:layout_width="match_parent"
@@ -67,6 +68,17 @@
             android:layout_height="match_parent"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:text="데이터가 없습니다"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_write"

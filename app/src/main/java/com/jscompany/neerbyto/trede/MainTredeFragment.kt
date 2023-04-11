@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -69,7 +70,10 @@ class MainTredeFragment : Fragment() {
         var longitude = Common.longitude ?: ""
         var latitude = Common.latitude ?: ""
         //좌표로 내 위치 가져오기
-        searchMyRegion(longitude, latitude, requireActivity())
+        if(longitude != null && latitude != null){
+            searchMyRegion(longitude, latitude, requireActivity())
+        }
+
 
         //툴바 생성
         val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
@@ -97,28 +101,60 @@ class MainTredeFragment : Fragment() {
         //위치 정보 다시 가져오기
         binding.topFindLocation.setOnClickListener { findByGps()}
 
-        //화면에 글 보여주기
-        setRecyclerView()
-
-        //글쓰기 버튼
+        //글쓰기 버튼 - 로그인해야 보이기
         binding.btnWrite.setOnClickListener { clickTredrWrite() }
+
+        //화면에 글 보여주기
+        setRecyclerView(requireActivity()); //데이터 로드
+
+        //리프레시
+        binding.refreshLayout.setOnRefreshListener( object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                setRecyclerView(requireActivity());
+            }
+
+        })
 
     }
 
 
     private var items: Array<String> = arrayOf("전체","만나서 장보기","대용량 나누기","무료나눔")
 
-    private var tredeList : MutableList<TredeVO> = mutableListOf()
+    //private var tredeList : MutableList<TredeVO> = mutableListOf()
 
     //화면 글 아답터
-    private fun setRecyclerView(){
+    private fun setRecyclerView(context: Context){
         //대량 데이터 넣기~
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+            .create(TredeService::class.java).loadTredeData("2")
+            .enqueue(object : Callback<MutableList<TredeVO>>{
+                override fun onResponse(
+                    call: Call<MutableList<TredeVO>>,
+                    response: Response<MutableList<TredeVO>>
+                ) {
+                    var tredeList = response.body()
 
-        //아답터 연결
-        binding.homeRecycler.adapter = TredeAdapter(requireActivity(), tredeList)
+                    if(tredeList == null) {
+                        binding.tvEmpty.visibility = View.VISIBLE
+                    }
+
+                    binding.tvEmpty.visibility = View.GONE
+
+                    binding.homeRecycler.adapter = TredeAdapter(context, tredeList!!)
+
+                    binding.refreshLayout.isRefreshing = false
+                }
+
+                override fun onFailure(call: Call<MutableList<TredeVO>>, t: Throwable) {
+                    Common.makeToast(context,"서버에 문제가 있습니다")
+                }
+
+            })
+
     }
 
     private fun searchMyRegion(longitude : String , latitude : String, context: Context) {
+
         //좌표로 내 지역 찾아오기
         Log.i("TAG", "내 좌표 : ${Common.longitude} + ${Common.latitude}")
 
@@ -192,7 +228,7 @@ class MainTredeFragment : Fragment() {
         var latitude = Common.latitude!!
 
         //위치 얻었으면 내 위치 다시 표시
-        if(myLocation != null) searchMyRegion(longitude, latitude, requireContext())
+        if(myLocation != null && longitude != null && latitude != null) searchMyRegion(longitude, latitude, requireContext())
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {

@@ -2,6 +2,8 @@ package com.jscompany.neerbyto.trede
 
 import okhttp3.MultipartBody
 import retrofit2.Call
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -21,5 +23,9 @@ interface TredeService {
     fun insertTredeData(@PartMap dataPart: MutableMap<String, String>) : Call<String>
     //fun insertTredeData(@PartMap dataPart: MutableMap<String, String>,@Part filePart: MultipartBody.Part) : Call<String>
 
+    //데이터 불러오기
+    @FormUrlEncoded
+    @POST("NeerByTo/loadTredeData.php")
+    fun loadTredeData(@Field("tredCtyNo") tredCtyNo : String) : Call<MutableList<TredeVO>>
 
 }
