@@ -18,13 +18,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.jscompany.neerbyto.Common
+import com.jscompany.neerbyto.FilePathFormUri
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityTredeWriteBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.io.File
 import java.util.Calendar
 
 
@@ -36,8 +41,13 @@ class TredeWriteActivity : AppCompatActivity() {
 
     private val cal : Calendar by lazy { Calendar.getInstance() }
 
+    //선택한 장소 위도 경도
+    lateinit var selectLongitude : String
+    lateinit var selectLatitude : String
+
     //이미지 담을 리스트
     var uriArrayList : MutableList<Uri> = mutableListOf()
+
     var imgPathList : MutableList<String> = mutableListOf() //이미지 path담을 애
     lateinit var imgAdapter : TredeImgAdapter
 
@@ -134,6 +144,9 @@ class TredeWriteActivity : AppCompatActivity() {
                 val intent = result!!.data
 
                 binding.tvSelectSpot.text = intent?.getStringExtra("placeName") ?: "" //아답터에서 선택한 이름
+                //selectLongitude = intent?.getStringExtra("x_longitude")
+                //selectLatitude =  intent?.getStringExtra("y_latitude")
+
             }
 
         }
@@ -213,97 +226,100 @@ class TredeWriteActivity : AppCompatActivity() {
     //글 등록
     private fun insertTredeContent() {
         //전송할 데이터 묶기
-        var title = binding.etTitle.text.toString()
-        var content = binding.etContent.text.toString()
-        var joinCount = binding.etJoinCount.text.toString()
-        var joinDate = binding.tvHangoutDate.text.toString()
-        var joinTime = binding.tvHangoutTime.text.toString()
-        var joinPlace = binding.tvSelectSpot.text.toString()
-        var resion = Common.dong ?: ""
-        var tredCtyNo = binding.tvTredeCategoryIndenx.text.toString()
-        var userNo = Common.getUserNo(this)
-
-        var oriPrice = binding.etPrice.text.toString()
-        var price = "0"
-        if(oriPrice == "") oriPrice = "0" else price = (oriPrice.toInt() / joinCount.toInt()).toString()
-        if (joinPlace == "선택한 약속 장소 표시") joinPlace = "대화하고 정해요"
+//        var title = binding.etTitle.text.toString()
+//        var content = binding.etContent.text.toString()
+//        var joinCount = binding.etJoinCount.text.toString()
+//        var joinDate = binding.tvHangoutDate.text.toString()
+//        var joinTime = binding.tvHangoutTime.text.toString()
+//        var joinPlace = binding.tvSelectSpot.text.toString()
+//        var resion = Common.dong ?: ""
+//        var tredCtyNo = binding.tvTredeCategoryIndenx.text.toString()
+//        var userNo = Common.getUserNo(this)
+//
+//        var oriPrice = binding.etPrice.text.toString()
+//        var price = "0"
+//        if(oriPrice == "") oriPrice = "0" else price = (oriPrice.toInt() / joinCount.toInt()).toString()
+//        if (joinPlace == "선택한 약속 장소 표시") joinPlace = "대화하고 정해요"
 
         //빈 값 체크
-        if (title == "" ) {
-            Common.makeToast(this, "제목을 입력하세요")
-            binding.etTitle.requestFocus() //포커스 올리기
-            return
-        }  else if (joinCount == ""){
-            Common.makeToast(this, "모집 인원을 입력하세요")
-            binding.etJoinCount.requestFocus() //포커스 올리기
-            return
-        } else if (joinCount == "1"){
-            Common.makeToast(this, "'작성자 포함' 인원수를 입력하세요")
-            binding.etJoinCount.requestFocus() //포커스 올리기
-            return
-        } else if (joinDate == ""|| joinDate == "약속 날짜"){
-            Common.makeToast(this, "약속 날짜를 선택하세요")
-            return
-        } else if (joinTime == "" || joinTime=="약속 시간"){
-            Common.makeToast(this, "약속 시간을 선택하세요")
-            return
-        } else if (tredCtyNo == "" || tredCtyNo=="0"){
-            Common.makeToast(this, "카테고리를 다시 선택해 주세요")
-            return
-        } else if (content == ""){
-            Common.makeToast(this, "내용을 입력하세요")
-            binding.etContent.requestFocus() //포커스 올리기
-            return
-        }
+//        if (title == "" ) {
+//            Common.makeToast(this, "제목을 입력하세요")
+//            binding.etTitle.requestFocus() //포커스 올리기
+//            return
+//        }  else if (joinCount == ""){
+//            Common.makeToast(this, "모집 인원을 입력하세요")
+//            binding.etJoinCount.requestFocus() //포커스 올리기
+//            return
+//        } else if (joinCount == "1"){
+//            Common.makeToast(this, "'작성자 포함' 인원수를 입력하세요")
+//            binding.etJoinCount.requestFocus() //포커스 올리기
+//            return
+//        } else if (joinDate == ""|| joinDate == "약속 날짜"){
+//            Common.makeToast(this, "약속 날짜를 선택하세요")
+//            return
+//        } else if (joinTime == "" || joinTime=="약속 시간"){
+//            Common.makeToast(this, "약속 시간을 선택하세요")
+//            return
+//        } else if (tredCtyNo == "" || tredCtyNo=="0"){
+//            Common.makeToast(this, "카테고리를 다시 선택해 주세요")
+//            return
+//        } else if (content == ""){
+//            Common.makeToast(this, "내용을 입력하세요")
+//            binding.etContent.requestFocus() //포커스 올리기
+//            return
+//        }
 
         //맵에 넣기
-        var dataPart : MutableMap<String,String> = mutableMapOf()
-        dataPart.put("title", title)
-        dataPart.put("content", content)
-        dataPart.put("oriPrice", oriPrice)
-        dataPart.put("price", price)
-        dataPart.put("joinDate", joinDate)
-        dataPart.put("joinTime", joinTime)
-        dataPart.put("joinPlace", joinPlace)
-        dataPart.put("resion", resion)
-        dataPart.put("tredCtyNo", tredCtyNo)
-        dataPart.put("userNo", userNo)
+//        var dataPart : MutableMap<String,String> = mutableMapOf()
+//        dataPart.put("title", title)
+//        dataPart.put("content", content)
+//        dataPart.put("oriPrice", oriPrice)
+//        dataPart.put("price", price)
+//        dataPart.put("joinDate", joinDate)
+//        dataPart.put("joinTime", joinTime)
+//        dataPart.put("joinPlace", joinPlace)
+//        dataPart.put("resion", resion)
+//        dataPart.put("tredCtyNo", tredCtyNo)
+//        dataPart.put("userNo", userNo)
 
-        //이미지 택배 박스
-//        var fileParts : MutableList<MultipartBody.Part?> = mutableListOf()
-//
-//        if(uriArrayList.isNotEmpty() && uriArrayList != null){
-//            //이미지 저장
-//            for(i in 0 until uriArrayList.size){
-//                var uri : Uri = uriArrayList.get(i)
-//                imgPathList.add(FilePathFormUri.getFilePathFromUri(uri, this)) //절대경로로 바꾸기
-//
-//                //var files : List<File> = File(imgPathList.get(i))
-//                var files : MutableList<File> = mutableListOf()
-//                files.add(File(imgPathList[i]))
-//
-//                val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), files[i])
-//                var filePart : MultipartBody.Part = MultipartBody.Part.createFormData("img", files.get(i).name, body)
-//
-//                //추가
-//                fileParts?.add(filePart)
-//
-//                Log.i("TAG","filePart = ${imgPathList.get(i)}")
-//            }
-//        }
+        //절대 경로로 변경한 이미지 담는 리스트
+        var fileParts : MutableList<MultipartBody.Part?> = mutableListOf()
+
+        if(uriArrayList.isNotEmpty() && uriArrayList != null){
+            //이미지 저장
+            for(i in 0 until uriArrayList.size){
+                var uri : Uri = uriArrayList.get(i)
+                imgPathList.add(FilePathFormUri.getFilePathFromUri(uri, this)) //절대경로로 바꾸기
+
+                //var files : List<File> = File(imgPathList.get(i))
+                var files : MutableList<File> = mutableListOf() //절대 경로를 가진 리스트
+                files.add(File(imgPathList[i])) 
+
+                // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
+                val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), files[i])
+                var filePart : MultipartBody.Part = MultipartBody.Part.createFormData("img${i}", files.get(i).name, body)
+
+                //추가
+                fileParts?.add(filePart)
+
+                Log.i("TAG","fileParts = ${imgPathList.size}")
+                Log.i("TAG","uriArrayList = ${uriArrayList.size}")
+                Log.i("TAG","files = ${files.size}")
+            }
+        }
 
 
         //레트로핏 작업
-        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
-            .create(TredeService::class.java).insertTredeData(dataPart).enqueue(object : Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    var result = response.body()
-
-                    Common.makeToast(this@TredeWriteActivity, result)
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) = Common.makeToast(this@TredeWriteActivity,"서버에 문제가 있습니다")
-            })
+//        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+//            .create(TredeService::class.java).insertTredeData(dataPart).enqueue(object : Callback<String>{
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                    var result = response.body()
+//
+//                    Common.makeToast(this@TredeWriteActivity, result)
+//                }
+//
+//                override fun onFailure(call: Call<String>, t: Throwable) = Common.makeToast(this@TredeWriteActivity,"서버에 문제가 있습니다")
+//            })
 
     }
 

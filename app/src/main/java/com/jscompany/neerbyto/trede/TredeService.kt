@@ -20,8 +20,8 @@ interface TredeService {
     //데이터 저장
     @Multipart
     @POST("NeerByTo/insertTredeData.php")
-    fun insertTredeData(@PartMap dataPart: MutableMap<String, String>) : Call<String>
-    //fun insertTredeData(@PartMap dataPart: MutableMap<String, String>,@Part imageList : MutableList<MultipartBody.Part>) : Call<String>
+    //fun insertTredeData(@PartMap dataPart: MutableMap<String, String>) : Call<String>
+    fun insertTredeData(@PartMap dataPart: MutableMap<String, String>,@Part imageList : MutableList<MultipartBody.Part>) : Call<String>
 
     //데이터 불러오기
     @FormUrlEncoded
