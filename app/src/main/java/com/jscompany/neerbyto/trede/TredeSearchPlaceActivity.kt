@@ -1,5 +1,6 @@
 package com.jscompany.neerbyto.trede
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -53,7 +54,7 @@ class TredeSearchPlaceActivity : AppCompatActivity() {
         val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.kakaoBaseUrl)
         //2. 서비스 객체
         val retrofitApiService =retrofit.create(RetrofitApiService::class.java)
-        retrofitApiService.keywordPlace(header, searchQuery, Common.longitude!!, Common.latitude!!, page)
+        retrofitApiService.keywordPlace(header, searchQuery, Common.getUserlongitude(this), Common.getUserlatitude(this), page)
             .enqueue(object : Callback<KakaoSerchPlaceResponce>{
                 override fun onResponse(
                     call: Call<KakaoSerchPlaceResponce>,
@@ -68,12 +69,28 @@ class TredeSearchPlaceActivity : AppCompatActivity() {
                     binding.locationRecycler.adapter =
                         serchPlaceResponce?.let { TredeSearchPlaceAdapter(this@TredeSearchPlaceActivity, it.documents) }
 
+                    if(serchPlaceResponce == null){
+                        binding.emptyWarp.visibility = View.VISIBLE
+                        binding.locationRecycler.visibility = View.GONE
+                    }
+
                 }
 
                 override fun onFailure(call: Call<KakaoSerchPlaceResponce>, t: Throwable)
                     = Common.makeToast(this@TredeSearchPlaceActivity, "서버에 문제가 있습니다")
             })
 
+    }
+
+    fun setResultData(placeName: String, x_longitude : String, y_latitude : String){
+        val intent : Intent = intent.apply {
+            putExtra("placeName", placeName)
+            putExtra("x_longitude", x_longitude) //경도
+            putExtra("y_latitude", y_latitude) //위도
+        }
+
+        setResult(RESULT_OK, intent);
+        finish()
     }
 
 }

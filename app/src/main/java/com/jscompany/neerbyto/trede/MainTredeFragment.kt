@@ -17,6 +17,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -67,13 +68,14 @@ class MainTredeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var longitude = Common.longitude ?: ""
-        var latitude = Common.latitude ?: ""
+
         //좌표로 내 위치 가져오기
+        var longitude :String = Common.getUserlongitude(requireContext())
+        var latitude :String = Common.getUserlatitude(requireContext())
+
         if(longitude != null && latitude != null){
             searchMyRegion(longitude, latitude, requireActivity())
         }
-
 
         //툴바 생성
         val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
@@ -126,7 +128,7 @@ class MainTredeFragment : Fragment() {
     private fun setRecyclerView(context: Context){
         //대량 데이터 넣기~
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
-            .create(TredeService::class.java).loadTredeData("2")
+            .create(TredeService::class.java).loadTredeData("0")
             .enqueue(object : Callback<MutableList<TredeVO>>{
                 override fun onResponse(
                     call: Call<MutableList<TredeVO>>,
@@ -156,7 +158,7 @@ class MainTredeFragment : Fragment() {
     private fun searchMyRegion(longitude : String , latitude : String, context: Context) {
 
         //좌표로 내 지역 찾아오기
-        Log.i("TAG", "내 좌표 : ${Common.longitude} + ${Common.latitude}")
+        Log.i("TAG", "내 좌표 : ${Common.getUserlatitude(requireActivity())} + ${Common.getUserlongitude(requireActivity())}")
 
         val header = getString(R.string.KakaoAuthorization)
 
@@ -224,11 +226,15 @@ class MainTredeFragment : Fragment() {
         Common.latitude = myLocation?.latitude.toString()
         Common.longitude = myLocation?.longitude.toString()
 
-        var longitude = Common.longitude!!
-        var latitude = Common.latitude!!
+        //쉐어드에 저장
+        sharedPreferences(myLocation?.latitude.toString(), myLocation?.longitude.toString())
+
+        var longitude = Common.getUserlongitude(requireActivity())
+        var latitude = Common.getUserlatitude(requireActivity())
 
         //위치 얻었으면 내 위치 다시 표시
-        if(myLocation != null && longitude != null && latitude != null) searchMyRegion(longitude, latitude, requireContext())
+        if(myLocation != null && longitude != null && latitude != null) searchMyRegion(Common.getUserlongitude(requireContext()), Common.getUserlatitude(requireContext()), requireActivity())
+
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {
@@ -239,6 +245,16 @@ class MainTredeFragment : Fragment() {
 
             providerClient.removeLocationUpdates(this)
         }
+    }
+
+    private fun sharedPreferences (latitude : String, longitude : String){
+        val pref = requireActivity().getSharedPreferences("Data", AppCompatActivity.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        editor.putString("latitude",latitude); //경도
+        editor.putString("longitude",longitude); //위도
+
+        editor.commit()
     }
 
 

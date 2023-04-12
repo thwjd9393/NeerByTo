@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.databinding.ItemTredeSelectImgBinding
 
 class TredeImgAdapter(var context:Context ,var items : MutableList<Uri>) : Adapter<TredeImgAdapter.VH>() {
@@ -21,7 +22,6 @@ class TredeImgAdapter(var context:Context ,var items : MutableList<Uri>) : Adapt
     override fun onBindViewHolder(holder: VH, position: Int) {
         //iv_select_img
         //var iv : ImageView
-
         Glide.with(context).load(items.get(position)).into(holder.binding.ivSelectImg)
     }
 

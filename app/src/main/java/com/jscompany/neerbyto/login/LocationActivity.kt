@@ -108,8 +108,21 @@ class LocationActivity : AppCompatActivity() {
         Common.latitude = myLocation?.latitude.toString()
         Common.longitude = myLocation?.longitude.toString()
 
+        //쉐어드에 저장
+        sharedPreferences(myLocation?.latitude.toString(), myLocation?.longitude.toString())
+
         //위치 얻었으면 화면이동
         if(myLocation != null ) moveToMain ()
+    }
+
+    private fun sharedPreferences (latitude : String, longitude : String){
+        val pref = getSharedPreferences("Data", MODE_PRIVATE)
+        val editor = pref.edit()
+
+        editor.putString("latitude",latitude); //경도
+        editor.putString("longitude",longitude); //위도
+
+        editor.commit()
     }
 
     private val locationCallback : LocationCallback = object : LocationCallback() {

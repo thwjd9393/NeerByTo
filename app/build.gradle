@@ -46,7 +46,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
     implementation 'com.tbuonomo:dotsindicator:4.3'
-    implementation 'com.github.bumptech.glide:glide:4.15.1' //글라이드
+    implementation 'com.github.bumptech.glide:glide:4.15.1' //글라이
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

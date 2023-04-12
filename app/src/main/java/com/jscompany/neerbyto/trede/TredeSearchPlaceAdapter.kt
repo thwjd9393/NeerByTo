@@ -3,13 +3,14 @@ package com.jscompany.neerbyto.trede
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.airbnb.lottie.animation.content.Content
 import com.jscompany.neerbyto.PlaceDocumentsItem
 import com.jscompany.neerbyto.databinding.ItemTredeSearchPlaceItemBinding
+
 
 class TredeSearchPlaceAdapter(var context : Context, var documents : MutableList<PlaceDocumentsItem>)
     : Adapter<TredeSearchPlaceAdapter.VH>() {
@@ -37,15 +38,12 @@ class TredeSearchPlaceAdapter(var context : Context, var documents : MutableList
         
         //선택한 값 가지고 이동
         holder.binding.btnSelect.setOnClickListener {
-            val intent : Intent = Intent(context, TredeWriteActivity::class.java)
-            intent.putExtra("placeName", place.place_name)
-            intent.putExtra("x_longitude", place.x) //경도
-            intent.putExtra("y_latitude", place.y) //위도
-            context.startActivity(intent)
 
-            (context as Activity).finish()
+            (context as TredeSearchPlaceActivity).setResultData(place.place_name,place.x,place.y)
+
         }
 
     }
+
 
 }
