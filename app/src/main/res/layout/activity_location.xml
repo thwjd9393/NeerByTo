@@ -30,6 +30,7 @@
             android:id="@+id/et_search"
             android:hint="@string/find_location_hint"
             android:layout_toRightOf="@+id/iv_search"
+            android:background="@color/white"
             android:inputType="text"
             android:imeOptions="actionSearch"
             android:padding="8dp"
