@@ -284,6 +284,7 @@ class TredeWriteActivity : AppCompatActivity() {
         dataPart.put("oriPrice", oriPrice)
         dataPart.put("price", price)
         dataPart.put("joinDate", joinDate)
+        dataPart.put("joinCount", joinCount)
         dataPart.put("joinTime", joinTime)
         dataPart.put("joinPlace", joinPlace)
         dataPart.put("resion", resion)

@@ -176,7 +176,7 @@ class MainTredeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<KakaoSearchMyRegion>, t: Throwable) {
-                Common.makeToast(context,"서버에 문제가 있습니다 searchMyRegion ${t.message}")
+                Common.makeToast(context,"서버에 문제가 있습니다")
                 Log.i("TAG", " 문제 : ${t.message}")
             }
         })

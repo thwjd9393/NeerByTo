@@ -47,5 +47,6 @@ data class TredeDetail(
     var likeCnt : Int, //좋아요 수
     var date : String,
     var userNic : String,
+    var profileImg : String,
 )
 
