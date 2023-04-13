@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.jscompany.neerbyto.Common
@@ -36,11 +37,10 @@ class LocalAddressRecyclerAdaper(var context:Context, var documents : MutableLis
             //누르면 좌표 가지고 넘어가기
             context.startActivity(Intent(context, MainActivity::class.java))
 
-            var latitude = Common.getUserlatitude(context)
-            var longitude = Common.getUserlatitude(context)
-
-            latitude = documents.y //위도
-            latitude = documents.x //경도(longitude)
+            var latitude = documents.y //위도
+            var longitude = documents.x //경도(longitude)
+            sharedPreferences(latitude,longitude) //쉐어드에 저장
+            
             Common.dong = documents.address.region_3depth_name ?: ""
 
             //Toast.makeText(context, "${documents.address.region_3depth_name}", Toast.LENGTH_SHORT).show()
@@ -48,6 +48,16 @@ class LocalAddressRecyclerAdaper(var context:Context, var documents : MutableLis
             (context as Activity).finish()
 
         }
+    }
+
+    private fun sharedPreferences (latitude : String, longitude : String){
+        val pref = context.getSharedPreferences("Data", AppCompatActivity.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        editor.putString("latitude",latitude); //경도
+        editor.putString("longitude",longitude); //위도
+
+        editor.commit()
     }
 
 }

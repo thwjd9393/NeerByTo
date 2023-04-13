@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -62,13 +63,6 @@ class MainTredeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
         //좌표로 내 위치 가져오기
         var longitude :String = Common.getUserlongitude(requireContext())
         var latitude :String = Common.getUserlatitude(requireContext())
@@ -76,6 +70,12 @@ class MainTredeFragment : Fragment() {
         if(longitude != null && latitude != null){
             searchMyRegion(longitude, latitude, requireActivity())
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //툴바 생성
         val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
@@ -90,7 +90,7 @@ class MainTredeFragment : Fragment() {
                 }
                 R.id.option_categoty -> {
                     builder.setItems(items, DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(requireActivity(), items[which], Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireActivity(), items[which], Toast.LENGTH_SHORT).show()
                         binding.tvSelectCategory.text = "' ${items[which]} '"
                     }).create().show()
 
@@ -107,15 +107,10 @@ class MainTredeFragment : Fragment() {
         binding.btnWrite.setOnClickListener { clickTredrWrite() }
 
         //화면에 글 보여주기
-        setRecyclerView(requireActivity()); //데이터 로드
+        setRecyclerView(requireActivity()) //데이터 로드
 
         //리프레시
-        binding.refreshLayout.setOnRefreshListener( object : SwipeRefreshLayout.OnRefreshListener {
-            override fun onRefresh() {
-                setRecyclerView(requireActivity());
-            }
-
-        })
+        binding.refreshLayout.setOnRefreshListener { setRecyclerView(requireActivity()); }
 
     }
 
@@ -126,9 +121,11 @@ class MainTredeFragment : Fragment() {
 
     //화면 글 아답터
     private fun setRecyclerView(context: Context){
+        Log.i("TAG", "${Common.dong}")
+
         //대량 데이터 넣기~
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
-            .create(TredeService::class.java).loadTredeData("0")
+            .create(TredeService::class.java).loadTredeData("0",Common.dong.toString())
             .enqueue(object : Callback<MutableList<TredeVO>>{
                 override fun onResponse(
                     call: Call<MutableList<TredeVO>>,
@@ -149,6 +146,7 @@ class MainTredeFragment : Fragment() {
 
                 override fun onFailure(call: Call<MutableList<TredeVO>>, t: Throwable) {
                     Common.makeToast(context,"서버에 문제가 있습니다")
+                    Log.i("TAG", "setRecyclerView 문제 : ${t.message}")
                 }
 
             })

@@ -3,6 +3,7 @@ package com.jscompany.neerbyto.trede
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.jscompany.neerbyto.Common
@@ -17,9 +18,11 @@ class TredeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var tredeNo : String = intent.getStringExtra("tredeNo") ?: ""
+
+        Log.i("TAG","${tredeNo}")
+
         init()
-
-
 
     }
 

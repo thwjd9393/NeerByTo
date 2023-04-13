@@ -275,6 +275,8 @@ class TredeWriteActivity : AppCompatActivity() {
             return
         }
 
+        var tredCtyNoResult : String = (tredCtyNo.toInt() + 1).toString()
+
         //맵에 넣기
         var dataPart : MutableMap<String,String> = mutableMapOf()
         dataPart.put("title", title)
@@ -285,7 +287,7 @@ class TredeWriteActivity : AppCompatActivity() {
         dataPart.put("joinTime", joinTime)
         dataPart.put("joinPlace", joinPlace)
         dataPart.put("resion", resion)
-        dataPart.put("tredCtyNo", tredCtyNo)
+        dataPart.put("tredCtyNo", tredCtyNoResult)
         dataPart.put("userNo", userNo)
         dataPart.put("selectLon", selectLongitude)
         dataPart.put("selectLat", selectLatitude)
@@ -329,6 +331,7 @@ class TredeWriteActivity : AppCompatActivity() {
 
                     //디테일 페이지로 이동
                     startActivity(Intent(this@TredeWriteActivity, TredeDetailActivity::class.java).putExtra("tredeNo", result))
+                    finish()
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {

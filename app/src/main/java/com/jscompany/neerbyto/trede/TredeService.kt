@@ -23,9 +23,14 @@ interface TredeService {
     //fun insertTredeData(@PartMap dataPart: MutableMap<String, String>) : Call<String>
     fun insertTredeData(@PartMap dataPart: MutableMap<String, String>,@Part imageList : MutableList<MultipartBody.Part?>) : Call<String>
 
-    //데이터 불러오기
+    //전체 데이터 불러오기
     @FormUrlEncoded
     @POST("NeerByTo/loadTredeData.php")
-    fun loadTredeData(@Field("tredCtyNo") tredCtyNo : String) : Call<MutableList<TredeVO>>
+    fun loadTredeData(@Field("tredCtyNo") tredCtyNo : String, @Field("resion") resion : String) : Call<MutableList<TredeVO>>
+
+    //디테일 화면 데이터 불러오기
+    @FormUrlEncoded
+    @POST("NeerByTo/loadTredeDetail.php")
+    fun loadTredeDetail(@Field("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
 
 }

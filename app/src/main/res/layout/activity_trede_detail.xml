@@ -61,13 +61,13 @@
                     android:src="@drawable/user_full"
                     app:civ_border_width="1dp"
                     app:civ_border_color="@color/normal_grey"
-                    android:layout_width="53dp"
-                    android:layout_height="53dp"/>
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
                 <TextView
                     android:id="@+id/user_nicname"
                     android:hint="닉네임"
-                    android:textSize="23sp"
+                    android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/gmarketsansttfbold"
