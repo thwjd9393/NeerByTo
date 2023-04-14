@@ -99,6 +99,7 @@
     <string name="withdraw_text">아쉬워요\n정말로 탈퇴하실건가요?</string>
     <string name="cancle">취소</string>
     <string name="ok">완료</string>
+    <string name="exit">나가기</string>
 
     <string name="manner_alert_text">매너 평가를 남기시겠습니까?</string>
     <string name="manner_good">매너 칭찬 남기기</string>

@@ -17,6 +17,12 @@ class MainChatFragment : Fragment() {
 
     private val binding: FragmentMainChatBinding by lazy { FragmentMainChatBinding.inflate(layoutInflater) }
 
+    //채팅방 이름으로 쓸 애
+    lateinit var tredeNo : String
+
+    //리사이클러뷰용 변수 - 리스트용
+    lateinit var chatRooms : MutableList<chatRoom>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +35,9 @@ class MainChatFragment : Fragment() {
         //activity2.setSupportActionBar(toolbar)
         toolbar.title = "채팅"
 
+        //채팅방 번호 얻어오기 - 파이어베어스 키로 쓰기
+
+
         return binding
     }
 
@@ -37,5 +46,7 @@ class MainChatFragment : Fragment() {
 
 
     }
+
+    //방번호 얻어오기 sql
 
 }

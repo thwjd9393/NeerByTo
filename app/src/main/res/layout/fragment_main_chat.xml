@@ -19,6 +19,7 @@
         android:id="@+id/char_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 

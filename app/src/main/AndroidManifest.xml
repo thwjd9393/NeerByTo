@@ -67,7 +67,9 @@
             android:exported="false" />
         <activity
             android:name=".trede.TredeWriteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="screenSize|screenLayout"/>
         <activity
             android:name=".profile.ProfileUpdateActivity"
             android:exported="false" />
@@ -79,7 +81,9 @@
             android:exported="false" />
         <activity
             android:name=".chat.ChatDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="screenSize|screenLayout"/>
         <activity
             android:name=".intro.IntroActivity"
             android:exported="true"
