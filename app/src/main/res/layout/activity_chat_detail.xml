@@ -10,11 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:theme="@style/ToolbarTheme"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+        <include layout="@layout/toolbar_layout" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -26,7 +22,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_hang_out_time"
+            android:id="@+id/tv_hang_out_spot"
             android:text="약속장소"
             android:textColor="@color/black"
             android:textSize="17sp"
@@ -37,8 +33,8 @@
         <TextView
             android:id="@+id/text"
             android:text="@string/hang_out_time"
-            android:layout_below="@+id/tv_hang_out_time"
-            android:layout_alignLeft="@+id/tv_hang_out_time"
+            android:layout_below="@+id/tv_hang_out_spot"
+            android:layout_alignLeft="@+id/tv_hang_out_spot"
             android:fontFamily="@font/gmarketsansttfmedium"
             android:layout_marginTop="5dp"
             android:layout_marginRight="8dp"
@@ -46,6 +42,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/tv_hang_out_time"
             android:text="23-03-25 16 : 23"
             android:layout_toRightOf="@+id/text"
             android:layout_alignBottom="@+id/text"
@@ -62,7 +59,7 @@
         android:layout_height="2dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat"
+        android:id="@+id/recycler_chat"
         android:layout_below="@+id/line"
         android:layout_above="@+id/line2"
         android:padding="16dp"
@@ -88,7 +85,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et"
+            android:id="@+id/et_message"
             android:maxLines="3"
             android:inputType="textMultiLine"
             android:hint="메세지 입력"
@@ -100,11 +97,11 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:id="@+id/send"
+            android:id="@+id/btn_send"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_gravity="center"
-            android:src="@drawable/bnv_item_chat"
+            android:src="@drawable/plane"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
     </LinearLayout>

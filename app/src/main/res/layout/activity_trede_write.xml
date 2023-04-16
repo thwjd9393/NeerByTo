@@ -18,6 +18,7 @@
 
     <RelativeLayout
         android:padding="16dp"
+        app:stackFromEnd="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,6 +27,7 @@
             android:hint="@string/title"
             android:padding="13dp"
             android:inputType="text"
+            android:maxLength="49"
             android:fontFamily="@font/gmarketsansttfmedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -50,10 +52,11 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/et_hangout_cnt"
+                android:id="@+id/et_join_count"
                 android:hint="@string/hangout_cnt"
                 android:padding="13dp"
                 android:layout_weight="1"
+                android:maxLength="1"
                 android:inputType="number"
                 android:textSize="14sp"
                 android:fontFamily="@font/gmarketsansttfmedium"
@@ -119,6 +122,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:id="@+id/tv_trede_category_indenx"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:id="@+id/et_content"
             android:layout_below="@+id/tv_trede_category"
@@ -178,31 +187,22 @@
 
         </LinearLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_alignParentBottom="true"
-            tools:ignore="SpeakableTextPresentCheck"
             android:layout_toRightOf="@+id/btn_select_img"
             android:layout_alignTop="@+id/btn_select_img"
             android:layout_width="match_parent"
-            android:layout_height="85dp">
+            android:layout_height="85dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_trede_img"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"/>
 
-                <ImageView
-                    android:id="@+id/iv_select_img"
-                    android:src="@drawable/cha10"
-                    android:background="@drawable/bg_lineshape_normal"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"/>
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
+        </LinearLayout>
 
     </RelativeLayout>
 

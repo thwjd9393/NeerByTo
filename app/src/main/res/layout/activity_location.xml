@@ -30,7 +30,9 @@
             android:id="@+id/et_search"
             android:hint="@string/find_location_hint"
             android:layout_toRightOf="@+id/iv_search"
+            android:background="@color/white"
             android:inputType="text"
+            android:imeOptions="actionSearch"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -106,9 +108,11 @@
 
         <!-- 검색 결과 있는 것 -->
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/location_recycler"
             android:visibility="gone"
             android:layout_marginTop="20dp"
-            android:id="@+id/location_recycler"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             android:layout_below="@+id/btn_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

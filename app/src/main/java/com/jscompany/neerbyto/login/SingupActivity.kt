@@ -88,7 +88,14 @@ class SingupActivity : AppCompatActivity() {
                     Common.makeToast(this@SingupActivity, "사용 가능한 닉네임입니다")
                     boolNicChek == true
 
-                    insertUser()
+                    //전송할 데이터 준비
+                    val dataUser = mutableMapOf<String, String>()
+                    dataUser["id"] = tvId.text.toString()
+                    dataUser["passwd"] = passwd.text.toString()
+                    dataUser["nicname"] = nicName.text.toString()
+                    dataUser["join_path"] = Common.joinApp
+
+                    insertUser(dataUser)
                 }
 
             }
@@ -138,16 +145,9 @@ class SingupActivity : AppCompatActivity() {
 
     }
 
-    private fun insertUser() {
+    private fun insertUser(dataUser : Map<String, String>) {
         //버튼 클릭 값 저장
         //mysql에 저장 되면 파이어베이스에도 저장!
-
-        //전송할 데이터 준비
-        val dataUser = mutableMapOf<String, String>()
-        dataUser["id"] = tvId.text.toString()
-        dataUser["passwd"] = passwd.text.toString()
-        dataUser["nicname"] = nicName.text.toString()
-        dataUser["join_path"] = Common.joinApp
 
         //1.
         val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
@@ -168,11 +168,11 @@ class SingupActivity : AppCompatActivity() {
                     val db = FirebaseFirestore.getInstance()
 
                     //저장할 데이터
-                    val fireUser = mutableMapOf<String, String>()
-                    fireUser["id"] = tvId.text.toString()
-                    fireUser["nicname"] = nicName.text.toString()
+//                    val fireUser = mutableMapOf<String, String>()
+//                    fireUser["id"] = tvId.text.toString()
+//                    fireUser["nicname"] = nicName.text.toString()
 
-                    db.collection("mUser").add(fireUser).addOnSuccessListener {
+                    db.collection("mUser").add(dataUser).addOnSuccessListener {
                         //저장 됨
                         AlertDialog.Builder(this@SingupActivity)
                             .setMessage("축하합니다 \n 회원가입이 완료되었습니다")

@@ -3,13 +3,20 @@ package com.jscompany.neerbyto.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.chat.MainChatFragment
 import com.jscompany.neerbyto.databinding.ActivityMainBinding
+import com.jscompany.neerbyto.login.UserService
 import com.jscompany.neerbyto.profile.MainMyZoneFragment
 import com.jscompany.neerbyto.trede.MainTredeFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        getUserNum()// 유저번호
 
         // 첫 화면
         changeFragment(R.id.bnv_home)
@@ -64,4 +72,28 @@ class MainActivity : AppCompatActivity() {
         return fragment
     }
 
+    //유저 번호 얻어오는 메소드
+    private fun getUserNum(){
+        val retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
+        retrofit.create(UserService::class.java).getUserNo(Common.getId(this))
+            .enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    var userNo = response.body()
+
+                    //쉐어드에 저장
+                    val pref = getSharedPreferences("Data", MODE_PRIVATE)
+                    val editor = pref.edit()
+
+                    editor.putString("userNo",userNo);
+
+                    editor.commit()
+
+                    Log.i("TAG","userNo =  $userNo")
+
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) = Common.makeToast(this@MainActivity, "서버에 문제가 있습니다")
+            })
+    }
 }
