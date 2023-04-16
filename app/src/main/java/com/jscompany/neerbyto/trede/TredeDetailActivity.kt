@@ -1,12 +1,12 @@
 package com.jscompany.neerbyto.trede
 
+import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnSuccessListener
@@ -35,6 +35,7 @@ class TredeDetailActivity : AppCompatActivity() {
 
     var isFirst : Boolean = true
 
+    lateinit var count : String
     lateinit var otherImgUrl : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,8 +68,12 @@ class TredeDetailActivity : AppCompatActivity() {
         //채팅 버튼
         binding.btnChat.setOnClickListener {
             //프로필 저장
-            if (isFirst) saveFireData()
-            else moveToChat()
+            if(binding.tvUserNo.text == Common.getUserNo(this)) {
+                Common.makeToast(this,"내가 쓴 게시글입니다")
+                return@setOnClickListener
+            } else { //첫번째가 아닐때
+                checkInRoomUser() //이미 참여한 채팅방일때 / 새로 참여
+            }
         }
 
     }
@@ -76,61 +81,156 @@ class TredeDetailActivity : AppCompatActivity() {
     //파이어베이스에 유저 저장 - 이미지 있는 사람 없는 사람 분기처리
     private fun saveFireData() {
         //1. 관리 저장소 일단 소환
-        //val storage = FirebaseStorage.getInstance()
+        val storage = FirebaseStorage.getInstance()
 
         //2. 참조 위치명이 중복되지않도록 날짜이용
-        //val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+        val sdf = SimpleDateFormat("yyyyMMddHHmmss")
 
-        //val imgRef = storage.getReference("profileImg/IMG_" + sdf.format(Date())) //파일위치 참조객체
+        val imgRef = storage.getReference("profileImg/IMG_" + sdf.format(Date())) //파일위치 참조객체
 
         //1. 서버의 firestore DB에 닉네임과 이미지 Url 저장
         val firestore = FirebaseFirestore.getInstance()
         val profileRef = firestore.collection("profiles")
         val profile: MutableMap<String, Any> = HashMap()
 
-//        if(Common.PROFILEURI == null) {
-//            //이미지 없으면 이미지 저장안하고 사용자 이름만 저장
-//
-//            profile["profileUrl"] = ""
-//
-//            //profileRef.document(Common.getNic(this@TredeDetailActivity)).set(profile);
-//
-//        } else {
-//            imgRef.putFile(Common.PROFILEURI!!).addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot>{ //콜백의 콜백
-//                override fun onSuccess(p0: UploadTask.TaskSnapshot?) {
-//                    //profiles 라는 이름의 컬렉션 참조 객체 소환
-//                    profile["profileUrl"] = Common.PROFILEURL
-//                }
-//
-//            })
-//        }
+        if(Common.PROFILEURI == null) {
+            //이미지 없으면 이미지 저장안하고 사용자 이름만 저장
 
-        //profile["nicName"] = Common.getNic(this)
+            profile["profileUrl"] = ""
+
+            profileRef.document(Common.getUserNo(this@TredeDetailActivity)).set(profile);
+
+        } else {
+            imgRef.putFile(Common.PROFILEURI!!).addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot>{ //콜백의 콜백
+                override fun onSuccess(p0: UploadTask.TaskSnapshot?) {
+                    //profiles 라는 이름의 컬렉션 참조 객체 소환
+                    profile["profileUrl"] = Common.PROFILEURL
+                }
+
+            })
+        }
 
         profileRef.document(Common.getUserNo(this@TredeDetailActivity)).set(profile);
 
         //액티비티로 보내기 - 글쓰이가 아닐때만
-        Log.i("TAG"," 확인 ${binding.tvUserNicname.text}")
+        Log.i("TAG","확인 ${binding.tvUserNicname.text}")
 
         isFirst = false; //첫번째일때 만 등록
     }
 
     //화면이동
     private fun moveToChat(){
-
-        var otherUserNo = binding.tvUserNo.text
-        var otherUserNic = binding.tvUserNicname.text
-
         startActivity(Intent(this@TredeDetailActivity,ChatDetailActivity::class.java)
-            .putExtra("tredeNo",tredeNo)
-            .putExtra("otherUserNo",otherUserNo)
-            .putExtra("otherUserNic",otherUserNic)
-            .putExtra("otherImgUrl",otherImgUrl)
+            .putExtra("tredeNo",tredeNo) //글 번호
             )
-            //글번호, 글쓴이 번호, 글쓴이 닉 보냄
     }
 
-    //데이터 로드
+    private fun insertChat(){
+        //파이어베이스에 채팅 방 만들기
+        val firestore = FirebaseFirestore.getInstance();
+        val chatRef = firestore.collection("Chat"); //컬렉션이름
+
+        var writeUserNo = binding.tvUserNo.text.toString()
+        var writeUserNic = binding.tvUserNicname.text.toString()
+        var title = binding.tvTitle.text.toString()
+        var joinTime = binding.tvHangOutTime.text.toString()
+        var joinSpot = binding.tvHangOutSpot.text.toString()
+
+        var users : MutableList<String> = mutableListOf()
+        users.add(writeUserNo)
+        users.add(Common.getUserNo(this))
+
+        var chatRoom : MutableMap<String,Any> = mutableMapOf()
+
+        chatRoom["tredeNo"] = tredeNo
+        chatRoom["writeUserNo"] = writeUserNo
+        chatRoom["writeUserNic"] = writeUserNic
+        chatRoom["users"] = users
+        chatRoom["title"] = title
+        chatRoom["joinCount"] = count
+        chatRoom["joinTime"] = joinTime
+        chatRoom["joinSpot"] = joinSpot
+
+        chatRef.document(tredeNo).set(chatRoom).addOnSuccessListener {
+            Common.makeToast(this, "save")
+        }
+
+        Log.i("TAG","파이어베이스 ${chatRef}")
+    }
+
+    //접속인원 확인 후 추가
+    private fun checkInRoomUser(){
+        val firestore = FirebaseFirestore.getInstance();
+
+        firestore.collection("Chat")
+            .whereEqualTo("tredeNo",tredeNo)
+            .get().addOnSuccessListener {
+                if(it.documents.size <= 0){
+                    //채팅이 없으면...
+                    AlertDialog.Builder(this).setMessage("채팅에 참여하겠습니까?")
+                        .setPositiveButton("참여하기"
+                        ) { dialog, which ->
+                            saveFireData()
+                            insertChat()
+                            moveToChat() }
+                        .setNegativeButton("취소"
+                        ) { dialog, which -> dialog.dismiss()}
+                } else {
+                    //채팅이 이미 있으면
+                    var users : MutableList<String> = mutableListOf()
+                    for (snapshot in it) {
+                        //(요소 하나 임시 저장 변수: 값 가진 배열)
+                        val data = snapshot.data
+                        users = data["users"] as MutableList<String>
+                    }
+
+                    if (Common.getUserNo(this) in users) moveToChat()
+                    else {
+                        if(users.size > count.toInt()){
+                            Log.i("TAG","${users.size}")
+                            Log.i("TAG","유저 ${users}")
+                            Common.makeToast(this,"인원이 다 찼습니다")
+                            return@addOnSuccessListener
+                        }else {
+                            //리스트에 추가
+                            updateChatUser(users)
+                        }
+                    }
+
+                }
+        }
+
+    }
+    
+    //파이어베이스 - 채팅 참여자 변경
+    private fun updateChatUser(users : MutableList<String>){
+
+        var list : MutableList<String> = mutableListOf()
+
+        for(i in users.indices){
+            list.add(users[i])
+        }
+        list.add(Common.getUserNo(this))
+
+        var userMap : MutableMap<String,Any> = mutableMapOf()
+        userMap["users"] = list
+        Log.i("TAG","유저 업뎃 ${userMap.get("users")}")
+
+        FirebaseFirestore.getInstance().collection("Chat").document(tredeNo)
+            .update(userMap)
+            .addOnSuccessListener{
+                AlertDialog.Builder(this).setMessage("채팅에 참여하겠습니까?")
+                    .setPositiveButton("참여하기"
+                    ) { dialog, which ->
+                        saveFireData()
+                        moveToChat() }
+                    .setNegativeButton("취소"
+                    ) { dialog, which -> dialog.dismiss()}
+
+            }
+    }
+
+    //레트로핏 데이터 로드
     private fun loadData() {
 
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
@@ -164,7 +264,7 @@ class TredeDetailActivity : AppCompatActivity() {
                     var address = ""
                     if (items.get(0).profileImg != null) {
                         otherImgUrl = items.get(0).profileImg
-                        address = "http://mrhisj23.dothome.co.kr/NeerByTo/"+items.get(0).profileImg
+                        address = Common.dotHomeImgUrl+items.get(0).profileImg
                     } else {
                         otherImgUrl = ""
                     }
@@ -176,6 +276,7 @@ class TredeDetailActivity : AppCompatActivity() {
                     binding.tvCategri.text = items.get(0).tredCtyName
                     binding.tvDate.text = items.get(0).date
                     binding.tvJoinCount.text = " : ${items.get(0).joinCount}명"
+                    count = items.get(0).joinCount.toString()
                     binding.tvLikeCnt.text = items.get(0).likeCnt.toString()
                     binding.tvContent.text = items.get(0).content
 

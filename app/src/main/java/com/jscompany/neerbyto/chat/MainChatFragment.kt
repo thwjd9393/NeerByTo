@@ -21,7 +21,7 @@ class MainChatFragment : Fragment() {
     lateinit var tredeNo : String
 
     //리사이클러뷰용 변수 - 리스트용
-    lateinit var chatRooms : MutableList<chatRoom>
+    //lateinit var chatRooms : MutableList<>
 
     override fun onCreateView(
         inflater: LayoutInflater,

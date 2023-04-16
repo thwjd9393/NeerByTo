@@ -17,6 +17,8 @@ class Common {
 
         // 닷홈 베이스 Url
         val dotHomeUrl : String = "http://mrhisj23.dothome.co.kr/"
+        //닷홈 이미지 경로
+        val dotHomeImgUrl : String = "http://mrhisj23.dothome.co.kr/NeerByTo/"
 
         //네이버 베이스주소
         val naverBaseUrl = "https://openapi.naver.com"

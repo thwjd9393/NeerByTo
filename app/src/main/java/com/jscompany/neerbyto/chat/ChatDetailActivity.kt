@@ -23,6 +23,7 @@ class ChatDetailActivity : AppCompatActivity() {
 
     //채팅방 이름
     lateinit var tredeNo : String
+    //lateinit var title : String
 
     //채팅방 제작자 정보 - 번호, 닉네임, 사진
     lateinit var otherUserNo : String
@@ -30,10 +31,12 @@ class ChatDetailActivity : AppCompatActivity() {
     lateinit var otherImgUrl : String
 
     //채팅방 정보 -
-
+    lateinit var joinCount : String
+    lateinit var joinTime : String
+    lateinit var joinSpot : String
 
     //리사이클러뷰용 변수
-    var messageItems : MutableList<MessageItem> = mutableListOf()
+    lateinit var messageItems : MutableList<MessageItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +44,27 @@ class ChatDetailActivity : AppCompatActivity() {
 
         //채팅방 번호 얻어오기 - 파이어베어스 키로 쓰기
         tredeNo = intent.getStringExtra("tredeNo") ?: ""
+
+        //인텐트로 받은 값 보기
+//        Log.i("TAG","글번호 ${tredeNo}")
+//        Log.i("TAG","글쓴이번호 ${otherUserNo}")
+//        Log.i("TAG","글쓴이 닉 ${otherUserNic}")
+//        Log.i("TAG","글쓴이 사진 ${otherImgUrl}")
+
         //사용자 이미지 얻어오기
         Common.PROFILEURL
 
-        init()
+        firestore = FirebaseFirestore.getInstance();
+        chatRef = firestore.collection(tredeNo); //채팅방 번호로 방 이름 만들기
 
-        otherUserNo = intent.getStringExtra("otherUserNo") ?: ""
-        otherUserNic = intent.getStringExtra("otherUserNic") ?: ""
-        otherImgUrl = intent.getStringExtra("otherImgUrl") ?: ""
-        
-        //인텐트로 받은 값 보기
-        Log.i("TAG","글번호 ${tredeNo}")
-        Log.i("TAG","글쓴이번호 ${otherUserNo}")
-        Log.i("TAG","글쓴이 닉 ${otherUserNic}")
-        Log.i("TAG","글쓴이 사진 ${otherImgUrl}")
+        init()
 
     }
 
     private fun init(){
         setSupportActionBar(findViewById(R.id.toolbar)) //include 한 레이아웃은 바인딩 안됨
         supportActionBar!!.setDisplayHomeAsUpEnabled(true) //왼쪽 뒤로가기 버튼
-        supportActionBar!!.setTitle("글쓴이 이름")
-
-        //데이터 로드
+        //supportActionBar!!.title = title
 
 
         
