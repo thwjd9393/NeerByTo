@@ -65,8 +65,8 @@ class Common {
         var latitude : String? = null //경도
         var longitude : String? = null //위도
         var dong : String? = null //동
-        var PROFILEURL : String = "https://firebasestorage.googleapis.com/v0/b/ex90firechattingbsj23.appspot.com/o/profileImg%2FIMG_20230317042549?alt=media&token=27b79bd3-fc44-4bdb-b5e6-c620dcedee45" // 파이어베어스 이미지 유알엘
         var PROFILEURI : Uri? = null // 파이어베어스 이미지 유알엘
+        var PROFILEURL : String = "" // 파이어베어스 이미지 유알엘
 
 
 

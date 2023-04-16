@@ -17,6 +17,7 @@ import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.chat.ChatDetailActivity
+import com.jscompany.neerbyto.chat.ChatRoom
 import com.jscompany.neerbyto.databinding.ActivityTredeDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -140,16 +141,19 @@ class TredeDetailActivity : AppCompatActivity() {
         users.add(writeUserNo)
         users.add(Common.getUserNo(this))
 
-        var chatRoom : MutableMap<String,Any> = mutableMapOf()
+//        var chatRoom : MutableMap<String,Any> = mutableMapOf()
+//
+//        chatRoom["tredeNo"] = tredeNo
+//        chatRoom["writeUserNo"] = writeUserNo
+//        chatRoom["writeUserNic"] = writeUserNic
+//        chatRoom["users"] = users
+//        chatRoom["title"] = title
+//        chatRoom["joinCount"] = count
+//        chatRoom["joinTime"] = joinTime
+//        chatRoom["joinSpot"] = joinSpot
+//        chatRoom["lastChat"] = ""
 
-        chatRoom["tredeNo"] = tredeNo
-        chatRoom["writeUserNo"] = writeUserNo
-        chatRoom["writeUserNic"] = writeUserNic
-        chatRoom["users"] = users
-        chatRoom["title"] = title
-        chatRoom["joinCount"] = count
-        chatRoom["joinTime"] = joinTime
-        chatRoom["joinSpot"] = joinSpot
+        var chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo,title,count,joinTime,joinSpot)
 
         chatRef.document(tredeNo).set(chatRoom).addOnSuccessListener {
             Common.makeToast(this, "save")
@@ -174,7 +178,7 @@ class TredeDetailActivity : AppCompatActivity() {
                             insertChat()
                             moveToChat() }
                         .setNegativeButton("취소"
-                        ) { dialog, which -> dialog.dismiss()}
+                        ) { dialog, which -> dialog.dismiss()}.show()
                 } else {
                     //채팅이 이미 있으면
                     var users : MutableList<String> = mutableListOf()
@@ -186,7 +190,7 @@ class TredeDetailActivity : AppCompatActivity() {
 
                     if (Common.getUserNo(this) in users) moveToChat()
                     else {
-                        if(users.size > count.toInt()){
+                        if(users.size > (count.toInt()-1)){
                             Log.i("TAG","${users.size}")
                             Log.i("TAG","유저 ${users}")
                             Common.makeToast(this,"인원이 다 찼습니다")
@@ -225,7 +229,7 @@ class TredeDetailActivity : AppCompatActivity() {
                         saveFireData()
                         moveToChat() }
                     .setNegativeButton("취소"
-                    ) { dialog, which -> dialog.dismiss()}
+                    ) { dialog, which -> dialog.dismiss()}.show()
 
             }
     }
