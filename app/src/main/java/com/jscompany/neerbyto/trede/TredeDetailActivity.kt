@@ -153,10 +153,10 @@ class TredeDetailActivity : AppCompatActivity() {
 //        chatRoom["joinSpot"] = joinSpot
 //        chatRoom["lastChat"] = ""
 
-        var chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo,title,count,joinTime,joinSpot)
+        var chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo, otherImgUrl ,title,count,joinTime,joinSpot)
 
         chatRef.document(tredeNo).set(chatRoom).addOnSuccessListener {
-            Common.makeToast(this, "save")
+            Log.i("TAG","채팅방 생성")
         }
 
         Log.i("TAG","파이어베이스 ${chatRef}")

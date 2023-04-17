@@ -2,6 +2,7 @@ package com.jscompany.neerbyto.chat
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -23,7 +24,6 @@ class ChatDetailActivity : AppCompatActivity() {
 
     //파이어베이스
     lateinit var firestore : FirebaseFirestore
-    lateinit var chatRef : CollectionReference
 
     //채팅방 이름
     lateinit var tredeNo : String
@@ -112,6 +112,8 @@ class ChatDetailActivity : AppCompatActivity() {
         binding.btnSend.setOnClickListener { sendMessage() }
     }
 
+    var sendMsgTime: String = ""
+
     //메세지 보내기
     private fun sendMessage(){
         //메세지 데이터
@@ -120,21 +122,32 @@ class ChatDetailActivity : AppCompatActivity() {
         val profileUrl: String = Common.PROFILEURL
         //메세지를 작성 시간을 문자열 [시:분]
         val calendar: Calendar = Calendar.getInstance()
-        val time: String = "${calendar.get(Calendar.HOUR_OF_DAY)} : ${calendar.get(Calendar.MINUTE)}"
+        sendMsgTime = "${calendar.get(Calendar.HOUR_OF_DAY)} : ${calendar.get(Calendar.MINUTE)}"
 
-        var item : MessageItem = MessageItem(nic, message, profileUrl, time)
+        var item : MessageItem = MessageItem(nic, message, profileUrl, sendMsgTime)
 
         firestore.collection("Chat").document(tredeNo).collection("ChatMessages")
             .document("MSG_"+ System.currentTimeMillis())
             .set(item).addOnSuccessListener {
-            Common.makeToast(this, "save")
+            //Common.makeToast(this, "save")
+            //메세지 보내기 성공
         }
+
+        var chatSendInfo : MutableMap<String, Any> = mutableMapOf()
+        chatSendInfo["lastChat"] = message
+        chatSendInfo["lastChatTime"] = sendMsgTime
+
+        //메세지 보내면 마지막 메세지와 시간 업데이트
+        firestore.collection("Chat").document(tredeNo).update(chatSendInfo)
+            .addOnSuccessListener { 
+                Log.i("TAG", "마지막 시간 & 메세지 등록완료")
+            }
 
         binding.etMessage.setText("");
 
         //키보드 내리기
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
     }
 
     
