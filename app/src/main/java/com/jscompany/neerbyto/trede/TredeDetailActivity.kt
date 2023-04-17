@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -19,6 +20,7 @@ import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.chat.ChatDetailActivity
 import com.jscompany.neerbyto.chat.ChatRoom
 import com.jscompany.neerbyto.databinding.ActivityTredeDetailBinding
+import com.jscompany.neerbyto.profile.ProfileActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,9 +49,6 @@ class TredeDetailActivity : AppCompatActivity() {
 
         loadData() //데이터 로드
 
-        Log.i("TAG","${tredeNo}")
-        Log.i("TAG","${isFirst}")
-
         init()
 
     }
@@ -61,10 +60,10 @@ class TredeDetailActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false) //타이틀
 
         //닉네임 layout누르면 프로필 화면으로 이동
-        binding.nicnameWarp.setOnClickListener {  }
+        binding.nicnameWarp.setOnClickListener { clickProfile() }
 
         //좋아요 버튼
-        binding.btnLike.setOnClickListener {  }
+        binding.btnLike.setOnClickListener { clickLike() }
 
         //채팅 버튼
         binding.btnChat.setOnClickListener {
@@ -77,6 +76,27 @@ class TredeDetailActivity : AppCompatActivity() {
             }
         }
 
+        if(binding.tvUserNo.text == Common.getUserNo(this)){
+            binding.btnChat.visibility = View.GONE
+            binding.myWriteBtnWarp.visibility = View.VISIBLE
+        } else {
+            binding.btnChat.visibility = View.VISIBLE
+            binding.myWriteBtnWarp.visibility = View.GONE
+        }
+
+    }
+
+    //관심글 등록
+    private fun clickLike() {
+        //레트로 핏에 저장
+
+    }
+
+    //프로필 화면으로 이동
+    private fun clickProfile() {
+        //글쓴 사람 번호 가지고 프로필 화면으로 이동
+        var writeUserNo = binding.tvUserNo.text.toString()
+        startActivity(Intent(this,ProfileActivity::class.java).putExtra("writeUserNo", writeUserNo))
     }
 
     //파이어베이스에 유저 저장 - 이미지 있는 사람 없는 사람 분기처리

@@ -33,6 +33,12 @@ class Common {
         val joinNaver : String = "3"
         val joinGoogel : String = "4"
 
+        //게시글 상태
+        val STATUS_ING : String = "1"
+        val STATUS_ING_TEXT : String = "진행중"
+        val STATUS_END : String = "2"
+        val STATUS_END_TEXT : String = "완료"
+
 
         //사용자 정보
         //lateinit var userNic : String;
