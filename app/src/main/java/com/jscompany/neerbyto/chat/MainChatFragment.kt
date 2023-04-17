@@ -1,5 +1,6 @@
 package com.jscompany.neerbyto.chat
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,12 +53,12 @@ class MainChatFragment : Fragment() {
         chatAdapter = ChatRoomAdapter(requireActivity(), messageItems)
         binding.charRecycler.adapter = chatAdapter
 
-        getInChat()
+        getInChat(requireActivity())
     }
 
 
     //내가 들어가 있는 채팅방 번호 가져오기
-    private fun getInChat(){
+    private fun getInChat(context : Context){
         //채팅방 번호 얻어오기 - 파이어베어스 키로 쓰기
         firestore.collection("Chat").get().addOnSuccessListener {
             var data : MutableMap<String,Any> = mutableMapOf()
@@ -66,7 +67,7 @@ class MainChatFragment : Fragment() {
                 data = snapshot.data
                 users = data["users"] as MutableList<String>
 
-                if( Common.getUserNo(requireActivity()) in users) {
+                if( Common.getUserNo(context) in users) {
                     //내가 들어가 있는 방 list에 넣기 - 대량의 데이터 준비
                     messageItems.add(ChatRoom(data["tredeNo"].toString(),users,data["writeUserNic"].toString(),
                         data["writeUserNo"].toString(), data["writeImg"].toString(),data["title"].toString(),

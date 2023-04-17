@@ -1,20 +1,20 @@
 package com.jscompany.neerbyto.chat
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.ActivityChatDetailBinding
+import com.jscompany.neerbyto.main.MainActivity
 import java.util.Calendar
 
 
@@ -25,9 +25,11 @@ class ChatDetailActivity : AppCompatActivity() {
     //파이어베이스
     lateinit var firestore : FirebaseFirestore
 
-    //채팅방 이름
+    //채팅방 정보
     lateinit var tredeNo : String
     var title : String = ""
+    var writeUserNo : String = ""
+    var users : MutableList<String> = mutableListOf()
 
     //리사이클러뷰용 변수
     var messageItems : MutableList<MessageItem> = mutableListOf()
@@ -76,6 +78,10 @@ class ChatDetailActivity : AppCompatActivity() {
                     binding.tvHangOutSpot.text = data.get("joinSpot").toString().substring(3)
                     binding.tvHangOutTime.text = data.get("joinTime").toString()
                     supportActionBar!!.title =data.get("title").toString()
+
+                    writeUserNo = data.get("writeUserNo").toString()
+                    Log.i("TAG","글쓴이 번호 ${writeUserNo}")
+                    users = data.get("users") as MutableList<String>
 
                 }
         }
@@ -129,7 +135,6 @@ class ChatDetailActivity : AppCompatActivity() {
         firestore.collection("Chat").document(tredeNo).collection("ChatMessages")
             .document("MSG_"+ System.currentTimeMillis())
             .set(item).addOnSuccessListener {
-            //Common.makeToast(this, "save")
             //메세지 보내기 성공
         }
 
@@ -161,9 +166,56 @@ class ChatDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         else if(item.itemId == R.id.option_chat_exit) {
-            Toast.makeText(this, "채팅 나가기", Toast.LENGTH_SHORT).show()
+            exitChatRoom()
         }
         return super.onOptionsItemSelected(item)
     }
+
+    //채팅방 나가기
+    private fun exitChatRoom() {
+
+        AlertDialog.Builder(this).setMessage("채팅방 나가기")
+            .setPositiveButton("확인"
+            ) { dialog, which ->
+
+                if(writeUserNo != Common.getUserNo(this)){
+                    //글쓴이 아니면 유저에서 삭제
+                    users.remove(Common.getUserNo(this))
+                    Log.i("TAG","참여자 ${users}")
+
+                } else if(writeUserNo == Common.getUserNo(this) && users.size > 1){
+                    //글쓴이면 방 삭제 - 사람이 있으면 못지움
+                    Common.makeToast(this,"참여자가 있어 방을 삭제할 수 없습니다")
+                } else if(writeUserNo == Common.getUserNo(this) && users.size <= 1){
+                    //글쓴이면서 방에 사람 없으면 채팅방 삭제
+                    users.remove(Common.getUserNo(this))
+                }
+
+                var userMap : MutableMap<String,Any> = mutableMapOf()
+                userMap["users"] = users
+
+                FirebaseFirestore.getInstance().collection("Chat").document(tredeNo)
+                    .update(userMap)
+                    .addOnSuccessListener{
+                        moveToChatMain()
+                    }
+
+            }
+            .setNegativeButton("취소"
+            ) { dialog, which -> dialog.dismiss()}.show()
+
+    }
+
+
+    //메인 화면으로 이동
+    private fun moveToChatMain(){
+        val intent:Intent = Intent(this, MainActivity::class.java).putExtra("deleteCaht",true)
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        startActivity(intent)
+    }
+
 
 }
