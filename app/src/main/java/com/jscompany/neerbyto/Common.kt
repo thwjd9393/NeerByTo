@@ -33,6 +33,12 @@ class Common {
         val joinNaver : String = "3"
         val joinGoogel : String = "4"
 
+        //게시글 상태
+        val STATUS_ING : String = "1"
+        val STATUS_ING_TEXT : String = "진행중"
+        val STATUS_END : String = "2"
+        val STATUS_END_TEXT : String = "완료"
+
 
         //사용자 정보
         //lateinit var userNic : String;
@@ -48,17 +54,17 @@ class Common {
 
         fun getUserNo(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("userNo", " - ") ?: ""
+            return pref.getString("userNo", "") ?: ""
         }
 
         fun getUserlatitude(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("latitude", " - ") ?: ""
+            return pref.getString("latitude", "") ?: ""
         }
 
         fun getUserlongitude(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("longitude", " - ") ?: ""
+            return pref.getString("longitude", "") ?: ""
         }
 
         // 현재 내 위치 정보 객체

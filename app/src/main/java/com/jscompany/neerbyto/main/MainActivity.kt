@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //맨 처음 보여줄 플래그먼트 데려오기
-        supportFragmentManager.beginTransaction().add(R.id.fragment_warp, MainTredeFragment()).commit()
+        //supportFragmentManager.beginTransaction().add(R.id.fragment_warp, MainTredeFragment()).commit()
+        changeFragment(R.id.bnv_home)
 
         //바텀 네비게이션에 연동
         bottomnavi.setOnItemSelectedListener {
@@ -40,19 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         getUserNum()// 유저번호
 
-        // 첫 화면
-        changeFragment(R.id.bnv_home)
+        val deleteCaht = intent.getBooleanExtra("deleteCaht",false)
 
+        if(deleteCaht == true){
+            Log.i("TAG","deleteCaht : ${deleteCaht}")
 
-//        val intent : Intent = getIntent()
-//        val tabId : Int = intent.extras?.getInt("tabId", 0) ?: 0
-//        if(tabId > 0 ){
-//            //설정 -> 돌아옴
-//            changeFragment(R.id.bnv_myzone)
-//        } else {
-//
-//        }
-        
+            bottomnavi.selectedItemId = R.id.bnv_chat //네이게이션 이동
+        }
+
     }
 
     //플래그먼트 변경 함수

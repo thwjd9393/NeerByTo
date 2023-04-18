@@ -1,21 +1,17 @@
-package com.jscompany.neerbyto.trede
+package com.jscompany.neerbyto.profile
 
 import android.content.Context
-import android.content.Intent
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.google.rpc.context.AttributeContext.Resource
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.ItemTredeBinding
 
-class TredeAdapter(var context:Context, var items:MutableList<TredeVO>) :
-    Adapter<TredeAdapter.VH>() {
+class MyWriteFragAdapter(var context:Context, var items:MutableList<MyWriteItem>) : Adapter<MyWriteFragAdapter.VH>(){
 
     inner class VH(var binding:ItemTredeBinding) : ViewHolder(binding.root)
 
@@ -26,7 +22,7 @@ class TredeAdapter(var context:Context, var items:MutableList<TredeVO>) :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val item : TredeVO = items[position]
+        var item : MyWriteItem = items.get(position)
 
         holder.binding.tvTitle.text = item.title
         holder.binding.tvPrice.text = "${item.price} 원"
@@ -53,9 +49,10 @@ class TredeAdapter(var context:Context, var items:MutableList<TredeVO>) :
         if (item.img1 != null) address = "http://mrhisj23.dothome.co.kr/NeerByTo/" + item.img1
         Glide.with(context).load(address).error(R.drawable.bg_empty_img).fallback(R.drawable.bg_empty_img).into(holder.binding.ivTrede)
 
+        //디테일 페이지로 이동
         holder.binding.root.setOnClickListener {
-            context.startActivity(Intent(context, TredeDetailActivity::class.java).putExtra("tredeNo", item.tredeNo.toString()))
+            (context as MyLikeActivity).setResultData(item.tredeNo.toString())
         }
     }
-    
+
 }

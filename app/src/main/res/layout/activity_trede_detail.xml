@@ -259,12 +259,20 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
-        <ToggleButton
+<!--        <ToggleButton-->
+<!--            android:id="@+id/btn_like"-->
+<!--            android:background="@drawable/heart_line"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:textOff=" "-->
+<!--            android:textOn=" "-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            android:layout_width="31dp"-->
+<!--            android:layout_height="31dp"/>-->
+
+        <ImageButton
             android:id="@+id/btn_like"
-            android:background="@drawable/trede_detail_selector"
+            android:background="@drawable/heart_line"
             android:layout_centerVertical="true"
-            android:textOff=" "
-            android:textOn=" "
             android:layout_marginRight="16dp"
             android:layout_width="31dp"
             android:layout_height="31dp"/>
@@ -304,13 +312,41 @@
 
 
         <Button
-            android:text="@string/join"
             android:id="@+id/btn_chat"
+            android:visibility="gone"
+            android:text="@string/join"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/black"
             android:layout_width="120dp"
             android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:id="@+id/my_write_btn_warp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:text="@string/del"
+                android:id="@+id/btn_delete"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/red"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="@string/update"
+                android:id="@+id/btn_update"
+                android:backgroundTint="@color/green"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

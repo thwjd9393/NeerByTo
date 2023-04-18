@@ -6,10 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".profile.MannerGoodFragment">
 
-    <TextView
-        android:text="진행중진행중진행중진행중진행중"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_my_write_ing"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

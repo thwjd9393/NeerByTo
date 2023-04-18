@@ -15,26 +15,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_trede"
-            android:background="@drawable/bg_lineshape_normal"
-            android:src="@drawable/home_full"
-            android:layout_centerVertical="true"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/warp_iv"
             android:layout_marginRight="13dp"
-            android:scaleType="centerCrop"
+            app:strokeColor="@color/light_grey"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="8dp"
             android:layout_width="105dp"
-            android:layout_height="105dp"/>
+            android:layout_height="105dp">
+
+            <ImageView
+                android:id="@+id/iv_trede"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tv_title"
-            android:maxEms="6"
+            android:maxEms="5"
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:fontFamily="@font/gmarketsansttfbold"
             android:text="가나다라마바사아"
-            android:layout_toRightOf="@+id/iv_trede"
+            android:layout_toRightOf="@+id/warp_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -54,7 +62,7 @@
             android:layout_alignLeft="@+id/tv_title"
             android:layout_below="@+id/tv_title"
             android:text="약속장소"
-            android:maxEms="11"
+            android:maxEms="9"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/normal_grey"
@@ -85,6 +93,23 @@
             android:fontFamily="@font/gmarketsansttfbold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:text="진행중"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:background="@drawable/bg_status_ing"
+            android:layout_alignTop="@+id/tv_hang_out_time"
+            android:layout_alignBottom="@+id/tv_hang_out_time"
+            android:layout_toRightOf="@+id/tv_hang_out_time"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"/>
 
         <TextView
             android:id="@+id/tv_price"
