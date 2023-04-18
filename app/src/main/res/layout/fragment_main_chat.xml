@@ -15,8 +15,34 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/empty_warp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:background="@drawable/comments_line"
+            android:backgroundTint="@color/normal_grey"
+            android:layout_marginBottom="15dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"/>
+
+        <TextView
+            android:text="@string/empty_chat"
+            android:textSize="16sp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:textColor="@color/normal_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/char_recycler"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

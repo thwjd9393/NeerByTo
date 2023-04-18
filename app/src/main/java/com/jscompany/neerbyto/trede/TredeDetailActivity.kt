@@ -1,6 +1,6 @@
 package com.jscompany.neerbyto.trede
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,7 +39,12 @@ class TredeDetailActivity : AppCompatActivity() {
     var isFirst : Boolean = true
 
     lateinit var count : String
-    lateinit var otherImgUrl : String
+    var otherImgUrl : String? = null
+    var writeUserNo : String = ""//글쓴이 번호
+    var writeUserNIc : String = ""//글쓴이 번호
+    var tredCtyNo : String = ""
+
+    var isLickChek : Boolean = false //좋아요 버튼 상태 체크용 변수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,40 +67,117 @@ class TredeDetailActivity : AppCompatActivity() {
         //닉네임 layout누르면 프로필 화면으로 이동
         binding.nicnameWarp.setOnClickListener { clickProfile() }
 
-        //좋아요 버튼
-        binding.btnLike.setOnClickListener { clickLike() }
-
-        //채팅 버튼
-        binding.btnChat.setOnClickListener {
-            //프로필 저장
-            if(binding.tvUserNo.text == Common.getUserNo(this)) {
-                Common.makeToast(this,"내가 쓴 게시글입니다")
-                return@setOnClickListener
-            } else { //첫번째가 아닐때
-                checkInRoomUser() //이미 참여한 채팅방일때 / 새로 참여
-            }
-        }
-
-        if(binding.tvUserNo.text == Common.getUserNo(this)){
-            binding.btnChat.visibility = View.GONE
-            binding.myWriteBtnWarp.visibility = View.VISIBLE
+        if (Common.getUserNo(this) == "") {
+            Common.makeToast(this,"로그인 후 사용하실 수 있습니다")
+            return
         } else {
-            binding.btnChat.visibility = View.VISIBLE
-            binding.myWriteBtnWarp.visibility = View.GONE
+            checkLike()
+
+            //좋아요 버튼
+//        binding.btnLike.setOnCheckedChangeListener { compoundButton, b ->
+//            var userNo = Common.getUserNo(this)
+//            Log.i("TAG","isLickChek1 = ${isLickChek}")
+//            Log.i("TAG","b0 = ${b}")
+//            if(b==true && isLickChek==false){
+//                insertLick(userNo,tredCtyNo)
+//                Log.i("TAG","isLickChek2 = ${isLickChek}")
+//                Log.i("TAG","b1 = ${b}")
+//            } else {
+//                delLike(userNo)
+//
+//                Log.i("TAG","isLickChek3 = ${isLickChek}")
+//                Log.i("TAG","b2 = ${b}")
+//            }
+//        }
+
+            binding.btnLike.setOnClickListener {
+                var userNo = Common.getUserNo(this)
+                Log.i("TAG","isLickChek1 = ${isLickChek}")
+                if(isLickChek==false){
+                    insertLick(userNo,tredCtyNo)
+                    Log.i("TAG","isLickChek2 = ${isLickChek}")
+                } else {
+                    delLike(userNo)
+                    Log.i("TAG","isLickChek3 = ${isLickChek}")
+                }
+            }
+
+            //채팅 버튼
+            binding.btnChat.setOnClickListener {
+                //프로필 저장
+                if(binding.tvUserNo.text == Common.getUserNo(this)) {
+                    Common.makeToast(this,"내가 쓴 게시글입니다")
+                    return@setOnClickListener
+                } else { //첫번째가 아닐때
+                    checkInRoomUser() //이미 참여한 채팅방일때 / 새로 참여
+                }
+            }
+
         }
+
+        binding.btnDelete.setOnClickListener { clickDelete() }
+        binding.btnUpdate.setOnClickListener { clickUpdate() }
+        
+    }
+
+    //관심글 선택 체크
+    private fun checkLike(){
+        var userNo = Common.getUserNo(this)
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
+            .selectLikeTrede(userNo,tredeNo).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    var result = response.body().toString()
+
+                    if (result > "0") {
+                        binding.btnLike.background = getDrawable(R.drawable.heart_full)
+                        isLickChek = true
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                }
+            })
 
     }
 
     //관심글 등록
-    private fun clickLike() {
+    private fun insertLick(userNo:String, tredCtyNo:String) {
         //레트로 핏에 저장
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
+            .insertLikeTrede(userNo,tredeNo,tredCtyNo).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Common.makeToast(this@TredeDetailActivity,"${response.body()}")
+                    binding.btnLike.background = getDrawable(R.drawable.heart_full)
+                    isLickChek = true
+                }
 
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                }
+            })
+    }
+
+    private fun delLike(userNo:String) {
+        //레트로 핏에 삭제
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
+            .deleteLikeTrede(userNo,tredeNo).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Common.makeToast(this@TredeDetailActivity,"${response.body()}")
+                    binding.btnLike.background = getDrawable(R.drawable.heart_line)
+                    isLickChek = false
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                }
+            })
     }
 
     //프로필 화면으로 이동
     private fun clickProfile() {
         //글쓴 사람 번호 가지고 프로필 화면으로 이동
-        var writeUserNo = binding.tvUserNo.text.toString()
+        val writeUserNo = binding.tvUserNo.text.toString()
         startActivity(Intent(this,ProfileActivity::class.java).putExtra("writeUserNo", writeUserNo))
     }
 
@@ -151,13 +233,13 @@ class TredeDetailActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance();
         val chatRef = firestore.collection("Chat"); //컬렉션이름
 
-        var writeUserNo = binding.tvUserNo.text.toString()
-        var writeUserNic = binding.tvUserNicname.text.toString()
-        var title = binding.tvTitle.text.toString()
-        var joinTime = binding.tvHangOutTime.text.toString()
-        var joinSpot = binding.tvHangOutSpot.text.toString()
+        val writeUserNo = binding.tvUserNo.text.toString()
+        val writeUserNic = binding.tvUserNicname.text.toString()
+        val title = binding.tvTitle.text.toString()
+        val joinTime = binding.tvHangOutTime.text.toString()
+        val joinSpot = binding.tvHangOutSpot.text.toString()
 
-        var users : MutableList<String> = mutableListOf()
+        val users : MutableList<String> = mutableListOf()
         users.add(writeUserNo)
         users.add(Common.getUserNo(this))
 
@@ -173,7 +255,9 @@ class TredeDetailActivity : AppCompatActivity() {
 //        chatRoom["joinSpot"] = joinSpot
 //        chatRoom["lastChat"] = ""
 
-        var chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo, otherImgUrl ,title,count,joinTime,joinSpot)
+        val img :String = otherImgUrl ?: ""
+
+        val chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo, img ,title,count,joinTime,joinSpot)
 
         chatRef.document(tredeNo).set(chatRoom).addOnSuccessListener {
             Log.i("TAG","채팅방 생성")
@@ -259,19 +343,19 @@ class TredeDetailActivity : AppCompatActivity() {
 
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
             .loadTredeDetail(tredeNo).enqueue(object : Callback<MutableList<TredeDetail>>{
+                @SuppressLint("SetTextI18n")
                 override fun onResponse(
                     call: Call<MutableList<TredeDetail>>,
                     response: Response<MutableList<TredeDetail>>
                 ) {
-                    var items : MutableList<TredeDetail> = response.body()!!
+                    val items : MutableList<TredeDetail> = response.body()!!
 
                     //이미지 셋
                     imgList = mutableListOf()
 
-
-                    if(items.get(0).img1 != null || items.get(0).img1 != "") imgList.add(items.get(0).img1)
-                    if(items.get(0).img2 != null || items.get(0).img2 != "") imgList.add(items.get(0).img2)
-                    if(items.get(0).img3 != null || items.get(0).img3 != "") imgList.add(items.get(0).img3)
+                    if(items.get(0).img1 != "") imgList.add(items.get(0).img1)
+                    if(items.get(0).img2 != "") imgList.add(items.get(0).img2)
+                    if(items.get(0).img3 != "") imgList.add(items.get(0).img3)
 
                     if(imgList.size > 0) {
                         //페이저에 뷰 연결
@@ -280,13 +364,24 @@ class TredeDetailActivity : AppCompatActivity() {
                     }
 
                     binding.tvUserNicname.text = items.get(0).userNic
+                    writeUserNIc = items.get(0).userNic
                     binding.tvUserNo.text = items.get(0).userNo.toString() //글쓴이 번호
+                    writeUserNo = items.get(0).userNo.toString()
+
+                    //내가 쓴 글이면 버튼 바꾸기
+                    if(writeUserNo == Common.getUserNo(this@TredeDetailActivity)){
+                        binding.btnChat.visibility = View.GONE
+                        binding.myWriteBtnWarp.visibility = View.VISIBLE
+                    } else {
+                        binding.btnChat.visibility = View.VISIBLE
+                        binding.myWriteBtnWarp.visibility = View.GONE
+                    }
                     
                     Log.i("TAG","글쓴이 번호 ${items.get(0).userNo}")
 
                     //사용자 프로필 사진
                     var address = ""
-                    if (items.get(0).profileImg != null) {
+                    if (items.get(0).profileImg != "") {
                         otherImgUrl = items.get(0).profileImg
                         address = Common.dotHomeImgUrl+items.get(0).profileImg
                     } else {
@@ -298,6 +393,7 @@ class TredeDetailActivity : AppCompatActivity() {
 
                     binding.tvTitle.text = items.get(0).title
                     binding.tvCategri.text = items.get(0).tredCtyName
+                    tredCtyNo = items.get(0).tredCtyNo.toString()
                     binding.tvDate.text = items.get(0).date
                     binding.tvJoinCount.text = " : ${items.get(0).joinCount}명"
                     count = items.get(0).joinCount.toString()
@@ -321,6 +417,17 @@ class TredeDetailActivity : AppCompatActivity() {
 
     }
 
+    //내가 쓴글 지우기
+    private fun clickUpdate() {
+        //글 업뎃 시 레트로핏 & 파이어베이스 둘다 업뎃
+    }
+
+    //내가 쓴 글 업데이트
+    private fun clickDelete() {
+        //글 삭제 시 레트로핏 & 파이어베어스 둘다 삭제
+    }
+
+
     //옵션 메뉴 만드는 콜백
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_trede_detail, menu)
@@ -333,7 +440,7 @@ class TredeDetailActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) onBackPressed()
         else if(item.itemId == R.id.option_report) { //유저 신고하기
             val intent : Intent = Intent(this,ReportUserActivity::class.java)
-                .putExtra("userNic","유저닉네임").putExtra("userNo","5")
+                .putExtra("userNic",writeUserNIc).putExtra("userNo",writeUserNo)
             
             startActivity(intent)
         } else if (item.itemId == R.id.option_share) { //페이지 공유하기

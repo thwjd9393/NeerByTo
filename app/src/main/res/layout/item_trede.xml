@@ -15,15 +15,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_trede"
-            android:background="@drawable/bg_lineshape_normal"
-            android:src="@drawable/home_full"
-            android:layout_centerVertical="true"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/warp_iv"
             android:layout_marginRight="13dp"
-            android:scaleType="centerCrop"
+            app:strokeColor="@color/light_grey"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="8dp"
             android:layout_width="105dp"
-            android:layout_height="105dp"/>
+            android:layout_height="105dp">
+
+            <ImageView
+                android:id="@+id/iv_trede"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tv_title"
@@ -34,7 +42,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/gmarketsansttfbold"
             android:text="가나다라마바사아"
-            android:layout_toRightOf="@+id/iv_trede"
+            android:layout_toRightOf="@+id/warp_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

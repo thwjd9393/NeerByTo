@@ -31,6 +31,8 @@ class MainChatFragment : Fragment() {
     //채팅방 이름으로 쓸 애
     lateinit var tredeNo : String
 
+    var count : String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +56,20 @@ class MainChatFragment : Fragment() {
         binding.charRecycler.adapter = chatAdapter
 
         getInChat(requireActivity())
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.i("TAG", "count =  ${chatAdapter.itemCount}")
+        if(count == "0" ){
+            binding.emptyWarp.visibility = View.VISIBLE
+            binding.charRecycler.visibility = View.GONE
+        } else {
+            binding.emptyWarp.visibility = View.GONE
+            binding.charRecycler.visibility = View.VISIBLE
+        }
     }
 
 
@@ -75,11 +91,13 @@ class MainChatFragment : Fragment() {
                         data["lastChat"].toString(), data["lastChatTime"].toString()))
 
                     chatAdapter.notifyItemInserted(messageItems.size-1) //마지막 번호가 추가 됐다 알려주기
+
+
+                    count = chatAdapter.itemCount.toString()
                 }
             }
         }
-    }
-    
 
+    }
 
 }

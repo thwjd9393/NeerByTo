@@ -25,7 +25,7 @@ class TredeDetailImgAdapter(var context:Context,var items : MutableList<String>)
         var address = ""
         if (itemCount > 0) address = "http://mrhisj23.dothome.co.kr/NeerByTo/"+items.get(position)
 
-        Glide.with(context).load(address).fallback(R.drawable.bg_empty_img_detail).into(holder.binding.ivPager)
+        Glide.with(context).load(address).error(R.drawable.bg_empty_img_detail).into(holder.binding.ivPager)
     }
 
 }

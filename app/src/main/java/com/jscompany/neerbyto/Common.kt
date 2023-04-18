@@ -54,17 +54,17 @@ class Common {
 
         fun getUserNo(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("userNo", " - ") ?: ""
+            return pref.getString("userNo", "") ?: ""
         }
 
         fun getUserlatitude(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("latitude", " - ") ?: ""
+            return pref.getString("latitude", "") ?: ""
         }
 
         fun getUserlongitude(context : Context) : String{
             val pref : SharedPreferences = context.getSharedPreferences("Data", MODE_PRIVATE)
-            return pref.getString("longitude", " - ") ?: ""
+            return pref.getString("longitude", "") ?: ""
         }
 
         // 현재 내 위치 정보 객체

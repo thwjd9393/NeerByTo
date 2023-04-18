@@ -41,6 +41,7 @@ class ChatRoomAdapter(val context:Context, var items : MutableList<ChatRoom>)
 
         //클릭하면 메세지 디테일로 이동
         holder.binding.root.setOnClickListener { ClickChatRoom(item.tredeNo) }
+
     }
 
     private fun ClickChatRoom(tredeNo : String){

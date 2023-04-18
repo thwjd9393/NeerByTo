@@ -9,6 +9,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.PartMap
+import retrofit2.http.Query
 
 
 interface TredeService {
@@ -33,4 +34,15 @@ interface TredeService {
     @POST("NeerByTo/loadTredeDetail.php")
     fun loadTredeDetail(@Field("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
 
+    //좋아요 - insert
+    @GET("NeerByTo/insertLikeTrede.php")
+    fun insertLikeTrede(@Query("userNo") userNo : String, @Query("tredeNo") tredeNo : String, @Query("tredCtyNo") tredCtyNo : String) : Call<String>
+
+    //좋아요 - delete
+    @GET("NeerByTo/deleteLikeTrede.php")
+    fun deleteLikeTrede(@Query("userNo") userNo : String, @Query("tredeNo") tredeNo : String) : Call<String>
+
+    //좋아요 - select
+    @GET("NeerByTo/selectLikeTrede.php")
+    fun selectLikeTrede(@Query("userNo") userNo : String, @Query("tredeNo") tredeNo : String) : Call<String>
 }

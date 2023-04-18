@@ -259,12 +259,20 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
-        <ToggleButton
+<!--        <ToggleButton-->
+<!--            android:id="@+id/btn_like"-->
+<!--            android:background="@drawable/heart_line"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:textOff=" "-->
+<!--            android:textOn=" "-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            android:layout_width="31dp"-->
+<!--            android:layout_height="31dp"/>-->
+
+        <ImageButton
             android:id="@+id/btn_like"
-            android:background="@drawable/trede_detail_selector"
+            android:background="@drawable/heart_line"
             android:layout_centerVertical="true"
-            android:textOff=" "
-            android:textOn=" "
             android:layout_marginRight="16dp"
             android:layout_width="31dp"
             android:layout_height="31dp"/>
@@ -305,6 +313,7 @@
 
         <Button
             android:id="@+id/btn_chat"
+            android:visibility="gone"
             android:text="@string/join"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
