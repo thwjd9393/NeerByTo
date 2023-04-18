@@ -243,18 +243,6 @@ class TredeDetailActivity : AppCompatActivity() {
         users.add(writeUserNo)
         users.add(Common.getUserNo(this))
 
-//        var chatRoom : MutableMap<String,Any> = mutableMapOf()
-//
-//        chatRoom["tredeNo"] = tredeNo
-//        chatRoom["writeUserNo"] = writeUserNo
-//        chatRoom["writeUserNic"] = writeUserNic
-//        chatRoom["users"] = users
-//        chatRoom["title"] = title
-//        chatRoom["joinCount"] = count
-//        chatRoom["joinTime"] = joinTime
-//        chatRoom["joinSpot"] = joinSpot
-//        chatRoom["lastChat"] = ""
-
         val img :String = otherImgUrl ?: ""
 
         val chatRoom = ChatRoom(tredeNo,users,writeUserNic, writeUserNo, img ,title,count,joinTime,joinSpot)
@@ -309,7 +297,7 @@ class TredeDetailActivity : AppCompatActivity() {
         }
 
     }
-    
+
     //파이어베이스 - 채팅 참여자 변경
     private fun updateChatUser(users : MutableList<String>){
 
@@ -389,7 +377,7 @@ class TredeDetailActivity : AppCompatActivity() {
                     }
 
                     Glide.with(this@TredeDetailActivity).load(address)
-                        .error(R.drawable.user_full).fallback(R.drawable.user_full).into(binding.ivCircleImgUser)
+                        .error(R.drawable.user_full).into(binding.ivCircleImgUser)
 
                     binding.tvTitle.text = items.get(0).title
                     binding.tvCategri.text = items.get(0).tredCtyName
