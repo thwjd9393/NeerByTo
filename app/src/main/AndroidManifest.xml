@@ -57,7 +57,7 @@
             android:name=".profile.MyLikeActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.MyEnterActivity"
+            android:name=".profile.MyFriendActivity"
             android:exported="false" />
         <activity
             android:name=".profile.MyWriteActivity"

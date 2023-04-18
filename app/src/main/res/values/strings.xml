@@ -47,7 +47,8 @@
     <string name="join_date">가입</string>
     <string name="logout">로그아웃</string>
     <string name="write">작성글</string>
-    <string name="enter">참여 한 글</string>
+    <string name="my_friend">내 친구</string>
+    <string name="in_my_friend">친구추가</string>
     <string name="like">관심</string>
 
     <string name="share">공유</string>
