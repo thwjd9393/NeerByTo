@@ -38,19 +38,18 @@ class ProfileUpdateActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        //이미지 저장
-        binding.circleImgUser.setOnClickListener { clickImgSelect() }
+        //이미지 선택
+        binding.civImgUser.setOnClickListener { clickImgSelect() }
 
         //이미지 삭제 (기본 이미지로 변경)
         binding.btnImgDelete.setOnClickListener { clickImgDelete() }
-
-        //비밀번호 변경 버튼
-        binding.btnPasswdChange.setOnClickListener { clickPasswdChange() }
         
         //회원정보 수정 버튼
         binding.btnUserInfoUpdate.setOnClickListener { clickUserInfoUpdate() }
 
     }
+    
+    
 
     private fun clickImgSelect() {
         //이미지 선택
@@ -67,20 +66,16 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 //스태틱변수로 저장
                 Common.PROFILEURI = uri
 
-                Glide.with(this).load(uri).into(binding.circleImgUser)
+                Glide.with(this).load(uri).into(binding.civImgUser)
             }
     }
 
     private fun clickUserInfoUpdate() {
-        TODO("Not yet implemented")
-    }
 
-    private fun clickPasswdChange() {
-        TODO("Not yet implemented")
     }
 
     private fun clickImgDelete() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

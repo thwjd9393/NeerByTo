@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jscompany.neerbyto.Common
+import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.FragmentMannerBadBinding
 import com.jscompany.neerbyto.databinding.FragmentMyWriteEndBinding
@@ -25,7 +26,9 @@ class MyWriteEndFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataLoad()
+        val userNo = arguments?.getString("userNo") ?: ""
+
+        dataLoad(userNo)
     }
 
     override fun onCreateView(
@@ -44,9 +47,9 @@ class MyWriteEndFragment : Fragment() {
 
     }
 
-    private fun dataLoad() {
+    private fun dataLoad(userNo:String) {
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
-            .loadMyTredeData(Common.getUserNo(requireActivity()), Common.STATUS_END)
+            .loadMyTredeData(userNo, Common.STATUS_END)
             .enqueue(object : Callback<MutableList<MyWriteItem>> {
                 override fun onResponse(
                     call: Call<MutableList<MyWriteItem>>,
@@ -61,7 +64,7 @@ class MyWriteEndFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<MutableList<MyWriteItem>>, t: Throwable) {
-                    Common.makeToast(requireActivity(),"서버에 문제가 있습니다")
+                    Common.makeToast(requireActivity(),getString(R.string.response_server_error))
                 }
             })
     }

@@ -4,6 +4,7 @@ data class ProfileVO(
     val aaa : String
 )
 
+//내가 좋아요한 데이터
 data class MyLikeItem(
     var likeNo : Int,
     var userNo : Int,
@@ -45,3 +46,16 @@ data class MyWriteItem(
     var userNo : Int,
     var date : String,
 )
+
+
+//친추한 데이터
+data class MyFriendItem(
+    var friendNo : Int,
+    var myUserNo : Int, //내 번호
+    var userNo	: Int, //추가한 친구번호
+    var date	: String,
+    var nicname : String,
+    var profileImg : String,
+    var state : Int,
+)
+

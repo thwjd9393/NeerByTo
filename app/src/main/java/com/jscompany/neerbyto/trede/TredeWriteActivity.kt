@@ -191,7 +191,7 @@ class TredeWriteActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MutableList<TredeCategotyVO>>, t: Throwable) {
-                Common.makeToast(this@TredeWriteActivity, "서버에 문제가 있습니다")
+                Common.makeToast(this@TredeWriteActivity, getString(R.string.response_server_error))
                 Log.i("TAG","카테고리오류 ${t.message}")
             }
         })
@@ -336,7 +336,7 @@ class TredeWriteActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Common.makeToast(this@TredeWriteActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@TredeWriteActivity,getString(R.string.response_server_error))
                     Log.i("TAG"," ${t.message}")
                 }
             })

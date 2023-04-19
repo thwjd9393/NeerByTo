@@ -47,7 +47,8 @@
     <string name="join_date">가입</string>
     <string name="logout">로그아웃</string>
     <string name="write">작성글</string>
-    <string name="enter">참여 한 글</string>
+    <string name="my_friend">내 친구</string>
+    <string name="in_my_friend">친구추가</string>
     <string name="like">관심</string>
 
     <string name="share">공유</string>
@@ -110,6 +111,8 @@
     <string name="manner_badtext">남기고 싶은 비매너를 선택하세요</string>
     <string name="empty_chat">참여중인 채팅이 없습니다</string>
     <string name="empty_like">관심있는 게시물이 없습니다</string>
+
+    <string name="response_server_error">서버에 문제가 있습니다</string>
 
 
 </resources>

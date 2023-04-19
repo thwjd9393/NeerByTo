@@ -25,26 +25,74 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_nicname"
+                    android:textSize="18sp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:text="닉네임"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_friend"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:visibility="gone"
+                android:padding="3dp"
+                android:background="@drawable/bg_lineshape_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/img_btn"
+                    android:background="@drawable/baseline_star_border_24"
+                    android:contentDescription="@string/in_my_friend"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:text="닉네임"
-            android:layout_marginBottom="10dp"
+            android:id="@+id/tv_join_date"
+            android:text="@string/join_date"
+            android:textSize="15sp"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:textColor="@color/normal_grey"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_img_user"
+            android:id="@+id/civ_img_user"
             app:civ_border_color="@color/light_grey"
             android:src="@drawable/user_line"
             app:civ_border_width="2dp"
             android:layout_width="match_parent"
-            android:layout_height="130dp"/>
+            android:layout_height="110dp"/>
 
         <!-- 내 로그인 상태일때만 보여주기 -->
         <Button
             android:id="@+id/btn_profile_update"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/black"
             android:text="@string/profile_update"
@@ -60,88 +108,98 @@
         android:layout_height="7dp"/>
 
     <!-- 상대 유저 일때 보여줘야함 -->
-    <RelativeLayout
-        android:id="@+id/layout_otheruser"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:id="@+id/warp_other_info"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/btn_manner_estimate"
-            android:layout_toLeftOf="@+id/btn_report"
-            android:layout_alignTop="@+id/btn_report"
-            android:layout_alignBottom="@+id/btn_report"
-            android:layout_marginRight="18dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"
-            android:background="@drawable/bg_lineshape_dark"
+        <RelativeLayout
+            android:id="@+id/layout_otheruser"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:backgroundTint="@color/black"
-                android:text="@string/manner_btn"
-                android:textColor="@color/black"
+            <LinearLayout
+                android:id="@+id/btn_manner_estimate"
+                android:layout_toLeftOf="@+id/btn_report"
+                android:layout_alignTop="@+id/btn_report"
+                android:layout_alignBottom="@+id/btn_report"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center"
+                android:background="@drawable/bg_lineshape_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:backgroundTint="@color/black"
+                    android:text="@string/manner_btn"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_report"
+                android:text="@string/report"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="@color/red"
                 android:fontFamily="@font/gmarketsansttfbold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        </RelativeLayout>
+
+        <TextView
+            android:background="@drawable/base_line_grey"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"/>
+
+        <!-- 상대 유저 일때 보여줘야함 -->
+        <LinearLayout
+            android:id="@+id/btn_other_write"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/gmarketsansttfbold"
+                android:text="@string/write"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:background="@drawable/baseline_arrow_forward_ios_24"
+                android:layout_alignParentRight="true"
+                android:layout_width="20dp"
+                android:layout_height="28dp"/>
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_report"
-            android:text="@string/report"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/red"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:background="@drawable/base_line_grey"
-        android:layout_width="match_parent"
-        android:layout_height="7dp"/>
-
-    <!-- 상대 유저 일때 보여줘야함 -->
-    <LinearLayout
-        android:id="@+id/btn_other_write"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/gmarketsansttfbold"
-            android:text="@string/write"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_centerVertical="true"
-            android:background="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_alignParentRight="true"
-            android:layout_width="20dp"
-            android:layout_height="28dp"/>
+            android:background="@drawable/base_line_grey"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"/>
 
     </LinearLayout>
-
-    <TextView
-        android:background="@drawable/base_line_grey"
-        android:layout_width="match_parent"
-        android:layout_height="7dp"/>
 
     <LinearLayout
         android:id="@+id/btn_go_manerpage"

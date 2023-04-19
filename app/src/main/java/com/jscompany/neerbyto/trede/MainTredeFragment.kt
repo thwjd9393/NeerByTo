@@ -145,7 +145,7 @@ class MainTredeFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<MutableList<TredeVO>>, t: Throwable) {
-                    Common.makeToast(context,"서버에 문제가 있습니다")
+                    Common.makeToast(context,getString(R.string.response_server_error))
                     Log.i("TAG", "setRecyclerView 문제 : ${t.message}")
                 }
 
@@ -176,7 +176,7 @@ class MainTredeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<KakaoSearchMyRegion>, t: Throwable) {
-                Common.makeToast(context,"서버에 문제가 있습니다")
+                Common.makeToast(context,getString(R.string.response_server_error))
                 Log.i("TAG", " 문제 : ${t.message}")
             }
         })

@@ -11,16 +11,12 @@
 
         <include layout="@layout/toolbar_layout"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_my_enter"
-            app:tabTextColor="@color/bnv_item_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pager_my_enter"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_my_friend"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

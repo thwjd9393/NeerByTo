@@ -77,7 +77,7 @@ class TredeSearchPlaceActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<KakaoSerchPlaceResponce>, t: Throwable)
-                    = Common.makeToast(this@TredeSearchPlaceActivity, "서버에 문제가 있습니다")
+                    = Common.makeToast(this@TredeSearchPlaceActivity, getString(R.string.response_server_error))
             })
 
     }

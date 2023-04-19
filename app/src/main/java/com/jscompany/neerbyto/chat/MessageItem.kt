@@ -29,13 +29,3 @@ data class ChatRoom(
     //마지막 푸시 시간보다 작으면 안읽은 메세지 있는 것
 )
 
-class ChatModel {
-    var users: Map<String, Boolean> = HashMap() //채팅방 유저
-    var comments: Map<String, Comment> = HashMap() //채팅 메시지
-
-    class Comment(
-        var nic:String,
-        var message: String,
-        var profileUrl : String,
-        var time :Timestamp)
-}

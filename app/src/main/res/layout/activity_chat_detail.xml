@@ -49,6 +49,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <Button
+            android:id="@+id/btn_status"
+            android:text="@string/ok"
+            android:visibility="gone"
+            android:backgroundTint="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 
     <TextView
