@@ -112,5 +112,7 @@
     <string name="empty_chat">참여중인 채팅이 없습니다</string>
     <string name="empty_like">관심있는 게시물이 없습니다</string>
 
+    <string name="response_server_error">서버에 문제가 있습니다</string>
+
 
 </resources>

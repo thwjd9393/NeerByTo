@@ -159,7 +159,7 @@ class LocationActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<KakaoSearchPlaceVO>, t: Throwable) {
-                Common.makeToast(this@LocationActivity, "서버에 문제가 있습니다")
+                Common.makeToast(this@LocationActivity, getString(R.string.response_server_error))
                 Log.i("TAG", t.toString())
 
                 binding.emptyWarp.visibility = View.VISIBLE

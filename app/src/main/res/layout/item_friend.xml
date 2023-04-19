@@ -8,6 +8,7 @@
         android:layout_centerVertical="true"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +21,6 @@
 
             <ImageView
                 android:id="@+id/iv_user_img"
-                android:background="@drawable/cha10"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -36,6 +36,19 @@
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <ImageView
+            android:id="@+id/btn_clear"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/baseline_clear_24"
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
 
     </LinearLayout>
 

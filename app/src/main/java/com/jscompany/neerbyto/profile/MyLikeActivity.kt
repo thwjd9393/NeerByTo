@@ -79,7 +79,7 @@ class MyLikeActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<MyLikeItem>>, t: Throwable) {
-                    Common.makeToast(this@MyLikeActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@MyLikeActivity,getString(R.string.response_server_error))
                 }
             })
     }

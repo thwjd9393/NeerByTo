@@ -135,7 +135,7 @@ class TredeDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
                 }
             })
 
@@ -153,7 +153,7 @@ class TredeDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
                 }
             })
     }
@@ -169,7 +169,7 @@ class TredeDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
                 }
             })
     }
@@ -399,7 +399,7 @@ class TredeDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<TredeDetail>>, t: Throwable) {
-                    Common.makeToast(this@TredeDetailActivity,"서버에 문제가 있습니다")
+                    Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
                 }
             })
 

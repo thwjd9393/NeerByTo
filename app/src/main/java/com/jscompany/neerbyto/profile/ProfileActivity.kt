@@ -84,10 +84,11 @@ class ProfileActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    //
+
     private fun clickProfileUpdate() {
         startActivity(Intent(this, ProfileUpdateActivity::class.java))
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()

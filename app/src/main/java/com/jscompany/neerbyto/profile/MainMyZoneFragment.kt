@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.databinding.FragmentMainMyZoneBinding
 import com.jscompany.neerbyto.servicecenter.FnaActivity
@@ -38,7 +40,7 @@ class MainMyZoneFragment : Fragment() {
 
     private fun init(){
         //유저 이미지 셋팅
-        //binding.userImg.background
+        setUserInfo()
 
         //로그아웃
         binding.btnLogout.setOnClickListener { clickLogout() }
@@ -49,8 +51,8 @@ class MainMyZoneFragment : Fragment() {
         //작성글
         binding.imgWrite.setOnClickListener { clickWrite() }
 
-        //참여한글
-        binding.imgEnter.setOnClickListener { clickEnter() }
+        //친구 추가 목록
+        binding.imgEnter.setOnClickListener { clickMyFriend() }
         
         //관심
         binding.imgLike.setOnClickListener { clickLike() }
@@ -65,36 +67,54 @@ class MainMyZoneFragment : Fragment() {
         binding.btnSetting.setOnClickListener { clickSetting() }
     }
 
+    //유저 정보 셋팅
+    private fun setUserInfo() {
+        binding.tvNicname.text = Common.getNic(requireActivity())
+
+        var profileImg = ""
+        if (Common.PROFILEIMG != "") profileImg = "http://mrhisj23.dothome.co.kr/NeerByTo/"+Common.PROFILEIMG
+
+        Glide.with(requireActivity()).load(profileImg).error(R.drawable.user_line).into(binding.civUserImg)
+    }
+
+    //셋팅 화면으로 이동
     private fun clickSetting() {
         startActivity(Intent(activity, SettingActivity::class.java))
     }
 
+    //자주 묻는 질문으로 이동
     private fun clickFna() {
         startActivity(Intent(activity, FnaActivity::class.java))
         //startActivity(Intent(activity, FnaDetailActivity::class.java))
     }
 
+    //공지사항으로 이동
     private fun clickNotice() {
         startActivity(Intent(activity, NoticeActivity::class.java))
         //startActivity(Intent(activity, NoticeDetailActivity::class.java))
     }
 
+    //관심글로 이동
     private fun clickLike() {
         startActivity(Intent(activity, MyLikeActivity::class.java))
     }
 
-    private fun clickEnter() {
+    //친구추가 목록 이동
+    private fun clickMyFriend() {
         startActivity(Intent(activity, MyFriendActivity::class.java))
     }
-
+    
+    //작성글로 이동
     private fun clickWrite() {
         startActivity(Intent(activity, MyWriteActivity::class.java))
     }
 
+    //프로필 화면으로 이동
     private fun clickProfile() {
-        startActivity(Intent(activity, ProfileActivity::class.java))
+        startActivity(Intent(activity, ProfileActivity::class.java).putExtra("userNo",Common.getUserNo(requireActivity())))
     }
 
+    //로그아웃
     private fun clickLogout() {
     }
 

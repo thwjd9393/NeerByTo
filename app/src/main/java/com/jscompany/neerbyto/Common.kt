@@ -39,6 +39,10 @@ class Common {
         val STATUS_END : String = "2"
         val STATUS_END_TEXT : String = "완료"
 
+        //사용자 상태
+        val USER_STATUS_ABLE : String = "1" //활성화
+        val USER_STATUS_DISABLE : String = "2" //비활성화
+        val USER_STATUS_WITHDRAW : String = "3" //탈퇴
 
         //사용자 정보
         //lateinit var userNic : String;
@@ -72,8 +76,8 @@ class Common {
         var longitude : String? = null //위도
         var dong : String? = null //동
         var PROFILEURI : Uri? = null // 파이어베어스 이미지 유알엘
-        var PROFILEURL : String = "" // 파이어베어스 이미지 유알엘
-
+        var PROFILEURL : String = "" // 파이어베어스 이미지 유알
+        var PROFILEIMG : String = "" //프로필 이미지
 
 
         //달 계산

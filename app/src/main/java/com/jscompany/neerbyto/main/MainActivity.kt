@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) = Common.makeToast(this@MainActivity, "서버에 문제가 있습니다")
+                override fun onFailure(call: Call<String>, t: Throwable) = Common.makeToast(this@MainActivity, getString(R.string.response_server_error))
             })
     }
 }
