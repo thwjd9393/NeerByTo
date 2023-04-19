@@ -105,7 +105,8 @@ class MyFriendActivity : AppCompatActivity() {
 
     //프로필 화면으로 이동
     fun moveToProfile(userNo: Int) {
-        startActivity(Intent(this,ProfileActivity::class.java).putExtra("userNo",userNo))
+        startActivity(Intent(this,ProfileActivity::class.java).putExtra("userNo",userNo.toString()))
+
     }
 
 }

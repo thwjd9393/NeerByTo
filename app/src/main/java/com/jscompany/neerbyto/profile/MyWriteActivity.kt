@@ -33,12 +33,25 @@ class MyWriteActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle(R.string.write)
 
+        //넘겨받은 유저 값 플래그먼트로 보내주기
+        val userNo : String = intent.getStringExtra("userNo") ?: ""
+
+        val bundle = Bundle()
+        bundle.putString("userNo",userNo) //데이터 담기
+
         //아답터
         val  myWriteAdapter = MyWriteAdapter(this)
 
         //프래그 먼트 추가
-        myWriteAdapter.addFragment(MyWriteIngFragment())
-        myWriteAdapter.addFragment(MyWriteEndFragment())
+        val ingFragment  = MyWriteIngFragment()
+        val endFragment  = MyWriteEndFragment()
+
+        //데이터 넘기기
+        ingFragment.arguments = bundle
+        endFragment.arguments = bundle
+
+        myWriteAdapter.addFragment(ingFragment)
+        myWriteAdapter.addFragment(endFragment)
 
         //뷰페이저에 연동
         pagerMyWrite.adapter = myWriteAdapter
@@ -53,6 +66,7 @@ class MyWriteActivity : AppCompatActivity() {
         TabLayoutMediator(tabMyWrite, pagerMyWrite) { tab, position ->
             tab.text = tabTitle.get(position)
         }.attach()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

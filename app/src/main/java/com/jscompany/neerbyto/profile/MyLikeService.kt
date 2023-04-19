@@ -19,7 +19,7 @@ interface MyLikeService {
     @GET("NeerByTo/loadMyTredeData.php")
     fun loadMyTredeData(@Query("userNo") userNo : String, @Query("state") state : String) : Call<MutableList<MyWriteItem>>
 
-    //친구추가 select
+    //친구 select
     @GET("NeerByTo/loadMyFriendData.php")
     fun loadMyFriendData(@Query("myUserNo") myUserNo : String,@Query("state") state : String) : Call<MutableList<MyFriendItem>>
 
@@ -30,5 +30,9 @@ interface MyLikeService {
     //친구 추가 delete
     @GET("NeerByTo/delMyFriend.php")
     fun delMyFriend(@Query("friendNo") friendNo : Int) : Call<String>
+
+    //친구 추가 되어 있는지 확인
+    @GET("NeerByTo/loadMyFriendCheck.php")
+    fun loadMyFriendCheck(@Query("myUserNo") myUserNo : String, @Query("userNo") userNo : String) : Call<String>
 
 }

@@ -26,7 +26,9 @@ class MyWriteEndFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataLoad()
+        val userNo = arguments?.getString("userNo") ?: ""
+
+        dataLoad(userNo)
     }
 
     override fun onCreateView(
@@ -45,9 +47,9 @@ class MyWriteEndFragment : Fragment() {
 
     }
 
-    private fun dataLoad() {
+    private fun dataLoad(userNo:String) {
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
-            .loadMyTredeData(Common.getUserNo(requireActivity()), Common.STATUS_END)
+            .loadMyTredeData(userNo, Common.STATUS_END)
             .enqueue(object : Callback<MutableList<MyWriteItem>> {
                 override fun onResponse(
                     call: Call<MutableList<MyWriteItem>>,

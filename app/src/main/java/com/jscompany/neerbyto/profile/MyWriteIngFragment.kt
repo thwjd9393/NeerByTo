@@ -1,6 +1,7 @@
 package com.jscompany.neerbyto.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +27,9 @@ class MyWriteIngFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataLoad()
+        val userNo = arguments?.getString("userNo") ?: ""
+
+        dataLoad(userNo)
     }
 
     override fun onCreateView(
@@ -45,9 +48,9 @@ class MyWriteIngFragment : Fragment() {
 
     }
 
-    private fun dataLoad() {
+    private fun dataLoad(userNo:String) {
         RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
-            .loadMyTredeData(Common.getUserNo(requireActivity()),Common.STATUS_ING)
+            .loadMyTredeData(userNo,Common.STATUS_ING)
             .enqueue(object : Callback<MutableList<MyWriteItem>>{
                 override fun onResponse(
                     call: Call<MutableList<MyWriteItem>>,

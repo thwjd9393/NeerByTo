@@ -178,7 +178,7 @@ class TredeDetailActivity : AppCompatActivity() {
     private fun clickProfile() {
         //글쓴 사람 번호 가지고 프로필 화면으로 이동
         val writeUserNo = binding.tvUserNo.text.toString()
-        startActivity(Intent(this,ProfileActivity::class.java).putExtra("writeUserNo", writeUserNo))
+        startActivity(Intent(this,ProfileActivity::class.java).putExtra("userNo", writeUserNo))
     }
 
     //파이어베이스에 유저 저장 - 이미지 있는 사람 없는 사람 분기처리

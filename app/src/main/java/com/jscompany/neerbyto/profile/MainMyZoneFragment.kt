@@ -106,7 +106,7 @@ class MainMyZoneFragment : Fragment() {
     
     //작성글로 이동
     private fun clickWrite() {
-        startActivity(Intent(activity, MyWriteActivity::class.java))
+        startActivity(Intent(activity, MyWriteActivity::class.java).putExtra("userNo",Common.getUserNo(requireActivity())))
     }
 
     //프로필 화면으로 이동

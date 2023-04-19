@@ -9,4 +9,5 @@ data class UserVO(
     var profileImg : String,
     var join_path : String,
     var state : String,
+    var join_date : String,
     )
