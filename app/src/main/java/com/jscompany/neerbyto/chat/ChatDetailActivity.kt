@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.DocumentChange
@@ -13,8 +14,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityChatDetailBinding
 import com.jscompany.neerbyto.main.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Calendar
 
 
@@ -62,6 +67,8 @@ class ChatDetailActivity : AppCompatActivity() {
 
         //메세지 부르기
         getChatMessage()
+
+        binding.btnStatus.setOnClickListener { clickTredeStatus() }
     }
 
     //방 정보 얻어오기
@@ -82,6 +89,11 @@ class ChatDetailActivity : AppCompatActivity() {
                     writeUserNo = data.get("writeUserNo").toString()
                     Log.i("TAG","글쓴이 번호 ${writeUserNo}")
                     users = data.get("users") as MutableList<String>
+
+                    //완료버튼 보이기
+                    if (writeUserNo == Common.getUserNo(this)) {
+                        binding.btnStatus.visibility = View.VISIBLE
+                    }
 
                 }
         }
@@ -217,5 +229,27 @@ class ChatDetailActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    //방 상태 변경
+    private fun clickTredeStatus() {
+        AlertDialog.Builder(this@ChatDetailActivity).setMessage("거래가 완료되었나요?")
+            .setPositiveButton("네"
+            ) { dialog, which ->
+
+                RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(ChatService::class.java)
+                    .updateTredeState(tredeNo).enqueue(object : Callback<String>{
+                        override fun onResponse(call: Call<String>, response: Response<String>) {
+                            Common.makeToast(this@ChatDetailActivity,"${response.body()}")
+                        }
+
+                        override fun onFailure(call: Call<String>, t: Throwable) {
+                            Common.makeToast(this@ChatDetailActivity,getString(R.string.response_server_error))
+                        }
+                    })
+
+            }
+            .setNegativeButton("아니오"
+            ) { dialog, which -> dialog.dismiss()}.show()
+
+    }
 
 }
