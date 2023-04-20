@@ -20,7 +20,8 @@ class TermsFragment : Fragment() {
 
     private val pager : ViewPager2 by lazy { binding.pagerTermsWarp }
 
-    private var tabTitle = arrayOf("서비스 이용 약관","개인정보 처리방침","위치기반서비스 이용약관")
+    //private var tabTitle = arrayOf("서비스 이용 약관","개인정보 처리방침","위치기반서비스 이용약관")
+    private var tabTitle = arrayOf("개인정보 처리방침","위치기반서비스 이용약관")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class TermsFragment : Fragment() {
         val termsAdapter = SettingTermsAdapter(requireActivity())
 
         //2. 플래그먼트 add
-        termsAdapter.addFragment(SettingTermsServiceFragment())
+        //termsAdapter.addFragment(SettingTermsServiceFragment())
         termsAdapter.addFragment(SettingTermsPersonalFragment())
         termsAdapter.addFragment(SettingTermsLocationFragment())
 

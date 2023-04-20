@@ -17,12 +17,18 @@
 
             <include layout="@layout/toolbar_layout"/>
 
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_terms_warp"-->
+<!--                app:tabMode="scrollable"-->
+<!--                app:tabSelectedTextColor="@color/bnv_item_color"-->
+<!--                app:tabIndicatorColor="@color/bnv_item_color"-->
+<!--                app:tabGravity="fill"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_terms_warp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/bnv_item_color"
-                app:tabIndicatorColor="@color/bnv_item_color"
-                app:tabGravity="fill"
+                app:tabTextColor="@color/bnv_item_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
