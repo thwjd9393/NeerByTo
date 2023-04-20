@@ -13,10 +13,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.FragmentSettingMainBinding
 import com.jscompany.neerbyto.main.MainActivity
 import com.jscompany.neerbyto.profile.MainMyZoneFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SettingMainFragment : Fragment(){
 
@@ -24,6 +30,8 @@ class SettingMainFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(
@@ -42,12 +50,9 @@ class SettingMainFragment : Fragment(){
         toolbar.setTitle(R.string.setting)
         toolbar.setNavigationIcon(R.drawable.ic_action_back)
 
+
         //뒤로가기
         toolbar.setNavigationOnClickListener {
-            //requireActivity().supportFragmentManager.popBackStack()
-
-            //requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
-            //().supportFragmentManager.beginTransaction().replace(R.id.fragment_warp, MainMyZoneFragment()).commit()
             requireActivity().finish()
         }
 
@@ -58,7 +63,7 @@ class SettingMainFragment : Fragment(){
         binding.btnWithdraw.setOnClickListener { clickWithdraw() }
         
         //버전 셋팅
-        binding.btnVersion.text = "버전 1.0"
+        setVersionData()
         binding.btnVersion.setOnClickListener { clickVersion() }
         
     }
@@ -72,7 +77,12 @@ class SettingMainFragment : Fragment(){
     }
 
     private fun clickOpenlicense() {
-        changFragment(R.id.btn_openlicense)
+        //changFragment(R.id.btn_openlicense)
+
+        startActivity(Intent(requireActivity(), OssLicensesMenuActivity::class.java))
+
+        // ActionBar의 title 변경
+        OssLicensesMenuActivity.setActivityTitle("오픈소스 라이선스")
     }
 
     private fun clickVersion() {
@@ -102,11 +112,25 @@ class SettingMainFragment : Fragment(){
         val fragment = when(tvId) {
             R.id.btn_alarm -> AlarmFragment()
             R.id.btn_service_terms -> TermsFragment()
-            R.id.btn_openlicense -> OpenLicenseFragment()
+            //R.id.btn_openlicense -> OpenLicenseFragment()
             R.id.btn_withdraw -> WithdrawFragment()
             else -> throw IllegalArgumentException("not found menu item id")
         }
         return  fragment
+    }
+
+    private fun setVersionData(){
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(SettingService::class.java)
+            .loadVersionData().enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    val result = response.body() ?: ""
+                    binding.btnVersion.text = "${getString(R.string.app_version)} ${result}"
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Common.makeToast(requireActivity(),getString(R.string.response_server_error))
+                }
+            })
     }
 
 }

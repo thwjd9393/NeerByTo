@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+
+    //라이선스 플러그인
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
@@ -76,4 +79,7 @@ dependencies {
 
     //구글 위치
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // 어픈라이선스 library 추가
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }

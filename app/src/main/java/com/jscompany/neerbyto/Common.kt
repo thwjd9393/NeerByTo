@@ -39,6 +39,11 @@ class Common {
         val STATUS_END : String = "2"
         val STATUS_END_TEXT : String = "완료"
 
+        //약관
+        val TERMS_SERVICE = 1
+        val TERMS_PERSONAL = 2
+        val TERMS_LOCATION = 3
+
         //사용자 상태
         val USER_STATUS_ABLE : String = "1" //활성화
         val USER_STATUS_DISABLE : String = "2" //비활성화

@@ -39,9 +39,6 @@ class OpenLicenseFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        //리사이클러 뷰  recycler_license
-        
-
     }
 
 }
