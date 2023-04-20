@@ -86,6 +86,7 @@ class MainTredeFragment : Fragment() {
             when(it.itemId) {
                 R.id.option_search -> {
                     //startActivity(Intent(context, SecondActivity::class.java))
+                    Common.makeToast(requireActivity(),"기능 중비중")
                     true
                 }
                 R.id.option_categoty -> {

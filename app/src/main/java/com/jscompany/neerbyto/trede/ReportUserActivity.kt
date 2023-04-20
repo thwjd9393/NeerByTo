@@ -33,14 +33,17 @@ class ReportUserActivity : AppCompatActivity() {
         //유저 번호, 닉네임 셋팅
         val getIntent : Intent = intent
 
-        var userId = getIntent.getStringExtra("userNic")
+        var userNic = getIntent.getStringExtra("userNic")
         var userNo = getIntent.getStringExtra("userNo")
 
-        binding.tvHelper.text ="\'" + userId + "\'"
+        binding.tvHelper.text ="\'" + userNic + "\'"
         binding.tvUserNo.text = userNo
 
         //카테고리 선택 다이아로그
         binding.tvReportCategory.setOnClickListener { clickSelect() }
+        
+        //신고하기 버튼
+        binding.btnReport.setOnClickListener { clickReport() }
 
     }
 
@@ -54,6 +57,11 @@ class ReportUserActivity : AppCompatActivity() {
             binding.tvReportCategory.text = items[which]
         }).create().show()
 
+    }
+
+    //신고하기 등록
+    private fun clickReport() {
+        Toast.makeText(this, "기능 구현중", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -115,7 +116,9 @@ class TredeDetailActivity : AppCompatActivity() {
 
         }
 
+        //글 삭제
         binding.btnDelete.setOnClickListener { clickDelete() }
+        //글 수정
         binding.btnUpdate.setOnClickListener { clickUpdate() }
         
     }
@@ -221,7 +224,7 @@ class TredeDetailActivity : AppCompatActivity() {
         isFirst = false; //첫번째일때 만 등록
     }
 
-    //화면이동
+    //채팅 화면으로 이동
     private fun moveToChat(){
         startActivity(Intent(this@TredeDetailActivity,ChatDetailActivity::class.java)
             .putExtra("tredeNo",tredeNo) //글 번호
@@ -408,11 +411,13 @@ class TredeDetailActivity : AppCompatActivity() {
     //내가 쓴글 지우기
     private fun clickUpdate() {
         //글 업뎃 시 레트로핏 & 파이어베이스 둘다 업뎃
+        Toast.makeText(this, "기능구현중", Toast.LENGTH_SHORT).show()
     }
 
     //내가 쓴 글 업데이트
     private fun clickDelete() {
         //글 삭제 시 레트로핏 & 파이어베어스 둘다 삭제
+        Toast.makeText(this, "기능구현중", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -429,10 +434,10 @@ class TredeDetailActivity : AppCompatActivity() {
         else if(item.itemId == R.id.option_report) { //유저 신고하기
             val intent : Intent = Intent(this,ReportUserActivity::class.java)
                 .putExtra("userNic",writeUserNIc).putExtra("userNo",writeUserNo)
-            
             startActivity(intent)
-        } else if (item.itemId == R.id.option_share) { //페이지 공유하기
 
+        } else if (item.itemId == R.id.option_share) { //페이지 공유하기
+            Toast.makeText(this, "기능 구현중", Toast.LENGTH_SHORT).show()
         }
 
 

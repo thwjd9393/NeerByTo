@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NeerByTo</string>
+    <string name="app_name">가치가치</string>
 
     <string name="app_title">가치가치</string>
     <string name="app_subtitle">share things, share one\'s heart</string>
@@ -89,7 +89,7 @@
     <string name="manner_detail">매너 상세</string>
 
     <string name="alarm">알림</string>
-    <string name="service_terms">서비스 이용약관</string>
+    <string name="service_terms">이용약관</string>
     <string name="openlicense">오픈소스라이센스</string>
     <string name="app_version">버전</string>
     <string name="withdraw">탈퇴하기</string>
