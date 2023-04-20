@@ -229,9 +229,8 @@ class ProfileActivity : AppCompatActivity() {
     //
 
     private fun clickProfileUpdate() {
-        //startActivity(Intent(this, ProfileUpdateActivity::class.java))
+        startActivity(Intent(this, ProfileUpdateActivity::class.java))
 
-        Toast.makeText(this, "기능구현중", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
