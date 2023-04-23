@@ -59,3 +59,9 @@ data class MyFriendItem(
     var state : Int,
 )
 
+//신고 ReportCtyItem
+data class ReportCtyItem(
+    var reportCtyNo : Int,
+    var reportCtyContent : String,
+)
+

@@ -44,4 +44,14 @@ interface MyLikeService {
     @GET("NeerByTo/loadMyFriendCheck.php")
     fun loadMyFriendCheck(@Query("myUserNo") myUserNo : String, @Query("userNo") userNo : String) : Call<String>
 
+    //신고 카테고리 가져오기
+    @GET("NeerByTo/loadReportCategory.php")
+    fun loadReportCategory() : Call<MutableList<ReportCtyItem>>
+
+    //카테고리 저장
+    @GET("NeerByTo/insertReportCategory.php")
+    fun insertReportCategory(@Query("content") content : String,
+                             @Query("userNo") userNo : String,
+                             @Query("reportUserNo") reportUserNo : String,
+                             @Query("reportCtyNo") reportCtyNo : String) : Call<String>
 }

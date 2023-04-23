@@ -70,6 +70,7 @@
             app:counterMaxLength="300">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_content"
                 android:gravity="start"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"/>

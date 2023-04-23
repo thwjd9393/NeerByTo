@@ -14,7 +14,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.FilePathFormUri
@@ -44,7 +46,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
     var boolNicChek : Boolean = false
 
     //이미지 파일 경로
-    private var imgPath : String = ""
+    private var imgPath : String? = null
     
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,18 +90,48 @@ class ProfileUpdateActivity : AppCompatActivity() {
 
     private fun clickImgSelect() {
 
-        //이미지 선택
-        var intent = Intent(MediaStore.ACTION_PICK_IMAGES)
-        imgPickResultLauncher.launch(intent)
+        when{
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                //퍼미션 허용
+                startPickPhoto()
+            } else -> {
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
+            }
+        }
 
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode) {
+            1000 ->
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startPickPhoto()
+                } else {
+                    Common.makeToast(this, "권한이 거부되었습니다")
+                }
+        }
+    }
+
+    private fun startPickPhoto() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        imgPickResultLauncher.launch(intent)
     }
 
     var imgPickResultLauncher : ActivityResultLauncher<Intent>
         = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) {
             if(it.resultCode != RESULT_CANCELED){
-                var intent = it.data!!
-                var uri : Uri = intent.data!!
+                var uri : Uri = it.data?.data!!
 
                 //스태틱변수로 저장
                 Common.PROFILEURI = uri
@@ -111,8 +143,8 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 Glide.with(this).load(uri).error(R.drawable.user_line).into(binding.civImgUser)
 
                 //v이미지 파일 주소 얻어오기
-                imgPath = FilePathFormUri.getFilePathFromUri(uri, this)
-
+                imgPath = FilePathFormUri.getFilePathFromUri2(uri, this) ?: ""
+                Log.i("TAG", "이미지 경로 imgPath : ${imgPath}")
             }
     }
 
@@ -228,7 +260,8 @@ class ProfileUpdateActivity : AppCompatActivity() {
         //이미지
         var filePart : MultipartBody.Part?
 
-        val file = File(imgPath)
+        var file = File("")
+        if(imgPath != "") file = File(imgPath)
 
         Log.i("TAG", "유저 정보 ${dataUser}")
         Log.i("TAG", "사진 file ${file}")

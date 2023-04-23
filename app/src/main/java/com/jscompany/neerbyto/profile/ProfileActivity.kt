@@ -26,6 +26,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private val binding:ActivityProfileBinding by lazy { ActivityProfileBinding.inflate(layoutInflater) }
 
+    //친구 추가 변수
     var isfriedCheck : Boolean = false
 
     var userNo : String = ""
@@ -200,11 +201,15 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun clickReport() {
-        startActivity(Intent(this, ReportUserActivity::class.java))
+        val userNic = binding.tvNicname.text
+
+        startActivity(Intent(this, ReportUserActivity::class.java).putExtra("userNo",userNo).putExtra("userNic",userNic))
     }
 
     //매너평가 페이지
     private fun clickMannerEstimate() {
+
+        val userNic = binding.tvNicname.text
 
         //커스텀 다이아로그 띄우기
         val dialoView = layoutInflater.inflate(R.layout.layout_dialog, null)
@@ -215,12 +220,16 @@ class ProfileActivity : AppCompatActivity() {
 
         btnMgood.setOnClickListener {
             alertDialog.dismiss()
-            startActivity(Intent(this, MannerEstimateGoodActivity::class.java))
+            startActivity(Intent(this, MannerEstimateGoodActivity::class.java)
+                .putExtra("userNo",userNo)
+                .putExtra("userNic",userNic))
         }
 
         btnMbad.setOnClickListener {
             alertDialog.dismiss()
-            startActivity(Intent(this, MannerEstimateBadActivity::class.java))
+            startActivity(Intent(this, MannerEstimateBadActivity::class.java)
+                .putExtra("userNo",userNo)
+                .putExtra("userNic",userNic))
         }
 
         alertDialog.show()
