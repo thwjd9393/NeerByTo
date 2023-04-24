@@ -70,4 +70,12 @@ interface MyLikeService {
     //비매너 저장
     @GET("NeerByTo/insertBManner.php")
     fun insertBManner(@Query("userNo") userNo:String, @Query("bCtyNo") bCtyNo:String, ): Call<String>
+    
+    //매너 비매너 가장 많이 받은 순서대로 정렬
+    @GET("NeerByTo/loadGManner.php")
+    fun loadGManner(@Query("userNo") userNo:String) : Call<MutableList<GoodItem>> //content,cnt
+
+    @GET("NeerByTo/loadBManner.php")
+    fun loadBManner(@Query("userNo") userNo:String) : Call<MutableList<BadItem>> //content,cnt
+
 }

@@ -75,3 +75,15 @@ data class BadCtyItem(
     var content : String,
 )
 
+data class GoodItem(
+    var userNo  : Int,
+    var cnt  : Int,
+    var content : String,
+)
+
+data class BadItem(
+    var userNo  : Int,
+    var cnt  : Int,
+    var content : String,
+)
+

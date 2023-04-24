@@ -46,6 +46,9 @@ class ProfileActivity : AppCompatActivity() {
         //화면 로드 되자마자 친구추가 했는지 체크
         checkFriend()
 
+        //매너 받은 거 셋팅
+        setManner()
+
         Log.i("TAG", "init = ${isfriedCheck}")
     }
 
@@ -190,16 +193,57 @@ class ProfileActivity : AppCompatActivity() {
             })
     }
 
-    //받은 매너평가
+    //받은 매너평가 상세페이지 이동
     private fun clickGoManerpage() {
-        startActivity(Intent(this, MannerDetailActivity::class.java))
+        startActivity(Intent(this, MannerDetailActivity::class.java).putExtra("userNo",userNo))
     }
+
+    //가장 많이 받은 매너 평가 셋팅
+    private fun setManner() {
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
+            .loadGManner(userNo).enqueue(object : Callback<MutableList<GoodItem>>{
+                override fun onResponse(
+                    call: Call<MutableList<GoodItem>>,
+                    response: Response<MutableList<GoodItem>>
+                ) {
+                    val result : MutableList<GoodItem> = response.body() ?: mutableListOf()
+
+                    binding.tvGood.text = result[0].content
+                }
+
+                override fun onFailure(call: Call<MutableList<GoodItem>>, t: Throwable) {
+                    Common.makeToast(this@ProfileActivity,getString(R.string.response_server_error))
+                    Log.i("TAG","굿 ${t.message}")
+                }
+
+            })
+
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
+            .loadBManner(userNo).enqueue(object : Callback<MutableList<BadItem>>{
+                override fun onResponse(
+                    call: Call<MutableList<BadItem>>,
+                    response: Response<MutableList<BadItem>>
+                ) {
+                    val result : MutableList<BadItem> = response.body() ?: mutableListOf()
+
+                    binding.tvBad.text = result[0].content
+                }
+
+                override fun onFailure(call: Call<MutableList<BadItem>>, t: Throwable) {
+                    Common.makeToast(this@ProfileActivity,getString(R.string.response_server_error))
+                    Log.i("TAG","배드 ${t.message}")
+                }
+
+            })
+    }
+
 
     //작성글 넘어가기
     private fun clickOtherWrite() {
         startActivity(Intent(this, MyWriteActivity::class.java).putExtra("userNo",userNo))
     }
 
+    //신고하기
     private fun clickReport() {
         val userNic = binding.tvNicname.text
 
