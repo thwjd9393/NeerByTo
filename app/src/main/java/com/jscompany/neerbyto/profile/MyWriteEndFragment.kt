@@ -45,6 +45,8 @@ class MyWriteEndFragment : Fragment() {
         writeAdapter = MyWriteFragAdapter(requireActivity(), writeItems)
         binding.recyclerMyWriteEnd.adapter = writeAdapter
 
+
+
     }
 
     private fun dataLoad(userNo:String) {
@@ -61,6 +63,15 @@ class MyWriteEndFragment : Fragment() {
                         writeItems.add(items[i])
                     }
                     writeAdapter.notifyItemInserted(writeItems.size-1) //마지막 번호가 추가 됐다 알려주기
+
+                    if (writeItems.size == 0) {
+                        binding.warpEmpty.visibility = View.VISIBLE
+                        binding.recyclerMyWriteEnd.visibility = View.INVISIBLE
+                    } else {
+                        binding.warpEmpty.visibility = View.INVISIBLE
+                        binding.recyclerMyWriteEnd.visibility = View.VISIBLE
+                    }
+
                 }
 
                 override fun onFailure(call: Call<MutableList<MyWriteItem>>, t: Throwable) {

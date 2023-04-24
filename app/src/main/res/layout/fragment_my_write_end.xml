@@ -6,6 +6,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".profile.MannerGoodFragment">
 
+    <LinearLayout
+        android:id="@+id/warp_empty"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:background="@drawable/baseline_emoji_nature_24"
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="90dp"/>
+
+        <TextView
+            android:text="완료 된 글이 없습니다"
+            android:textColor="@color/normal_grey"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_my_write_end"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

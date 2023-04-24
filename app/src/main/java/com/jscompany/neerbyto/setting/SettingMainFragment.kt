@@ -2,6 +2,7 @@ package com.jscompany.neerbyto.setting
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -87,7 +88,7 @@ class SettingMainFragment : Fragment(){
 
     private fun clickVersion() {
         //구글 플레이로 가기
-        Toast.makeText(activity, "구글플레이 열기", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Common.playStorUrl)))
     }
 
     //탈퇴

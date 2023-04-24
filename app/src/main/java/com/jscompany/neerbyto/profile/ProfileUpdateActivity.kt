@@ -90,14 +90,15 @@ class ProfileUpdateActivity : AppCompatActivity() {
 
     private fun clickImgSelect() {
 
-        when{
+        when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            ) -> {
                 //퍼미션 허용
                 startPickPhoto()
-            } else -> {
+            }
+            else -> {
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
             }
         }
@@ -116,13 +117,14 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startPickPhoto()
                 } else {
+                    //startPickPhoto()
                     Common.makeToast(this, "권한이 거부되었습니다")
                 }
         }
     }
 
     private fun startPickPhoto() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        val intent = Intent(Intent.ACTION_PICK) //ACTION_GET_CONTENT - 은 듀플리케이트 됨
         intent.type = "image/*"
         imgPickResultLauncher.launch(intent)
     }
@@ -143,7 +145,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 Glide.with(this).load(uri).error(R.drawable.user_line).into(binding.civImgUser)
 
                 //v이미지 파일 주소 얻어오기
-                imgPath = FilePathFormUri.getFilePathFromUri2(uri, this) ?: ""
+                imgPath = FilePathFormUri.getFilePathFromUri(uri, this) ?: ""
                 Log.i("TAG", "이미지 경로 imgPath : ${imgPath}")
             }
     }

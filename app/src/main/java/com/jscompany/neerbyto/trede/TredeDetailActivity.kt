@@ -75,22 +75,6 @@ class TredeDetailActivity : AppCompatActivity() {
             checkLike()
 
             //좋아요 버튼
-//        binding.btnLike.setOnCheckedChangeListener { compoundButton, b ->
-//            var userNo = Common.getUserNo(this)
-//            Log.i("TAG","isLickChek1 = ${isLickChek}")
-//            Log.i("TAG","b0 = ${b}")
-//            if(b==true && isLickChek==false){
-//                insertLick(userNo,tredCtyNo)
-//                Log.i("TAG","isLickChek2 = ${isLickChek}")
-//                Log.i("TAG","b1 = ${b}")
-//            } else {
-//                delLike(userNo)
-//
-//                Log.i("TAG","isLickChek3 = ${isLickChek}")
-//                Log.i("TAG","b2 = ${b}")
-//            }
-//        }
-
             binding.btnLike.setOnClickListener {
                 var userNo = Common.getUserNo(this)
                 Log.i("TAG","isLickChek1 = ${isLickChek}")

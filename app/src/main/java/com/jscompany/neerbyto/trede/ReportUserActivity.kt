@@ -135,7 +135,6 @@ class ReportUserActivity : AppCompatActivity() {
                         ) { dialog, which ->
                             Common.makeToast(this@ReportUserActivity, "${result}")
 
-                            startActivity(Intent(this@ReportUserActivity, ProfileActivity::class.java).putExtra("userNo",userNo))
                             finish()
                         }
                         .setNegativeButton("취소"

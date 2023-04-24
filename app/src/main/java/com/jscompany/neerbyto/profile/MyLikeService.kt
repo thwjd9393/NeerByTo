@@ -54,4 +54,20 @@ interface MyLikeService {
                              @Query("userNo") userNo : String,
                              @Query("reportUserNo") reportUserNo : String,
                              @Query("reportCtyNo") reportCtyNo : String) : Call<String>
+
+    //칭찬 카테고리 가져오기
+    @GET("NeerByTo/loadGMannerCategory.php")
+    fun loadGMannerCategory() : Call<MutableList<GoodCtyItem>>
+
+    //칭찬 저장
+    @GET("NeerByTo/insertGManner.php")
+    fun insertGManner(@Query("userNo") userNo:String, @Query("gCtyNo") gCtyNo:String, ): Call<String>
+
+    //비매너 카테고리 가져오기
+    @GET("NeerByTo/loadBMannerCategory.php")
+    fun loadBMannerCategory() : Call<MutableList<BadCtyItem>>
+
+    //비매너 저장
+    @GET("NeerByTo/insertBManner.php")
+    fun insertBManner(@Query("userNo") userNo:String, @Query("bCtyNo") bCtyNo:String, ): Call<String>
 }

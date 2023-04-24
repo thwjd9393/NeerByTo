@@ -22,7 +22,7 @@
 
         <TextView
             android:text="받은 평가가 없습니다"
-            android:textColor="@color/black"
+            android:textColor="@color/normal_grey"
             android:fontFamily="@font/gmarketsansttfbold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

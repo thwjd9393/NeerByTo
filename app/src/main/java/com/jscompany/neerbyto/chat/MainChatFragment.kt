@@ -31,7 +31,7 @@ class MainChatFragment : Fragment() {
     //채팅방 이름으로 쓸 애
     lateinit var tredeNo : String
 
-    var count : String = ""
+    var count : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,20 +59,6 @@ class MainChatFragment : Fragment() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        Log.i("TAG", "count =  ${chatAdapter.itemCount}")
-        if(count == "0" ){
-            binding.emptyWarp.visibility = View.VISIBLE
-            binding.charRecycler.visibility = View.GONE
-        } else {
-            binding.emptyWarp.visibility = View.GONE
-            binding.charRecycler.visibility = View.VISIBLE
-        }
-    }
-
-
     //내가 들어가 있는 채팅방 번호 가져오기
     private fun getInChat(context : Context){
         //채팅방 번호 얻어오기 - 파이어베어스 키로 쓰기
@@ -92,12 +78,26 @@ class MainChatFragment : Fragment() {
 
                     chatAdapter.notifyItemInserted(messageItems.size-1) //마지막 번호가 추가 됐다 알려주기
 
+                    //count = chatAdapter.itemCount.toString()
+                    count = chatAdapter.itemCount
+                    Log.i("TAG", "count ? $count")
 
-                    count = chatAdapter.itemCount.toString()
+                    getCount()
                 }
             }
         }
 
+    }
+
+    private fun getCount() {
+        Log.i("TAG", "count =  ${chatAdapter.itemCount}")
+        if(messageItems.size == 0 ){
+            binding.emptyWarp.visibility = View.VISIBLE
+            binding.charRecycler.visibility = View.GONE
+        } else {
+            binding.emptyWarp.visibility = View.GONE
+            binding.charRecycler.visibility = View.VISIBLE
+        }
     }
 
 }

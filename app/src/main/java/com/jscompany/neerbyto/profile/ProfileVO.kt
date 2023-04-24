@@ -65,3 +65,13 @@ data class ReportCtyItem(
     var reportCtyContent : String,
 )
 
+data class GoodCtyItem(
+    var gCtyNo  : Int,
+    var content : String,
+)
+
+data class BadCtyItem(
+    var bCtyNo  : Int,
+    var content : String,
+)
+
