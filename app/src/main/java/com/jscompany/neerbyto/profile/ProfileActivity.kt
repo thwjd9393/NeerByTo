@@ -208,7 +208,7 @@ class ProfileActivity : AppCompatActivity() {
                 ) {
                     val result : MutableList<GoodItem> = response.body() ?: mutableListOf()
 
-                    binding.tvGood.text = result[0].content
+                    if(result.size > 0) binding.tvGood.text = result[0].content
                 }
 
                 override fun onFailure(call: Call<MutableList<GoodItem>>, t: Throwable) {
@@ -226,7 +226,7 @@ class ProfileActivity : AppCompatActivity() {
                 ) {
                     val result : MutableList<BadItem> = response.body() ?: mutableListOf()
 
-                    binding.tvBad.text = result[0].content
+                    if(result.size > 0) binding.tvBad.text = result[0].content
                 }
 
                 override fun onFailure(call: Call<MutableList<BadItem>>, t: Throwable) {

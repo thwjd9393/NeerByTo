@@ -68,7 +68,7 @@
     <string name="myzone">마이 존</string>
     <string name="profile">프로필</string>
     <string name="profile_update">프로필 수정</string>
-    <string name="manner_btn">매너평가</string>
+    <string name="manner_btn">받은 평가가 없습니다</string>
     <string name="get_manner_btn">받은 매너평가</string>
     <string name="passwd_change">비밀번호 변경</string>
     <string name="profile_change">회원정보 수정</string>
