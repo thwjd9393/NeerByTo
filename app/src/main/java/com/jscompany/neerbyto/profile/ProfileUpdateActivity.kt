@@ -263,7 +263,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
         var filePart : MultipartBody.Part?
 
         var file = File("")
-        if(imgPath != "") file = File(imgPath)
+        if(imgPath != "") file = File(imgPath) else file = File("")
 
         Log.i("TAG", "유저 정보 ${dataUser}")
         Log.i("TAG", "사진 file ${file}")

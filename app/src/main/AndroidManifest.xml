@@ -89,10 +89,18 @@
         <activity
             android:name=".intro.IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.Splash" />
+            android:theme="@style/Theme.Splash">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".trede.TredeDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".login.LocationActivity"
             android:exported="false" />
@@ -104,12 +112,7 @@
             android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".main.MainActivity"

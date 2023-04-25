@@ -23,9 +23,11 @@
     <string name="passwd_no">비밀번호가 같지 않습니다</string>
     <string name="passwd_no_patten">비밀번호 형식이 다릅니다</string>
     <string name="id_ok">사용 가능한 아이디입니다</string>
-    <string name="id_no">사용 불가능한 아이디입니다</string>
+    <string name="id_no">이미 등록된 이메일입니다</string>
+    <string name="id_no_patten">이메일 형식이 다릅니다</string>
     <string name="nicname_ok">사용 가능한 닉네임입니다</string>
     <string name="nicname_no">사용 불가능한 닉네임입니다</string>
+    <string name="nicname_use">이미 존재하는 닉네임입니다</string>
 
     <string name="login_by_api">간편하게 로그인</string>
     <string name="find_id">아이디 찾기</string>
