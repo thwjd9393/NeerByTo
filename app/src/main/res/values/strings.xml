@@ -12,7 +12,7 @@
     <string name="passwd_hint">비밀번호를 입력하세요</string>
     <string name="singup_passwd_hint">숫자와 영문을 섞어 8~15자리를 입력하세요</string>
     <string name="login">로그인</string>
-    <string name="find_user">아이디/비밀번호 찾기</string>
+    <string name="find_user">비밀번호 찾기</string>
     <string name="sign_up">회원가입</string>
     <string name="look_around">둘러보기</string>
     <string name="passwd_check">비밀번호 확인</string>
@@ -111,6 +111,7 @@
     <string name="manner_badtext">남기고 싶은 비매너를 선택하세요</string>
     <string name="empty_chat">참여중인 채팅이 없습니다</string>
     <string name="empty_like">관심있는 게시물이 없습니다</string>
+    <string name="empty_friend">즐겨찾는 친구가 없습니다</string>
 
     <string name="response_server_error">서버에 문제가 있습니다</string>
 
