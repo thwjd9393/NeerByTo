@@ -1,11 +1,12 @@
 package com.jscompany.neerbyto.profile
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -115,14 +116,43 @@ class ProfileUpdateActivity : AppCompatActivity() {
         when(requestCode) {
             1000 ->
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //권한이 허가된 부분
                     startPickPhoto()
                 } else {
-                    //startPickPhoto()
-                    Common.makeToast(this, "권한이 거부되었습니다")
+                    //권한 거부 시 동작
+                    //Common.makeToast(this, "권한이 거부되었습니다")
+
+                    val localBuilder = AlertDialog.Builder(this)
+                    localBuilder.setTitle("권한 설정")
+                        .setMessage("권한 거절로 인해 일부기능이 제한됩니다.")
+                        .setPositiveButton(
+                            "권한 설정하러 가기"
+                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
+                            try {
+                                val intent: Intent =
+                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                        .setData(Uri.parse("package:$packageName"))
+                                startActivity(intent)
+                            } catch (e: ActivityNotFoundException) {
+                                e.printStackTrace()
+                                val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
+                                startActivity(intent)
+                            }
+                        }
+                        .setNegativeButton(
+                            "취소하기"
+                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
+                            Common.makeToast(this,"취소")
+                        }
+                        .create()
+                        .show()
+
+
                 }
         }
     }
 
+    //이미지 픽
     private fun startPickPhoto() {
         val intent = Intent(Intent.ACTION_PICK) //ACTION_GET_CONTENT - 은 듀플리케이트 됨
         intent.type = "image/*"
@@ -222,7 +252,10 @@ class ProfileUpdateActivity : AppCompatActivity() {
             dataUser["userNo"] = Common.getUserNo(this)
             clickUserInfoUpdate(dataUser)
 
+            Log.i("TAG", "AAA")
+
         } else {
+            Log.i("TAG", "BBB")
             //1.
             val retrofit : Retrofit = RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl)
 
@@ -241,6 +274,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
                         //전송할 데이터 준비
                         dataUser["passwd"] = binding.inputPasswd.text.toString()
                         dataUser["nicname"] = binding.inputNicname.text.toString()
+                        dataUser["userNo"] = Common.getUserNo(this@ProfileUpdateActivity)
                         clickUserInfoUpdate(dataUser)
                     }
 
@@ -262,49 +296,53 @@ class ProfileUpdateActivity : AppCompatActivity() {
         //이미지
         var filePart : MultipartBody.Part?
 
-        var file = File("")
-        if(imgPath != "") file = File(imgPath) else file = File("")
+        var file: File
+        if(imgPath != "") {
+            file = File(imgPath)
+
+            val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            filePart = MultipartBody.Part.createFormData("img", file.name, body)
+
+        } else file = File("")
 
         Log.i("TAG", "유저 정보 ${dataUser}")
         Log.i("TAG", "사진 file ${file}")
 
-        val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        filePart = MultipartBody.Part.createFormData("img", file.name, body)
 
-        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
-            .updateUserInfo(dataUser,filePart).enqueue(object : Callback<MutableList<UserVO>>{
-                override fun onResponse(
-                    call: Call<MutableList<UserVO>>,
-                    response: Response<MutableList<UserVO>>
-                ) {
-                    val result = response.body() ?: mutableListOf()
-
-                    Log.i("TAG", "정보 ${result}")
-
-                    binding.inputNicname.setText(result[0].nicname)
-
-                    var profileImg = ""
-                    if (Common.PROFILEIMG != "") profileImg = "http://mrhisj23.dothome.co.kr/NeerByTo/"+ result[0].profileImg
-
-                    Glide.with(this@ProfileUpdateActivity).load(profileImg).fallback(R.drawable.user_line)
-                        .error(R.drawable.user_line).into(binding.civImgUser)
-
-                    //쉐어드에 저장
-                    sharedPreferences(result[0].nicname, result[0].profileImg, result[0].id, result[0].userNo)
-                    //이미지 저장
-                    Common.PROFILEIMG = result[0].profileImg
-
-                    //화면이동
-                    startActivity(Intent(this@ProfileUpdateActivity,ProfileActivity::class.java).putExtra("userNo",result[0].userNo))
-                    finish()
-
-                }
-
-                override fun onFailure(call: Call<MutableList<UserVO>>, t: Throwable) {
-                    Common.makeToast(this@ProfileUpdateActivity, getString(R.string.response_server_error))
-                    Log.i("TAG", "${t.message}")
-                }
-            })
+//        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
+//            .updateUserInfo(dataUser,filePart).enqueue(object : Callback<MutableList<UserVO>>{
+//                override fun onResponse(
+//                    call: Call<MutableList<UserVO>>,
+//                    response: Response<MutableList<UserVO>>
+//                ) {
+//                    val result = response.body() ?: mutableListOf()
+//
+//                    Log.i("TAG", "정보 ${result}")
+//
+//                    binding.inputNicname.setText(result[0].nicname)
+//
+//                    var profileImg = ""
+//                    if (Common.PROFILEIMG != "") profileImg = "http://mrhisj23.dothome.co.kr/NeerByTo/"+ result[0].profileImg
+//
+//                    Glide.with(this@ProfileUpdateActivity).load(profileImg).fallback(R.drawable.user_line)
+//                        .error(R.drawable.user_line).into(binding.civImgUser)
+//
+//                    //쉐어드에 저장
+//                    sharedPreferences(result[0].nicname, result[0].profileImg, result[0].id, result[0].userNo)
+//                    //이미지 저장
+//                    Common.PROFILEIMG = result[0].profileImg
+//
+//                    //화면이동
+//                    startActivity(Intent(this@ProfileUpdateActivity,ProfileActivity::class.java).putExtra("userNo",result[0].userNo))
+//                    finish()
+//
+//                }
+//
+//                override fun onFailure(call: Call<MutableList<UserVO>>, t: Throwable) {
+//                    Common.makeToast(this@ProfileUpdateActivity, getString(R.string.response_server_error))
+//                    Log.i("TAG", "${t.message}")
+//                }
+//            })
     }
 
     private fun sharedPreferences (nicnName : String, profileImg : String, userId : String ,userNo : String){
