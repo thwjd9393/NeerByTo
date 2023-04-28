@@ -47,6 +47,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
     var boolNicChek : Boolean = false
 
     //이미지 파일 경로
+    private var uri : Uri = Uri.parse("")
     private var imgPath : String? = null
     
 
@@ -120,32 +121,33 @@ class ProfileUpdateActivity : AppCompatActivity() {
                     startPickPhoto()
                 } else {
                     //권한 거부 시 동작
+                    startPickPhoto()
                     //Common.makeToast(this, "권한이 거부되었습니다")
 
-                    val localBuilder = AlertDialog.Builder(this)
-                    localBuilder.setTitle("권한 설정")
-                        .setMessage("권한 거절로 인해 일부기능이 제한됩니다.")
-                        .setPositiveButton(
-                            "권한 설정하러 가기"
-                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
-                            try {
-                                val intent: Intent =
-                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                        .setData(Uri.parse("package:$packageName"))
-                                startActivity(intent)
-                            } catch (e: ActivityNotFoundException) {
-                                e.printStackTrace()
-                                val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
-                                startActivity(intent)
-                            }
-                        }
-                        .setNegativeButton(
-                            "취소하기"
-                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
-                            Common.makeToast(this,"취소")
-                        }
-                        .create()
-                        .show()
+//                    val localBuilder = AlertDialog.Builder(this)
+//                    localBuilder.setTitle("권한 설정")
+//                        .setMessage("권한 거절로 인해 일부기능이 제한됩니다.")
+//                        .setPositiveButton(
+//                            "권한 설정하러 가기"
+//                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
+//                            try {
+//                                val intent: Intent =
+//                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                                        .setData(Uri.parse("package:$packageName"))
+//                                startActivity(intent)
+//                            } catch (e: ActivityNotFoundException) {
+//                                e.printStackTrace()
+//                                val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
+//                                startActivity(intent)
+//                            }
+//                        }
+//                        .setNegativeButton(
+//                            "취소하기"
+//                        ) { paramAnonymousDialogInterface, paramAnonymousInt ->
+//                            Common.makeToast(this,"취소")
+//                        }
+//                        .create()
+//                        .show()
 
 
                 }
@@ -163,7 +165,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
         = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) {
             if(it.resultCode != RESULT_CANCELED){
-                var uri : Uri = it.data?.data!!
+                uri = it.data?.data!!
 
                 //스태틱변수로 저장
                 Common.PROFILEURI = uri
@@ -295,19 +297,24 @@ class ProfileUpdateActivity : AppCompatActivity() {
 
         //이미지
         var filePart : MultipartBody.Part?
-
         var file: File
-        if(imgPath != "") {
-            file = File(imgPath)
 
-            val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            filePart = MultipartBody.Part.createFormData("img", file.name, body)
+        Log.i("TAG", "uri ${uri}")
 
-        } else file = File("")
+//        if(!uri.equals("")) file = File(imgPath!!)
+//        else file = File("")
+
+        if(uri.path == "") Log.i("TAG", "uri 빈값 ${uri}")
+        else Log.i("TAG", "uri 안 빈값 ${uri}")
 
         Log.i("TAG", "유저 정보 ${dataUser}")
-        Log.i("TAG", "사진 file ${file}")
+        //Log.i("TAG", "사진 file ${file}")
 
+//        if(file.isFile){
+//            val body: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+//            filePart = MultipartBody.Part.createFormData("img", file.name, body)
+//            Log.i("TAG", "사진 filePart ${filePart}")
+//        }
 
 //        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(MyLikeService::class.java)
 //            .updateUserInfo(dataUser,filePart).enqueue(object : Callback<MutableList<UserVO>>{
