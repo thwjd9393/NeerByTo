@@ -26,6 +26,9 @@ class Common {
         //카카오 베이스주소
         val kakaoBaseUrl = "https://dapi.kakao.com"
 
+        //플레이 스토어 Uri
+        val playStorUrl = "https://play.google.com/store/apps/details?id=com.jscompany.neerbyto"
+
 
         // 가입경로
         val joinApp : String = "1"

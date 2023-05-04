@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:src="@drawable/user_full"
+            android:src="@drawable/baseline_group_24"
             android:layout_marginRight="10dp"
             android:layout_width="25dp"
             android:layout_height="25dp"/>

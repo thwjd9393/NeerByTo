@@ -21,6 +21,21 @@ class FilePathFormUri  {
             cursor.close()
             return result
         }
+
+        fun getFilePathFromUri2(uri: Uri, context:Context): String {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            val loader = CursorLoader(context, uri, proj, null, null, null)
+            val cursor: Cursor = loader.loadInBackground()!!
+            val column_index: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            var result: String = ""
+            if (cursor.getType(column_index) == Cursor.FIELD_TYPE_STRING) {
+                result = cursor.getString(column_index);
+            }
+            cursor.close()
+            return result
+        }
+
     }
 
 }

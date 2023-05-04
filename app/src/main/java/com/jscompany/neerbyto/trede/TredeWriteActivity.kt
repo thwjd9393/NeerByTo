@@ -136,7 +136,7 @@ class TredeWriteActivity : AppCompatActivity() {
     }
 
     //값 받아오기
-    var resultIntentLauncher : ActivityResultLauncher<Intent>
+    private var resultIntentLauncher : ActivityResultLauncher<Intent>
         = registerForActivityResult(ActivityResultContracts.StartActivityForResult(),object : ActivityResultCallback<ActivityResult>{
         override fun onActivityResult(result: ActivityResult?) {
             if (result?.resultCode == RESULT_OK) {
@@ -298,7 +298,7 @@ class TredeWriteActivity : AppCompatActivity() {
         var fileParts : MutableList<MultipartBody.Part?> = mutableListOf()
         var files : MutableList<File> = mutableListOf() //절대 경로로 바꾼 파일 리스트
 
-        if(uriArrayList.isNotEmpty() && uriArrayList != null){
+        if(uriArrayList.isNotEmpty()){
             //이미지 저장
             for(i in 0 until uriArrayList.size){
 

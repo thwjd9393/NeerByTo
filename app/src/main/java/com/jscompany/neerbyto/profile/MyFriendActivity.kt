@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
@@ -43,7 +44,6 @@ class MyFriendActivity : AppCompatActivity() {
         friendAdapter = MyFriendAdapter(this@MyFriendActivity,friendItem)
         binding.recyclerMyFriend.adapter = friendAdapter
 
-
     }
 
     //데이터 불러오기
@@ -60,13 +60,14 @@ class MyFriendActivity : AppCompatActivity() {
 
                     val items : MutableList<MyFriendItem> = response.body() ?: mutableListOf()
 
-                    Log.i("TAG", "${items}")
+                    Log.i("TAG", "3 ${items}")
 
                     for (i in 0 until items.size) {
                         friendItem.add(items[i])
                     }
                     friendAdapter.notifyItemInserted(friendItem.size-1) //마지막 번호가 추가 됐다 알려주기
 
+                    setView(friendItem.size)
                 }
 
                 override fun onFailure(call: Call<MutableList<MyFriendItem>>, t: Throwable) {
@@ -76,11 +77,15 @@ class MyFriendActivity : AppCompatActivity() {
         
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
+    //화면 셋
+    private fun setView(size: Int) {
+        if(size <= 0 ) {
+            binding.emptyWarp.visibility = View.VISIBLE
+        } else {
+            binding.emptyWarp.visibility = View.GONE
+        }
     }
+
 
     //친구 추가 삭제
     fun delFriend(friendNo: Int, position:Int) {
@@ -106,7 +111,11 @@ class MyFriendActivity : AppCompatActivity() {
     //프로필 화면으로 이동
     fun moveToProfile(userNo: Int) {
         startActivity(Intent(this,ProfileActivity::class.java).putExtra("userNo",userNo.toString()))
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 
 }

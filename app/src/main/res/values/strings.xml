@@ -12,7 +12,7 @@
     <string name="passwd_hint">비밀번호를 입력하세요</string>
     <string name="singup_passwd_hint">숫자와 영문을 섞어 8~15자리를 입력하세요</string>
     <string name="login">로그인</string>
-    <string name="find_user">아이디/비밀번호 찾기</string>
+    <string name="find_user">비밀번호 찾기</string>
     <string name="sign_up">회원가입</string>
     <string name="look_around">둘러보기</string>
     <string name="passwd_check">비밀번호 확인</string>
@@ -23,9 +23,11 @@
     <string name="passwd_no">비밀번호가 같지 않습니다</string>
     <string name="passwd_no_patten">비밀번호 형식이 다릅니다</string>
     <string name="id_ok">사용 가능한 아이디입니다</string>
-    <string name="id_no">사용 불가능한 아이디입니다</string>
+    <string name="id_no">이미 등록된 이메일입니다</string>
+    <string name="id_no_patten">이메일 형식이 다릅니다</string>
     <string name="nicname_ok">사용 가능한 닉네임입니다</string>
     <string name="nicname_no">사용 불가능한 닉네임입니다</string>
+    <string name="nicname_use">이미 존재하는 닉네임입니다</string>
 
     <string name="login_by_api">간편하게 로그인</string>
     <string name="find_id">아이디 찾기</string>
@@ -68,7 +70,8 @@
     <string name="myzone">마이 존</string>
     <string name="profile">프로필</string>
     <string name="profile_update">프로필 수정</string>
-    <string name="manner_btn">매너평가</string>
+    <string name="manner_btn">매너 평가</string>
+    <string name="manner_empty">받은 평가가 없습니다</string>
     <string name="get_manner_btn">받은 매너평가</string>
     <string name="passwd_change">비밀번호 변경</string>
     <string name="profile_change">회원정보 수정</string>
@@ -111,6 +114,7 @@
     <string name="manner_badtext">남기고 싶은 비매너를 선택하세요</string>
     <string name="empty_chat">참여중인 채팅이 없습니다</string>
     <string name="empty_like">관심있는 게시물이 없습니다</string>
+    <string name="empty_friend">즐겨찾는 친구가 없습니다</string>
 
     <string name="response_server_error">서버에 문제가 있습니다</string>
 

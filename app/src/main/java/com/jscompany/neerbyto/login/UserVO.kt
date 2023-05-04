@@ -3,6 +3,7 @@ package com.jscompany.neerbyto.login
 
 
 data class UserVO(
+    var userNo : String,
     var id : String,
     var passwd : String,
     var nicname	 : String,

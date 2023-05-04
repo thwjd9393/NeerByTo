@@ -28,6 +28,13 @@ class MannerDetailActivity : AppCompatActivity() {
 
     private fun init(){
 
+        //사용자 번호
+        val userNo = intent.getStringExtra("userNo")
+
+        //플래그먼트한테 값 보내줄 번들
+        var bundle : Bundle = Bundle()
+        bundle.putString("userNo", userNo)
+
         //툴바 등록
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -35,10 +42,18 @@ class MannerDetailActivity : AppCompatActivity() {
 
         //아답터
         val  mannerAdapter = MannerDetailAdapter(this)
-        
+
+        //플래그 먼트 준비
+        val mannerGoodFragment = MannerGoodFragment()
+        val mannerBadFragment = MannerBadFragment()
+
+        //갑 전달
+        mannerGoodFragment.arguments = bundle
+        mannerBadFragment.arguments = bundle
+
         //프래그 먼트 추가
-        mannerAdapter.addFragment(MannerGoodFragment())
-        mannerAdapter.addFragment(MannerBadFragment())
+        mannerAdapter.addFragment(mannerGoodFragment)
+        mannerAdapter.addFragment(mannerBadFragment)
 
         //뷰페이저에 연동
         pagerManner.adapter = mannerAdapter

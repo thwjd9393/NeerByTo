@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:visibility="gone"
                 android:text="|"
                 android:textSize="13sp"
                 android:layout_marginLeft="8dp"
@@ -132,6 +133,7 @@
 
             <TextView
                 android:id="@+id/tv_find_user"
+                android:visibility="gone"
                 android:text="@string/find_user"
                 android:textSize="13sp"
                 android:fontFamily="@font/gmarketsansttfmedium"

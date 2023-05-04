@@ -59,3 +59,31 @@ data class MyFriendItem(
     var state : Int,
 )
 
+//신고 ReportCtyItem
+data class ReportCtyItem(
+    var reportCtyNo : Int,
+    var reportCtyContent : String,
+)
+
+data class GoodCtyItem(
+    var gCtyNo  : Int,
+    var content : String,
+)
+
+data class BadCtyItem(
+    var bCtyNo  : Int,
+    var content : String,
+)
+
+data class GoodItem(
+    var userNo  : Int,
+    var cnt  : Int,
+    var content : String,
+)
+
+data class BadItem(
+    var userNo  : Int,
+    var cnt  : Int,
+    var content : String,
+)
+

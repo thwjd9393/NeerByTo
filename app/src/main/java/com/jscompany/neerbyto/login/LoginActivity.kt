@@ -66,7 +66,8 @@ class LoginActivity : AppCompatActivity() {
 
         //아이디 비번 찾기 화면이동
         binding.tvFindUser.setOnClickListener {
-            startActivity(Intent(this,FindUserActivity::class.java))
+            //startActivity(Intent(this,FindUserActivity::class.java))
+            Common.makeToast(this,"기능 구현중")
         }
 
         //간편 로그인

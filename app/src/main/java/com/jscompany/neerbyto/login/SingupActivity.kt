@@ -81,11 +81,12 @@ class SingupActivity : AppCompatActivity() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
                 if(response.body() != "0") {
-                    Common.makeToast(this@SingupActivity, "이미 존재하는 닉네임입니다")
+                    binding.etNicname.error = getString(R.string.nicname_use)
+                    //Common.makeToast(this@SingupActivity, "이미 존재하는 닉네임입니다")
                     nicName.requestFocus() //포커스 올리기
                     nicName.selectAll()
                 } else {
-                    Common.makeToast(this@SingupActivity, "사용 가능한 닉네임입니다")
+                    //binding.etNicname.helperText = "사용 가능한 닉네임입니다"
                     boolNicChek == true
 
                     //전송할 데이터 준비
@@ -122,12 +123,13 @@ class SingupActivity : AppCompatActivity() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
                 if(response.body() != "0") {
-                    Common.makeToast(this@SingupActivity, "이미 등록된 이메일입니다")
+                    binding.etId.error = getString(R.string.id_no)
+                    //Common.makeToast(this@SingupActivity, "이미 등록된 이메일입니다")
                     tvId.requestFocus() //포커스 올리기
                     tvId.selectAll()
 
                 } else {
-                    Common.makeToast(this@SingupActivity, "사용 가능한 이메일입니다")
+                    //Common.makeToast(this@SingupActivity, "사용 가능한 이메일입니다")
                     boolEmailChek = true
 
                     when {
@@ -233,7 +235,7 @@ class SingupActivity : AppCompatActivity() {
                     //이메일 체크
                     boolEmail = Common.verifyEmail(tvId.text.toString())
                     if(!boolEmail) {
-                        binding.etId.error = getString(R.string.id_no)
+                        binding.etId.error = getString(R.string.id_no_patten)
                     } else {
                         binding.etId.error = ""
                         boolEmail = true
