@@ -145,8 +145,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
                             "취소하기"
                         ) { paramAnonymousDialogInterface, paramAnonymousInt ->
                             Common.makeToast(this,"취소")
-                        }
-                        .show()
+                        }.create().show()
 
                 }
         }
