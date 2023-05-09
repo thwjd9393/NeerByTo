@@ -68,36 +68,35 @@ class TredeDetailActivity : AppCompatActivity() {
         //닉네임 layout누르면 프로필 화면으로 이동
         binding.nicnameWarp.setOnClickListener { clickProfile() }
 
-        if (Common.getUserNo(this) == "") {
-            Common.makeToast(this,"로그인 후 사용하실 수 있습니다")
-            return
-        } else {
+        if (Common.getUserNo(this) != "") {
             checkLike()
+        }
+        //좋아요 버튼
+        binding.btnLike.setOnClickListener {
+            Common.idCheck(this)
 
-            //좋아요 버튼
-            binding.btnLike.setOnClickListener {
-                var userNo = Common.getUserNo(this)
-                Log.i("TAG","isLickChek1 = ${isLickChek}")
-                if(isLickChek==false){
-                    insertLick(userNo,tredCtyNo)
-                    Log.i("TAG","isLickChek2 = ${isLickChek}")
-                } else {
-                    delLike(userNo)
-                    Log.i("TAG","isLickChek3 = ${isLickChek}")
-                }
+            var userNo = Common.getUserNo(this)
+            Log.i("TAG","isLickChek1 = ${isLickChek}")
+            if(isLickChek==false){
+                insertLick(userNo,tredCtyNo)
+                Log.i("TAG","isLickChek2 = ${isLickChek}")
+            } else {
+                delLike(userNo)
+                Log.i("TAG","isLickChek3 = ${isLickChek}")
             }
+        }
 
-            //채팅 버튼
-            binding.btnChat.setOnClickListener {
-                //프로필 저장
-                if(binding.tvUserNo.text == Common.getUserNo(this)) {
-                    Common.makeToast(this,"내가 쓴 게시글입니다")
-                    return@setOnClickListener
-                } else { //첫번째가 아닐때
-                    checkInRoomUser() //이미 참여한 채팅방일때 / 새로 참여
-                }
+        //채팅 버튼
+        binding.btnChat.setOnClickListener {
+            Common.idCheck(this)
+
+            //프로필 저장
+            if(binding.tvUserNo.text == Common.getUserNo(this)) {
+                Common.makeToast(this,"내가 쓴 게시글입니다")
+                return@setOnClickListener
+            } else { //첫번째가 아닐때
+                checkInRoomUser() //이미 참여한 채팅방일때 / 새로 참여
             }
-
         }
 
         //글 삭제
@@ -106,6 +105,9 @@ class TredeDetailActivity : AppCompatActivity() {
         binding.btnUpdate.setOnClickListener { clickUpdate() }
         
     }
+
+
+
 
     //관심글 선택 체크
     private fun checkLike(){

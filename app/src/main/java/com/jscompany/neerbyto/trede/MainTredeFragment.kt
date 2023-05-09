@@ -1,6 +1,7 @@
 package com.jscompany.neerbyto.trede
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -74,6 +75,7 @@ class MainTredeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -106,6 +108,7 @@ class MainTredeFragment : Fragment() {
 
         //글쓰기 버튼 - 로그인해야 보이기
         binding.btnWrite.setOnClickListener { clickTredrWrite() }
+
 
         //화면에 글 보여주기
         setRecyclerView(requireActivity()) //데이터 로드
@@ -258,6 +261,8 @@ class MainTredeFragment : Fragment() {
 
 
     private fun clickTredrWrite() {
+        Common.idCheck(requireActivity())
+
         startActivity(Intent(activity,TredeWriteActivity::class.java))
     }
 

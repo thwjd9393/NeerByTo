@@ -87,6 +87,13 @@ class Common {
         var PROFILEURL : String = "" // 파이어베어스 이미지 유알
         var PROFILEIMG : String = "" //프로필 이미지
 
+        //로그인 안했으면 기능 사용 못함
+        fun idCheck(context : Context){
+            if (getUserNo(context) == "") {
+                makeToast(context,"로그인 후 사용하실 수 있습니다")
+            }
+        }
+        
 
         //달 계산
         fun addMonth(date: Date?, months: Int): Date? {

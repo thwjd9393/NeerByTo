@@ -27,7 +27,7 @@ class ChatAdapter(var context: Context, var messageItems : MutableList<MessageIt
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        var itemView : View? = null
+        var itemView : View?
         if (viewType == TYPE_MY) itemView = LayoutInflater.from(context).inflate(R.layout.item_chat_my_message,parent,false)
         else itemView = LayoutInflater.from(context).inflate(R.layout.item_chat_other_message,parent,false)
 
