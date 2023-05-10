@@ -2,6 +2,7 @@ package com.jscompany.neerbyto.trede
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -16,12 +17,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import com.jscompany.neerbyto.Common
+import com.jscompany.neerbyto.PlaceDocumentsItem
 import com.jscompany.neerbyto.R
 import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.chat.ChatDetailActivity
 import com.jscompany.neerbyto.chat.ChatRoom
 import com.jscompany.neerbyto.databinding.ActivityTredeDetailBinding
 import com.jscompany.neerbyto.profile.ProfileActivity
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
+import net.daum.mf.map.api.MapView.POIItemEventListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +52,12 @@ class TredeDetailActivity : AppCompatActivity() {
     var tredCtyNo : String = ""
 
     var isLickChek : Boolean = false //좋아요 버튼 상태 체크용 변수
+
+    //약속장소 위치 정보
+    var joinLocation : Location? = null //null이면 시청
+
+    //맵뷰 참조변수
+    val mapView : MapView by lazy { MapView(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -330,9 +342,9 @@ class TredeDetailActivity : AppCompatActivity() {
                     //이미지 셋
                     imgList = mutableListOf()
 
-                    if(items.get(0).img1 != "") imgList.add(items.get(0).img1)
-                    if(items.get(0).img2 != "") imgList.add(items.get(0).img2)
-                    if(items.get(0).img3 != "") imgList.add(items.get(0).img3)
+                    if(items[0].img1 != "") imgList.add(items[0].img1)
+                    if(items[0].img2 != "") imgList.add(items[0].img2)
+                    if(items[0].img3 != "") imgList.add(items[0].img3)
 
                     if(imgList.size > 0) {
                         //페이저에 뷰 연결
@@ -340,10 +352,10 @@ class TredeDetailActivity : AppCompatActivity() {
                         binding.dotsIndcator.attachTo(binding.imgPager)
                     }
 
-                    binding.tvUserNicname.text = items.get(0).userNic
-                    writeUserNIc = items.get(0).userNic
+                    binding.tvUserNicname.text = items[0].userNic
+                    writeUserNIc = items[0].userNic
                     binding.tvUserNo.text = items.get(0).userNo.toString() //글쓴이 번호
-                    writeUserNo = items.get(0).userNo.toString()
+                    writeUserNo = items[0].userNo.toString()
 
                     //내가 쓴 글이면 버튼 바꾸기
                     if(writeUserNo == Common.getUserNo(this@TredeDetailActivity)){
@@ -359,8 +371,8 @@ class TredeDetailActivity : AppCompatActivity() {
                     //사용자 프로필 사진
                     var address = ""
                     if (items.get(0).profileImg != "") {
-                        otherImgUrl = items.get(0).profileImg
-                        address = Common.dotHomeImgUrl+items.get(0).profileImg
+                        otherImgUrl = items[0].profileImg
+                        address = Common.dotHomeImgUrl+ items[0].profileImg
                     } else {
                         otherImgUrl = ""
                     }
@@ -368,22 +380,26 @@ class TredeDetailActivity : AppCompatActivity() {
                     Glide.with(this@TredeDetailActivity).load(address)
                         .error(R.drawable.user_full).into(binding.ivCircleImgUser)
 
-                    binding.tvTitle.text = items.get(0).title
-                    binding.tvCategri.text = items.get(0).tredCtyName
-                    tredCtyNo = items.get(0).tredCtyNo.toString()
-                    binding.tvDate.text = items.get(0).date
-                    binding.tvJoinCount.text = " : ${items.get(0).joinCount}명"
-                    count = items.get(0).joinCount.toString()
-                    binding.tvLikeCnt.text = items.get(0).likeCnt.toString()
-                    binding.tvContent.text = items.get(0).content
+                    binding.tvTitle.text = items[0].title
+                    binding.tvCategri.text = items[0].tredCtyName
+                    tredCtyNo = items[0].tredCtyNo.toString()
+                    binding.tvDate.text = items[0].date
+                    binding.tvJoinCount.text = " : ${items[0].joinCount}명"
+                    count = items[0].joinCount.toString()
+                    binding.tvLikeCnt.text = items[0].likeCnt.toString()
+                    binding.tvContent.text = items[0].content
 
-                    binding.tvHangOutTime.text = " : ${items.get(0).joinDate} ${items.get(0).joinTime}"
-                    binding.tvHangOutSpot.text = " : ${items.get(0).joinPlace}"
-                    binding.tvPrice.text = items.get(0).price.toString()
-                    binding.tvOriPrice.text = items.get(0).oriPrice.toString()
+                    binding.tvHangOutTime.text = " : ${items[0].joinDate} ${items[0].joinTime}"
+                    binding.tvHangOutSpot.text = " : ${items[0].joinPlace}"
+                    binding.tvPrice.text = items[0].price.toString()
+                    binding.tvOriPrice.text = items[0].oriPrice.toString()
 
                     //내가 쓴 글이고 첫번째일때만 디비에 저장
                     if((Common.getUserNo(this@TredeDetailActivity) == items.get(0).userNo.toString()) && isFirst == true) saveFireData()
+
+                    //지도 마커 찍기
+                    if(items[0].selectLat != "") setMapView(items[0].joinPlace ,items[0].selectLat,items[0].selectLon)
+                    else binding.containerMapView.visibility = View.INVISIBLE
 
                 }
 
@@ -391,6 +407,71 @@ class TredeDetailActivity : AppCompatActivity() {
                     Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
                 }
             })
+
+    }
+
+    //지도 띄우기
+    private fun setMapView(joinPlace:String,lat:String,lon:String) {
+
+        //뷰에 지도 추가
+        binding.containerMapView.addView(mapView)
+
+        //마커 리스너 등록
+        mapView.setPOIItemEventListener(makerEvntListener)
+
+        //지도에 마커 찍기
+        setMapAndMarkers(joinPlace,lat, lon)
+    }
+
+    //지도에 마커 찍기
+    private fun setMapAndMarkers(joinPlace:String,lat:String,lon:String) {
+
+        var joinMapPoint : MapPoint = MapPoint.mapPointWithGeoCoord(lat.toDouble(),lon.toDouble())
+        mapView.setMapCenterPointAndZoomLevel(joinMapPoint, 3, true) //위치조정
+
+        mapView.zoomIn(true)
+        mapView.zoomOut(true)
+
+        //마커찍기
+        var marker = MapPOIItem()
+        marker.apply {
+            itemName = joinPlace
+            mapPoint = joinMapPoint
+            markerType = MapPOIItem.MarkerType.BluePin
+
+            //마커 객체에 데이터 저장
+            userObject = this
+        }
+
+        mapView.addPOIItem(marker)
+
+
+    }
+
+    //마커 이벤트 리스너
+    private val makerEvntListener : POIItemEventListener = object : POIItemEventListener{
+        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+        }
+
+        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
+        }
+
+        override fun onCalloutBalloonOfPOIItemTouched(
+            p0: MapView?,
+            p1: MapPOIItem?,
+            p2: MapPOIItem.CalloutBalloonButtonType?
+        ) {
+            p1?.userObject ?: return
+
+            val place : PlaceDocumentsItem = p1?.userObject as PlaceDocumentsItem
+
+            val intnet  = Intent(this@TredeDetailActivity, PlaceUrlActivity::class.java)
+            intnet.putExtra("place_url", place.place_url)
+            startActivity(intnet)
+        }
+
+        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
+        }
 
     }
 

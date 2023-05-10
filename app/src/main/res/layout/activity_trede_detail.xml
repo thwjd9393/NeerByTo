@@ -232,7 +232,7 @@
 
             <!-- 카카오 지도 API -->
             <RelativeLayout
-                android:id="@+id/map_view"
+                android:id="@+id/container_map_view"
                 android:background="@drawable/bg_lineshape_normal"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"

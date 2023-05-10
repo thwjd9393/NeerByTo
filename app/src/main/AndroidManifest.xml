@@ -132,6 +132,8 @@
                     android:scheme="@string/kakaoNativeAppKey" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="@string/kakaoNativeAppKey2"/>
     </application>
 
 </manifest>

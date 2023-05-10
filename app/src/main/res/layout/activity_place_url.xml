@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context=".trede.PlaceUrlActivity">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/top_warp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <include layout="@layout/toolbar_layout"/>-->
-
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
-
     <!-- 크롬능력을 가진 뷰 -->
     <WebView
         android:id="@+id/web_view"
