@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.location.Location
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import io.grpc.internal.JsonUtil
 import java.util.Calendar
@@ -88,10 +89,16 @@ class Common {
         var PROFILEIMG : String = "" //프로필 이미지
 
         //로그인 안했으면 기능 사용 못함
-        fun idCheck(context : Context){
+        fun IsUserNumCheck(context : Context) : Boolean {
+            var isIserNo : Boolean
             if (getUserNo(context) == "") {
                 makeToast(context,"로그인 후 사용하실 수 있습니다")
-            }
+                isIserNo = true
+            } else isIserNo = false
+
+            Log.i("TAG","$isIserNo")
+
+            return isIserNo
         }
         
 

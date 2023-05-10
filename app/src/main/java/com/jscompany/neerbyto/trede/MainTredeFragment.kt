@@ -261,7 +261,7 @@ class MainTredeFragment : Fragment() {
 
 
     private fun clickTredrWrite() {
-        Common.idCheck(requireActivity())
+        if(Common.IsUserNumCheck(requireActivity())) return
 
         startActivity(Intent(activity,TredeWriteActivity::class.java))
     }

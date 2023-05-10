@@ -73,22 +73,19 @@ class TredeDetailActivity : AppCompatActivity() {
         }
         //좋아요 버튼
         binding.btnLike.setOnClickListener {
-            Common.idCheck(this)
+            if(Common.IsUserNumCheck(this)) return@setOnClickListener
 
             var userNo = Common.getUserNo(this)
-            Log.i("TAG","isLickChek1 = ${isLickChek}")
             if(isLickChek==false){
                 insertLick(userNo,tredCtyNo)
-                Log.i("TAG","isLickChek2 = ${isLickChek}")
             } else {
                 delLike(userNo)
-                Log.i("TAG","isLickChek3 = ${isLickChek}")
             }
         }
 
         //채팅 버튼
         binding.btnChat.setOnClickListener {
-            Common.idCheck(this)
+            if(Common.IsUserNumCheck(this)) return@setOnClickListener
 
             //프로필 저장
             if(binding.tvUserNo.text == Common.getUserNo(this)) {
@@ -165,6 +162,9 @@ class TredeDetailActivity : AppCompatActivity() {
 
     //프로필 화면으로 이동
     private fun clickProfile() {
+        //로그인 체크
+        if(Common.IsUserNumCheck(this)) return
+
         //글쓴 사람 번호 가지고 프로필 화면으로 이동
         val writeUserNo = binding.tvUserNo.text.toString()
         startActivity(Intent(this,ProfileActivity::class.java).putExtra("userNo", writeUserNo))
@@ -418,11 +418,15 @@ class TredeDetailActivity : AppCompatActivity() {
 
         if (item.itemId == android.R.id.home) onBackPressed()
         else if(item.itemId == R.id.option_report) { //유저 신고하기
+            if(Common.IsUserNumCheck(this)) return true
+
             val intent : Intent = Intent(this,ReportUserActivity::class.java)
                 .putExtra("userNic",writeUserNIc).putExtra("userNo",writeUserNo)
             startActivity(intent)
 
         } else if (item.itemId == R.id.option_share) { //페이지 공유하기
+            if(Common.IsUserNumCheck(this)) return true
+
             Toast.makeText(this, "기능 구현중", Toast.LENGTH_SHORT).show()
         }
 

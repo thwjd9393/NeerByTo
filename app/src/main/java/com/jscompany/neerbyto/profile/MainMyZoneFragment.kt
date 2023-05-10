@@ -97,26 +97,36 @@ class MainMyZoneFragment : Fragment() {
 
     //관심글로 이동
     private fun clickLike() {
+        if(Common.IsUserNumCheck(requireActivity())) return
+
         startActivity(Intent(activity, MyLikeActivity::class.java))
     }
 
     //친구추가 목록 이동
     private fun clickMyFriend() {
+        if(Common.IsUserNumCheck(requireActivity())) return
+
         startActivity(Intent(activity, MyFriendActivity::class.java))
     }
     
     //작성글로 이동
     private fun clickWrite() {
+        if(Common.IsUserNumCheck(requireActivity())) return
+
         startActivity(Intent(activity, MyWriteActivity::class.java).putExtra("userNo",Common.getUserNo(requireActivity())))
     }
 
     //프로필 화면으로 이동
     private fun clickProfile() {
+        if(Common.IsUserNumCheck(requireActivity())) return
+
         startActivity(Intent(activity, ProfileActivity::class.java).putExtra("userNo",Common.getUserNo(requireActivity())))
     }
 
     //로그아웃
     private fun clickLogout() {
+        if(Common.IsUserNumCheck(requireActivity())) return
+
         Toast.makeText(requireActivity(), "기능구현중", Toast.LENGTH_SHORT).show()
     }
 
