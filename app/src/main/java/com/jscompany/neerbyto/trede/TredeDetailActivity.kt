@@ -508,7 +508,11 @@ class TredeDetailActivity : AppCompatActivity() {
         } else if (item.itemId == R.id.option_share) { //페이지 공유하기
             if(Common.IsUserNumCheck(this)) return true
 
-            Toast.makeText(this, "기능 구현중", Toast.LENGTH_SHORT).show()
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+            }
+            startActivity(Intent.createChooser(intent, null))
         }
 
 

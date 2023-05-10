@@ -100,7 +100,16 @@
         </activity>
         <activity
             android:name=".trede.TredeDetailActivity"
-            android:exported="true" />
+            android:exported="true">
+
+            <!-- 공유 받기 위한 인텐트 필터 -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".login.LocationActivity"
             android:exported="false" />
