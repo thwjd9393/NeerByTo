@@ -34,6 +34,10 @@ interface TredeService {
     @POST("NeerByTo/loadTredeDetail.php")
     fun loadTredeDetail(@Field("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
 
+    //글 삭제
+    @GET("NeerByTo/deleteTrede.php")
+    fun deleteTrede(@Query("tredeNo") tredeNo : String) : Call<String>
+
     //좋아요 - insert
     @GET("NeerByTo/insertLikeTrede.php")
     fun insertLikeTrede(@Query("userNo") userNo : String, @Query("tredeNo") tredeNo : String, @Query("tredCtyNo") tredCtyNo : String) : Call<String>
@@ -45,4 +49,5 @@ interface TredeService {
     //좋아요 - select
     @GET("NeerByTo/selectLikeTrede.php")
     fun selectLikeTrede(@Query("userNo") userNo : String, @Query("tredeNo") tredeNo : String) : Call<String>
+
 }

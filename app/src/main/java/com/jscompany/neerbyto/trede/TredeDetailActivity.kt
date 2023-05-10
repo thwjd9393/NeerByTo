@@ -23,6 +23,7 @@ import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.chat.ChatDetailActivity
 import com.jscompany.neerbyto.chat.ChatRoom
 import com.jscompany.neerbyto.databinding.ActivityTredeDetailBinding
+import com.jscompany.neerbyto.main.MainActivity
 import com.jscompany.neerbyto.profile.ProfileActivity
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
@@ -484,7 +485,21 @@ class TredeDetailActivity : AppCompatActivity() {
     //내가 쓴 글 업데이트
     private fun clickDelete() {
         //글 삭제 시 레트로핏 & 파이어베어스 둘다 삭제
-        Toast.makeText(this, "기능구현중", Toast.LENGTH_SHORT).show()
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
+            .deleteTrede(tredeNo).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    val result = response.body()
+
+                    Common.makeToast(this@TredeDetailActivity, "$result")
+
+                    startActivity(Intent(this@TredeDetailActivity,MainActivity::class.java))
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Common.makeToast(this@TredeDetailActivity,getString(R.string.response_server_error))
+                }
+            })
+
     }
 
 
