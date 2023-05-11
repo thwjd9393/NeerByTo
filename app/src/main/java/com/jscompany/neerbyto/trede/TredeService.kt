@@ -30,9 +30,12 @@ interface TredeService {
     fun loadTredeData(@Field("tredCtyNo") tredCtyNo : String, @Field("resion") resion : String) : Call<MutableList<TredeVO>>
 
     //디테일 화면 데이터 불러오기
-    @FormUrlEncoded
-    @POST("NeerByTo/loadTredeDetail.php")
-    fun loadTredeDetail(@Field("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
+    @GET("NeerByTo/loadTredeDetailforGet.php")
+    fun loadTredeDetail(@Query("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
+
+//    @FormUrlEncoded
+//    @POST("NeerByTo/loadTredeDetail.php")
+//    fun loadTredeDetail(@Field("tredeNo") tredeNo : String) : Call<MutableList<TredeDetail>>
 
     //글 삭제
     @GET("NeerByTo/deleteTrede.php")

@@ -70,6 +70,19 @@ class TredeDetailActivity : AppCompatActivity() {
 
         init()
 
+        //shareLink()// 링크로 들어온 상황
+
+        when (intent?.action) {
+            Intent.ACTION_SEND -> {
+                if(intent.type == "text/plain") {
+                    Log.i("TAG","GOOD")
+                }
+            }
+            else -> {
+                Log.i("TAG","BAD")
+            }
+        }
+
     }
 
     private fun init() {
@@ -116,6 +129,27 @@ class TredeDetailActivity : AppCompatActivity() {
         
     }
 
+
+    private fun shareLink() {
+        when {
+            intent?.action == Intent.ACTION_SEND -> {
+                if ("text/plain" == intent.type) {
+                    handleSendText(intent)
+                }
+            }
+            else -> {
+
+            }
+        }
+    }
+
+    private fun handleSendText(intent: Intent) {
+        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+            Log.i("TAG","링크타고 옴")
+
+            loadData()
+        }
+    }
 
 
 
@@ -525,8 +559,11 @@ class TredeDetailActivity : AppCompatActivity() {
 
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT,
+                    "http://mrhisj23.dothome.co.kr/NeerByTo/loadTredeDetail.php?tredeNo=$tredeNo"
+                )
             }
+
             startActivity(Intent.createChooser(intent, null))
         }
 
