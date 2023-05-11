@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".trede.TredeUpdateActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        app:stackFromEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/et_title"
+            android:hint="@string/title"
+            android:padding="13dp"
+            android:inputType="text"
+            android:maxLength="49"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/warp1"
+            android:layout_below="@+id/et_title"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_price"
+                android:hint="@string/ori_price"
+                android:padding="13dp"
+                android:layout_weight="3"
+                android:inputType="number"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/et_join_count"
+                android:hint="@string/hangout_cnt"
+                android:padding="13dp"
+                android:layout_weight="1"
+                android:maxLength="1"
+                android:inputType="number"
+                android:textSize="14sp"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_below="@+id/warp1"
+            android:text="@string/price_hint"
+            android:textColor="@color/red"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/warp_time"
+            android:layout_below="@+id/text"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_hangout_date"
+                android:hint="@string/hang_out_date"
+                android:padding="13dp"
+                android:layout_marginRight="10dp"
+                android:inputType="text"
+                android:layout_weight="3"
+                android:background="@drawable/bg_lineshape_normal"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_hangout_time"
+                android:hint="@string/hang_out_time"
+                android:padding="13dp"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:background="@drawable/bg_lineshape_normal"
+                android:fontFamily="@font/gmarketsansttfmedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_trede_category"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:text="@string/category"
+            android:layout_below="@+id/warp_time"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:background="@drawable/bg_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_trede_category_indenx"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_below="@+id/tv_trede_category"
+            android:layout_above="@+id/btn_spot"
+            android:hint="@string/content"
+            android:padding="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:background="@color/white"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_spot"
+            android:text="@string/hang_out_spot"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:backgroundTint="@color/black"
+            android:layout_above="@+id/tv_select_spot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_select_spot"
+            android:text="@string/select_stop"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_above="@+id/btn_select_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/btn_select_img"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:background="@drawable/bg_lineshape_normal"
+            android:gravity="center"
+            android:layout_width="85dp"
+            android:layout_height="85dp">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:src="@drawable/baseline_camera_alt_24"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:id="@+id/tv_img_cnt"
+                android:text="0/3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/btn_select_img"
+            android:layout_alignTop="@+id/btn_select_img"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_trede_img"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
