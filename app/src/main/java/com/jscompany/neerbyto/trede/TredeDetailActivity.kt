@@ -513,7 +513,9 @@ class TredeDetailActivity : AppCompatActivity() {
     //내가 쓴글 지우기
     private fun clickUpdate() {
         //글 업뎃 시 레트로핏 & 파이어베이스 둘다 업뎃
-        Toast.makeText(this, "기능구현중", Toast.LENGTH_SHORT).show()
+
+        startActivity(Intent(this,TredeUpdateActivity::class.java).putExtra("tredeNo",tredeNo))
+
     }
 
     //내가 쓴 글 업데이트

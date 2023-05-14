@@ -1,13 +1,21 @@
 package com.jscompany.neerbyto.trede
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import com.jscompany.neerbyto.Common
 import com.jscompany.neerbyto.R
+import com.jscompany.neerbyto.RetrofitBaseUrl
 import com.jscompany.neerbyto.databinding.ActivityTredeUpdateBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Calendar
 
 class TredeUpdateActivity : AppCompatActivity() {
@@ -18,6 +26,9 @@ class TredeUpdateActivity : AppCompatActivity() {
 
     private val cal : Calendar by lazy { Calendar.getInstance() }
 
+    //글번호
+    var tredeNo : String = ""
+
     //선택한 장소 위도 경도
     var selectLongitude : String = ""
     var selectLatitude : String = ""
@@ -26,10 +37,14 @@ class TredeUpdateActivity : AppCompatActivity() {
     var uriArrayList : MutableList<Uri> = mutableListOf()
     var imgPathList : MutableList<String> = mutableListOf() //이미지 path담을 애
     lateinit var imgAdapter : TredeImgAdapter
+    lateinit var imgStringAdapter : TredeImgStringAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //인텐트로 온 번호
+        tredeNo = intent.getStringExtra("tredeNo") ?: ""
 
         loadData()
 
@@ -59,10 +74,6 @@ class TredeUpdateActivity : AppCompatActivity() {
 
         binding.tvSelectSpot.text = placeName  //tv_select_spot
 
-        //이미지 아답터 연결
-        imgAdapter = TredeImgAdapter(this,uriArrayList)
-        binding.recyclerTredeImg.adapter = imgAdapter
-
         //카메라 버튼 클릭 -> 갤러리 이동
         binding.btnSelectImg.setOnClickListener {
             clickSelectImg()
@@ -71,43 +82,92 @@ class TredeUpdateActivity : AppCompatActivity() {
 
     //이미지 셀렉
     private fun clickSelectImg() {
-        TODO("Not yet implemented")
+
     }
 
     //약속 장소 선택
     private fun clickSpot() {
-        TODO("Not yet implemented")
+
     }
 
     //시간 피커
     private fun clickHangoutTime() {
-        TODO("Not yet implemented")
+
     }
 
     //달력 띄우기
     private fun clickHangoutDate() {
-        TODO("Not yet implemented")
+
     }
 
     //카테고리 클릭
     private fun clickCategory() {
-        TODO("Not yet implemented")
+
     }
 
     //카테고리 불러오기
     private fun getCategoty() {
-        TODO("Not yet implemented")
+
     }
 
 
     //데이터 업데이트
     private fun updateTredeContent() {
-        TODO("Not yet implemented")
+
     }
 
 
     //데이터 로드
     private fun loadData() {
+        RetrofitBaseUrl.getRetrofitInstance(Common.dotHomeUrl).create(TredeService::class.java)
+            .loadTredeDetail(tredeNo).enqueue(object : Callback<MutableList<TredeDetail>>{
+                override fun onResponse(
+                    call: Call<MutableList<TredeDetail>>,
+                    response: Response<MutableList<TredeDetail>>
+                ) {
+                    val items : MutableList<TredeDetail> = response.body()!!
+
+                    setData(items)
+
+
+                }
+
+                override fun onFailure(call: Call<MutableList<TredeDetail>>, t: Throwable) {
+                    Common.makeToast(this@TredeUpdateActivity,getString(R.string.response_server_error))
+                }
+            })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setData(items : MutableList<TredeDetail>) {
+
+        //이미지 셋
+        if(items[0].img1 != "") imgPathList.add(items[0].img1)
+        if(items[0].img2 != "") imgPathList.add(items[0].img2)
+        if(items[0].img3 != "") imgPathList.add(items[0].img3)
+
+        if(imgPathList.size > 0) {
+            //이미지 불러오기
+            //이미지 아답터 연결
+            imgStringAdapter = TredeImgStringAdapter(this,imgPathList)
+            binding.recyclerTredeImg.adapter = imgAdapter
+
+            binding.tvImgCnt.text = "${imgPathList.size}/3"
+        }
+
+        binding.etTitle.setText(items[0].title)
+        var price = 0
+        if(items[0].price <=0) price.toString() else price = items[0].price
+        binding.etPrice.setText(price.toString())
+        binding.etJoinCount.setText(items[0].joinCount.toString())
+        binding.etContent.setText(items[0].content)
+        binding.tvSelectSpot.text = items[0].joinPlace
+        binding.tvHangoutDate.text = items[0].joinDate
+        binding.tvHangoutTime.text = items[0].joinTime
+
+        
+        //카테고리 번호
+        items[0].tredCtyNo
 
     }
 
