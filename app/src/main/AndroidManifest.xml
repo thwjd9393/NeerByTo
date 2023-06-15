@@ -72,9 +72,9 @@
             android:exported="false" />
         <activity
             android:name=".trede.TredeWriteActivity"
-            android:configChanges="screenSize|screenLayout"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".profile.ProfileUpdateActivity"
             android:exported="false" />
